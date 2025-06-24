@@ -49,7 +49,6 @@ export function HeroSection() {
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
           className="relative mb-8"
         >
-          <div className="absolute -inset-2 rounded-full bg-accent animate-glitch-subtle opacity-50 blur-xl"></div>
           <Image
             src="/profile.jpg"
             alt="Avatar"
