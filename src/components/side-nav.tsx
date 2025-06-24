@@ -1,13 +1,15 @@
+
 "use client";
 
 import Link from "next/link";
-import { UserCircle, Archive, Dna, Send } from "lucide-react";
+import { UserCircle, Archive, Dna, Send, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 const sections = [
   { id: "home", icon: UserCircle, label: "Home" },
+  { id: "about", icon: FileText, label: "Datastream" },
   { id: "projects", icon: Archive, label: "Projects Vault" },
   { id: "skills", icon: Dna, label: "Skills DNA" },
   { id: "contact", icon: Send, label: "Establish Link" },

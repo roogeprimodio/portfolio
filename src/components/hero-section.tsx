@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -68,8 +69,8 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 2.5 }}
         >
           <Button asChild size="lg" className="mt-12 group bg-accent/10 text-accent border border-accent hover:bg-accent hover:text-accent-foreground hover:shadow-lg hover:shadow-accent/40 transition-all duration-300 font-headline tracking-widest">
-            <Link href="#projects">
-              ENTER THE VAULT
+            <Link href="#about">
+              VIEW DATASTREAM
               <Code className="ml-2 h-5 w-5 group-hover:animate-glitch"/>
             </Link>
           </Button>
@@ -77,7 +78,7 @@ export function HeroSection() {
       </div>
 
        <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-        <Link href="#projects" aria-label="Scroll to projects">
+        <Link href="#about" aria-label="Scroll to about">
            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
