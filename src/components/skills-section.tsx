@@ -52,30 +52,36 @@ export function SkillsSection() {
       <div className="w-full flex-grow flex items-center justify-center overflow-hidden" style={{ perspective: isMobile ? 'none' : '1200px' }}>
         {isMounted && (
           isMobile ? (
-            <div className="w-full h-full overflow-y-auto flex justify-center pt-8 pb-16">
+             <div className="w-full h-full overflow-y-auto flex justify-center pt-8 pb-16">
                 <div className="relative w-full max-w-xs">
-                    {/* DNA Rungs */}
-                    {Array.from({ length: Math.floor(skills.length / 2) }).map((_, i) => (
+                    {/* DNA BACKBONE & RUNGS */}
+                    {Array.from({ length: Math.ceil(skills.length / 2) }).map((_, i) => (
                         <div
                             key={`rung-${i}`}
-                            className="absolute left-1/4 right-1/4 h-20 flex items-center justify-center"
-                            style={{ top: `${i * 128 + 24}px` }} 
+                            className="absolute left-[calc(50%-1px)] -translate-x-1/2 w-20"
+                            style={{ top: `${i * 128 - 64}px`, height: '128px' }} 
                         >
-                          <div className="absolute w-full h-px bg-accent/30 rotate-[25deg]"></div>
-                          <div className="absolute w-full h-px bg-accent/30 rotate-[-25deg]"></div>
+                            {/* Rung */}
+                            <div className="absolute top-1/2 left-0 w-full h-px bg-accent/30 z-0"></div>
+                            
+                            {/* Weave Effect */}
+                            <div className="absolute top-0 left-0 w-1/2 h-1/2 border-r border-b border-accent/40 rounded-br-full"></div>
+                            <div className="absolute bottom-0 left-0 w-1/2 h-1/2 border-r border-t border-accent/40 rounded-tr-full"></div>
+                            <div className="absolute top-0 right-0 w-1/2 h-1/2 border-l border-b border-accent/40 rounded-bl-full"></div>
+                            <div className="absolute bottom-0 right-0 w-1/2 h-1/2 border-l border-t border-accent/40 rounded-tl-full"></div>
                         </div>
                     ))}
 
-                    <div className="flex justify-between w-full">
-                        {/* Left Strand */}
-                        <motion.div
-                            className="flex flex-col items-center gap-16 w-[120px]"
-                            variants={mobileContainerVariants}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                        >
-                            {skills.filter((_, i) => i % 2 === 0).map((skill) => (
+                    <motion.div
+                        className="flex justify-between w-full"
+                        variants={mobileContainerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.1 }}
+                    >
+                        {/* Left Strand of skills */}
+                        <div className="flex flex-col items-center gap-16 w-[120px]">
+                            {skills.filter((_, i) => i % 2 === 0).map((skill, index) => (
                                 <motion.div
                                     key={skill}
                                     variants={mobileCardVariants}
@@ -84,16 +90,10 @@ export function SkillsSection() {
                                     <p className="font-code text-center text-sm text-primary transition-colors">{skill}</p>
                                 </motion.div>
                             ))}
-                        </motion.div>
+                        </div>
 
-                        {/* Right Strand */}
-                        <motion.div
-                            className="flex flex-col items-center gap-16 w-[120px] mt-24"
-                             variants={mobileContainerVariants}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                        >
+                        {/* Right Strand of skills */}
+                        <div className="flex flex-col items-center gap-16 w-[120px] mt-16">
                             {skills.filter((_, i) => i % 2 !== 0).map((skill) => (
                                 <motion.div
                                     key={skill}
@@ -103,8 +103,8 @@ export function SkillsSection() {
                                     <p className="font-code text-center text-sm text-primary transition-colors">{skill}</p>
                                 </motion.div>
                             ))}
-                        </motion.div>
-                    </div>
+                        </div>
+                    </motion.div>
                 </div>
             </div>
           ) : (
