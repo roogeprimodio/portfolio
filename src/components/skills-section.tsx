@@ -58,9 +58,12 @@ export function SkillsSection() {
                     {Array.from({ length: Math.floor(skills.length / 2) }).map((_, i) => (
                         <div
                             key={`rung-${i}`}
-                            className="absolute left-1/4 right-1/4 h-px bg-accent/30"
-                            style={{ top: `${i * 128 + 80}px` }} 
-                        />
+                            className="absolute left-1/4 right-1/4 h-20 flex items-center justify-center"
+                            style={{ top: `${i * 128 + 24}px` }} 
+                        >
+                          <div className="absolute w-full h-px bg-accent/30 rotate-[25deg]"></div>
+                          <div className="absolute w-full h-px bg-accent/30 rotate-[-25deg]"></div>
+                        </div>
                     ))}
 
                     <div className="flex justify-between w-full">
@@ -76,7 +79,7 @@ export function SkillsSection() {
                                 <motion.div
                                     key={skill}
                                     variants={mobileCardVariants}
-                                    className="relative flex items-center justify-center p-2 rounded-lg border border-accent/20 bg-card/70 backdrop-blur-md shadow-lg shadow-black/50 h-16 w-full"
+                                    className="relative z-10 flex items-center justify-center p-2 rounded-lg border border-accent/20 bg-card/70 backdrop-blur-md shadow-lg shadow-black/50 h-16 w-full"
                                 >
                                     <p className="font-code text-center text-sm text-primary transition-colors">{skill}</p>
                                 </motion.div>
@@ -95,7 +98,7 @@ export function SkillsSection() {
                                 <motion.div
                                     key={skill}
                                     variants={mobileCardVariants}
-                                    className="relative flex items-center justify-center p-2 rounded-lg border border-accent/20 bg-card/70 backdrop-blur-md shadow-lg shadow-black/50 h-16 w-full"
+                                    className="relative z-10 flex items-center justify-center p-2 rounded-lg border border-accent/20 bg-card/70 backdrop-blur-md shadow-lg shadow-black/50 h-16 w-full"
                                 >
                                     <p className="font-code text-center text-sm text-primary transition-colors">{skill}</p>
                                 </motion.div>
