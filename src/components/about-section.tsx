@@ -3,7 +3,8 @@
 
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Briefcase, GraduationCap, BrainCircuit } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Gamepad2, Bot, Cpu } from "lucide-react";
 
 const aboutData = {
   summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
@@ -34,7 +35,31 @@ const aboutData = {
       duration: "2014 - 2018",
       description: "Graduated with honors. Specialized in human-computer interaction and robotics."
     }
-  ]
+  ],
+  certifications: [
+    {
+      name: "Google Certified Professional - Cloud Architect",
+      issuer: "Google Cloud",
+      year: "2023",
+    },
+    {
+      name: "Certified Kubernetes Administrator (CKA)",
+      issuer: "Cloud Native Computing Foundation",
+      year: "2022",
+    },
+  ],
+  languages: [
+    { name: "English", proficiency: "Native" },
+    { name: "Japanese", proficiency: "Business" },
+    { name: "Python", proficiency: "Fluent" },
+    { name: "Binary", proficiency: "Heavily Accented" },
+  ],
+  hobbies: [
+    { name: "Neuro-Hacking", icon: BrainCircuit },
+    { name: "Retro VR Gaming", icon: Gamepad2 },
+    { name: "Drone Piloting", icon: Bot },
+    { name: "Quantum Computing Theory", icon: Cpu },
+  ],
 }
 
 const cardVariants = {
@@ -51,6 +76,10 @@ const cardVariants = {
 };
 
 export function AboutSection() {
+  const timelineItemsCount = aboutData.experience.length + aboutData.education.length;
+  const certItemsCount = aboutData.certifications.length;
+  const langItemsCount = aboutData.languages.length;
+
   return (
     <section id="about" className="h-screen flex flex-col items-center justify-center p-4 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
       <div className="text-center space-y-2 mb-12">
@@ -143,6 +172,86 @@ export function AboutSection() {
               </motion.div>
             ))}
           </div>
+        </div>
+        
+        {/* Certifications */}
+        <div>
+           <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
+            <Award className="h-8 w-8 text-accent" />
+            <span>Accolades & Certifications</span>
+          </h3>
+          <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
+            {aboutData.certifications.map((item, index) => (
+              <motion.div 
+                key={index}
+                custom={index + timelineItemsCount}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+                className="relative"
+              >
+                <div className="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-accent border-2 border-background"></div>
+                <Card className="bg-card/50 backdrop-blur-sm border border-accent/20">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-code text-primary">{item.name}</CardTitle>
+                    <CardDescription className="font-code text-accent">{item.issuer} // Acquired: {item.year}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Languages & Hobbies */}
+        <div className="grid md:grid-cols-2 gap-12 pt-6">
+            {/* Languages */}
+            <div>
+                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
+                    <Languages className="h-8 w-8 text-accent" />
+                    <span>Languages</span>
+                </h3>
+                <div className="space-y-4">
+                    {aboutData.languages.map((lang, index) => (
+                        <motion.div 
+                            key={index}
+                            custom={index + timelineItemsCount + certItemsCount}
+                            variants={cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.5 }}
+                            className="flex justify-between items-center p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-accent/20"
+                        >
+                            <span className="font-code text-primary">{lang.name}</span>
+                            <Badge variant="secondary" className="font-code bg-accent/10 text-accent border-accent/20">{lang.proficiency}</Badge>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Hobbies */}
+            <div>
+                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
+                    <Gamepad2 className="h-8 w-8 text-accent" />
+                    <span>Hobbies & Interests</span>
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                    {aboutData.hobbies.map((hobby, index) => (
+                        <motion.div 
+                            key={index}
+                            custom={index + timelineItemsCount + certItemsCount + langItemsCount}
+                            variants={cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.5 }}
+                            className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-accent/20 text-center h-28"
+                        >
+                            <hobby.icon className="h-8 w-8 text-accent" />
+                            <span className="font-code text-primary text-sm text-center">{hobby.name}</span>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
         </div>
       </div>
     </section>
