@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useTransition, useRef } from "react";
+import { useTransition, useRef, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { sendContactMessageAction } from "@/app/actions";
 
@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -23,112 +23,85 @@ const contactFormSchema = z.object({
 
 export function ContactSection() {
   const [isPending, startTransition] = useTransition();
+  const [isGlitching, setIsGlitching] = useState(false);
   const { toast } = useToast();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
-
+  
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      message: "",
-    },
+    defaultValues: { name: "", email: "", message: "" },
   });
 
   const onSubmit = (values: z.infer<typeof contactFormSchema>) => {
     startTransition(async () => {
+      setIsGlitching(true);
       const result = await sendContactMessageAction(values);
       if (result.success) {
         toast({
-          title: "Message Sent!",
+          title: "TRANSMISSION RECEIVED",
           description: result.message,
         });
         form.reset();
       } else {
         toast({
-          title: "Error",
-          description: "Something went wrong. Please try again.",
+          title: "LINK FAILED",
+          description: "Transmission corrupted. Please try again.",
           variant: "destructive",
         });
       }
+      setTimeout(() => setIsGlitching(false), 600);
     });
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
   return (
-    <section id="contact" ref={ref} className="py-16 md:py-24 lg:py-32">
-      <div className="container px-4 md:px-6">
-        <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-primary">
-              Let's Build Together
-            </h2>
-            <p className="max-w-[700px] mx-auto text-muted-foreground md:text-xl">
-              Have a project in mind or just want to say hello? I'd love to hear from you.
-            </p>
-        </div>
-        <motion.div
-          variants={cardVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          <Card className="max-w-2xl mx-auto bg-card/50 backdrop-blur-lg border border-border/20 rounded-xl overflow-hidden">
-              <CardContent className="p-6 md:p-8">
-                  <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                      <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                          <FormItem>
-                          <FormLabel>Name</FormLabel>
-                          <FormControl>
-                              <Input placeholder="Your Name" {...field} className="bg-input/50" />
-                          </FormControl>
-                          <FormMessage />
-                          </FormItem>
-                      )}
-                      />
-                      <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                          <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                              <Input placeholder="your.email@example.com" {...field} className="bg-input/50"/>
-                          </FormControl>
-                          <FormMessage />
-                          </FormItem>
-                      )}
-                      />
-                      <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                          <FormItem>
-                          <FormLabel>Message</FormLabel>
-                          <FormControl>
-                              <Textarea placeholder="Your message here..." {...field} rows={5} className="bg-input/50" />
-                          </FormControl>
-                          <FormMessage />
-                          </FormItem>
-                      )}
-                      />
-                      <Button type="submit" disabled={isPending} size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                      {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                      Send Message
-                      </Button>
-                  </form>
-                  </Form>
-              </CardContent>
-          </Card>
-        </motion.div>
+    <section id="contact" className="h-screen flex flex-col items-center justify-center p-4 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
+      <div className="text-center space-y-2 mb-12">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
+          Establish Link
+        </h2>
+        <p className="text-accent font-code">Send a transmission.</p>
       </div>
+      
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8 }}
+        className="relative w-full max-w-lg"
+      >
+        <div className="absolute -inset-4 bg-accent/10 rounded-xl blur-2xl animate-glitch-subtle group-hover:bg-accent/20 transition-all duration-500"></div>
+        <Card className="relative bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
+          <CardContent className="p-8">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField control={form.control} name="name" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-code text-accent">CALLSIGN // NAME</FormLabel>
+                    <FormControl><Input placeholder="> Enter your name" {...field} className="bg-card/50 border-accent/50 focus:border-accent font-code" /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="email" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-code text-accent">FREQUENCY // EMAIL</FormLabel>
+                    <FormControl><Input placeholder="> Enter your email" {...field} className="bg-card/50 border-accent/50 focus:border-accent font-code" /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="message" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-code text-accent">TRANSMISSION // MESSAGE</FormLabel>
+                    <FormControl><Textarea placeholder="> Your message..." {...field} rows={4} className="bg-card/50 border-accent/50 focus:border-accent font-code" /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <Button type="submit" disabled={isPending} className={`w-full group bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-lg hover:shadow-accent/30 transition-all duration-300 font-headline tracking-widest text-lg ${isGlitching ? 'animate-glitch' : ''}`}>
+                  {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'TRANSMIT'}
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </motion.div>
     </section>
   );
 }

@@ -5,14 +5,13 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Github } from "lucide-react";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const projects = [
   {
     title: "E-Commerce Platform",
     description: "A full-stack e-commerce website built with Next.js, Stripe for payments, and a PostgreSQL database. Features product listings, search, and a user authentication system.",
-    tags: ["Next.js", "React", "TypeScript", "Stripe", "PostgreSQL"],
+    tags: ["Next.js", "React", "Stripe", "Auth"],
     image: "https://placehold.co/600x400.png",
     imageHint: "online shopping",
     liveUrl: "#",
@@ -21,16 +20,16 @@ const projects = [
   {
     title: "Task Management App",
     description: "A collaborative task management application with drag-and-drop functionality, real-time updates using WebSockets, and a clean, intuitive user interface.",
-    tags: ["React", "Node.js", "Express", "MongoDB", "WebSocket"],
+    tags: ["React", "Node.js", "MongoDB", "WebSockets"],
     image: "https://placehold.co/600x400.png",
     imageHint: "project management",
     liveUrl: "#",
     githubUrl: "#",
   },
   {
-    title: "Data Visualization Dashboard",
+    title: "Data Viz Dashboard",
     description: "A dashboard for visualizing complex datasets using D3.js. Allows users to interact with charts and graphs to explore data insights dynamically.",
-    tags: ["D3.js", "JavaScript", "HTML", "CSS", "API"],
+    tags: ["D3.js", "JavaScript", "API"],
     image: "https://placehold.co/600x400.png",
     imageHint: "data dashboard",
     liveUrl: "#",
@@ -38,88 +37,79 @@ const projects = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, rotateX: -20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: {
+      delay: i * 0.15,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
+};
+
+
 const ProjectCard = ({ project, index }: { project: typeof projects[0], index: number }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: index % 2 === 0 ? -50 : 50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
-  };
-
-  const imageVariants = {
-    hidden: { scale: 1.1 },
-    visible: { scale: 1, transition: { duration: 0.8, ease: "easeOut" } },
-  };
-
   return (
     <motion.div
-      ref={ref}
+      custom={index}
       variants={cardVariants}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      className="bg-card/30 backdrop-blur-sm border border-border/20 rounded-xl overflow-hidden shadow-lg"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.5 }}
+      whileHover="hover"
+      transition={{ type: 'spring', stiffness: 300 }}
+      className="group relative w-full max-w-sm h-96 [transform-style:preserve-3d]"
     >
-      <div
-        className={`flex flex-col md:flex-row items-center gap-8 ${
-          index % 2 !== 0 ? "md:flex-row-reverse" : ""
-        }`}
+      <div className="absolute inset-0 bg-accent/10 rounded-xl blur-lg transition-all duration-500 group-hover:blur-2xl group-hover:bg-accent/20"></div>
+      <motion.div 
+        variants={{ hover: { rotateY: 10, rotateX: -5, scale: 1.05 } }}
+        className="relative w-full h-full rounded-xl border border-accent/30 bg-card/60 backdrop-blur-md p-6 text-left [transform-style:preserve-3d] transition-shadow duration-300 group-hover:shadow-2xl group-hover:shadow-accent/20 flex flex-col"
       >
-        <div className="md:w-1/2 aspect-video relative overflow-hidden">
-          <motion.div variants={imageVariants} className="w-full h-full">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover"
-              data-ai-hint={project.imageHint}
-            />
-          </motion.div>
+        <div className="absolute -top-4 -left-4 -right-4 h-24 bg-gradient-to-b from-accent/10 to-transparent [transform:translateZ(20px)] rounded-t-xl"></div>
+        <h3 className="font-headline text-2xl font-bold text-primary [transform:translateZ(40px)]">{project.title}</h3>
+        <div className="flex flex-wrap gap-2 mt-2 [transform:translateZ(30px)]">
+          {project.tags.map((tag) => (
+            <Badge key={tag} variant="secondary" className="font-code bg-accent/10 text-accent border-accent/20">{tag}</Badge>
+          ))}
+        </div>
+        <p className="mt-4 text-muted-foreground text-sm flex-grow [transform:translateZ(20px)]">{project.description}</p>
+        
+        <div className="flex w-full gap-4 pt-2 [transform:translateZ(50px)]">
+          <Button asChild size="sm" className="flex-1 bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-md hover:shadow-accent/40 font-code">
+            <Link href={project.liveUrl} target="_blank">
+              Live Demo <ArrowUpRight className="ml-1 h-4 w-4" />
+            </Link>
+          </Button>
+          <Button asChild size="sm" variant="outline" className="flex-1 bg-card/80 border-accent/50 hover:bg-card hover:border-accent font-code">
+            <Link href={project.githubUrl} target="_blank">
+              <Github className="mr-1 h-4 w-4" /> GitHub
+            </Link>
+          </Button>
         </div>
 
-        <div className="md:w-1/2 p-8 pt-0 md:pt-8 space-y-4">
-          <h3 className="font-headline text-2xl lg:text-3xl font-bold text-primary">{project.title}</h3>
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <Badge key={tag} variant="secondary" className="bg-accent/10 text-accent border-none">{tag}</Badge>
-            ))}
-          </div>
-          <p className="text-muted-foreground text-base">{project.description}</p>
-          <div className="flex w-full gap-4 pt-2">
-            <Button asChild className="flex-1 bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link href={project.liveUrl} target="_blank">
-                Live Demo <ArrowUpRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="flex-1">
-              <Link href={project.githubUrl} target="_blank">
-                <Github className="mr-2 h-4 w-4" /> GitHub
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
 
+
 export function ProjectsSection() {
   return (
-    <section id="projects" className="py-16 md:py-24 lg:py-32">
-      <div className="container px-4 md:px-6">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-primary">
-            Featured Projects
-          </h2>
-          <p className="max-w-[700px] mx-auto text-muted-foreground md:text-xl">
-            A selection of my work. See what I can do.
-          </p>
-        </div>
-        <div className="grid gap-12 md:gap-16">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
-          ))}
-        </div>
+    <section id="projects" className="h-screen flex flex-col items-center justify-center p-4 overflow-hidden [perspective:1000px]" style={{ scrollSnapAlign: 'start' }}>
+      <div className="text-center space-y-2 mb-12">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
+          Projects Vault
+        </h2>
+        <p className="text-accent font-code">A collection of memory chips.</p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+        {projects.map((project, index) => (
+          <ProjectCard key={project.title} project={project} index={index} />
+        ))}
       </div>
     </section>
   );
