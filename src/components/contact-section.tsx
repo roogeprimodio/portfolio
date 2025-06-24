@@ -53,20 +53,20 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 lg:py-32 bg-primary/5">
+    <section id="contact" className="py-16 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <div className="text-center space-y-4 mb-12">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-primary">
-              Get In Touch
+              Let's Build Together
             </h2>
             <p className="max-w-[700px] mx-auto text-muted-foreground md:text-xl">
-              Have a question or want to work together? Fill out the form, and I'll get back to you.
+              Have a project in mind or just want to say hello? I'd love to hear from you.
             </p>
         </div>
-        <Card className="max-w-2xl mx-auto">
-            <CardContent className="p-6">
+        <Card className="max-w-2xl mx-auto bg-card/50 backdrop-blur-lg border border-border/20 rounded-xl overflow-hidden">
+            <CardContent className="p-6 md:p-8">
                 <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
                     control={form.control}
                     name="name"
@@ -74,7 +74,7 @@ export function ContactSection() {
                         <FormItem>
                         <FormLabel>Name</FormLabel>
                         <FormControl>
-                            <Input placeholder="Your Name" {...field} />
+                            <Input placeholder="Your Name" {...field} className="bg-input/50" />
                         </FormControl>
                         <FormMessage />
                         </FormItem>
@@ -87,7 +87,7 @@ export function ContactSection() {
                         <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                            <Input placeholder="your.email@example.com" {...field} />
+                            <Input placeholder="your.email@example.com" {...field} className="bg-input/50"/>
                         </FormControl>
                         <FormMessage />
                         </FormItem>
@@ -100,13 +100,13 @@ export function ContactSection() {
                         <FormItem>
                         <FormLabel>Message</FormLabel>
                         <FormControl>
-                            <Textarea placeholder="Your message here..." {...field} />
+                            <Textarea placeholder="Your message here..." {...field} rows={5} className="bg-input/50" />
                         </FormControl>
                         <FormMessage />
                         </FormItem>
                     )}
                     />
-                    <Button type="submit" disabled={isPending} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+                    <Button type="submit" disabled={isPending} size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
                     {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                     Send Message
                     </Button>

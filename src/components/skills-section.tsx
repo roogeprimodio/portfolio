@@ -1,25 +1,26 @@
+import React from "react";
 import { Code, Database, Braces, TerminalSquare } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 const skillCategories = [
   {
     title: "Languages",
-    icon: <Braces className="h-8 w-8 text-accent" />,
+    icon: <Braces />,
     skills: ["JavaScript", "TypeScript", "Python", "HTML5", "CSS3"],
   },
   {
     title: "Frameworks & Libraries",
-    icon: <Code className="h-8 w-8 text-accent" />,
+    icon: <Code />,
     skills: ["React", "Next.js", "Node.js", "Express", "Tailwind CSS"],
   },
   {
     title: "Databases",
-    icon: <Database className="h-8 w-8 text-accent" />,
+    icon: <Database />,
     skills: ["MongoDB", "PostgreSQL", "Firebase", "MySQL"],
   },
   {
     title: "Tools & Platforms",
-    icon: <TerminalSquare className="h-8 w-8 text-accent" />,
+    icon: <TerminalSquare />,
     skills: ["Git", "GitHub", "Docker", "Vercel", "Figma"],
   },
 ];
@@ -30,31 +31,34 @@ export function SkillsSection() {
       <div className="container px-4 md:px-6">
         <div className="text-center space-y-4 mb-12">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-primary">
-            My Technical Skills
+            Technologies I Master
           </h2>
           <p className="max-w-[700px] mx-auto text-muted-foreground md:text-xl">
-            The technologies I use to build modern, efficient, and beautiful web applications.
+            The tools and technologies I use to build modern, efficient, and beautiful web applications.
           </p>
         </div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {skillCategories.map((category) => (
-            <Card key={category.title} className="text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-              <CardHeader>
-                <div className="mx-auto bg-accent/10 p-4 rounded-full w-fit">
-                    {category.icon}
+        <Card className="max-w-5xl mx-auto bg-card/50 backdrop-blur-lg border border-border/20 rounded-xl overflow-hidden p-8 md:p-12">
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+            {skillCategories.map((category) => (
+              <div key={category.title} className="flex flex-col items-center text-center sm:items-start sm:text-left">
+                <div className="flex items-center gap-4">
+                  <div className="bg-accent/10 p-3 rounded-lg">
+                    {React.cloneElement(category.icon, { className: "h-6 w-6 text-accent" })}
+                  </div>
+                  <h3 className="text-xl font-headline font-bold">{category.title}</h3>
                 </div>
-                <CardTitle className="mt-4 font-headline">{category.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
+                <ul className="mt-4 space-y-2 text-muted-foreground">
                   {category.skills.map((skill) => (
-                    <li key={skill}>{skill}</li>
+                    <li key={skill} className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      <span>{skill}</span>
+                    </li>
                   ))}
                 </ul>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+              </div>
+            ))}
+          </div>
+        </Card>
       </div>
     </section>
   );
