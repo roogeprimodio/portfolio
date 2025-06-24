@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const skills = [
@@ -11,6 +11,12 @@ const skills = [
 ];
 
 export function SkillsSection() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const numSkills = skills.length;
   // Parameters for the helix
   const radius = 280; // In pixels. Adjust for desired width of the helix
@@ -33,7 +39,7 @@ export function SkillsSection() {
           animate={{ rotateY: 360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         >
-          {skills.map((skill, i) => {
+          {isMounted && skills.map((skill, i) => {
             const isSecondStrand = i % 2 !== 0;
             const nodeIndex = Math.floor(i / 2);
 
