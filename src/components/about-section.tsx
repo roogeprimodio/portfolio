@@ -4,10 +4,14 @@
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Gamepad2, Bot, Cpu, Code } from "lucide-react";
+import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Gamepad2, Bot, Cpu, Code, MapPin, Mail } from "lucide-react";
 
 const aboutData = {
   summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
+  contactInfo: {
+    address: "Sector 7, Neo-Kyoto, Earth",
+    email: "contact@wh1tedem0n.dev",
+  },
   experience: [
     {
       company: "CyberCorp",
@@ -110,6 +114,33 @@ export function AboutSection() {
             </CardHeader>
             <CardContent className="pt-0">
               <p className="text-muted-foreground font-code">{aboutData.summary}</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+        
+        {/* Contact Info */}
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 1, delay: 0.2 }}
+        >
+          <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent">
+                <MapPin className="h-8 w-8" />
+                <span>Location & Contact</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0 space-y-4 font-code">
+              <div className="flex items-center gap-4">
+                  <Mail className="h-5 w-5 text-accent" />
+                  <a href={`mailto:${aboutData.contactInfo.email}`} className="text-muted-foreground hover:text-primary transition-colors">{aboutData.contactInfo.email}</a>
+              </div>
+              <div className="flex items-center gap-4">
+                  <MapPin className="h-5 w-5 text-accent" />
+                  <p className="text-muted-foreground">{aboutData.contactInfo.address}</p>
+              </div>
             </CardContent>
           </Card>
         </motion.div>
