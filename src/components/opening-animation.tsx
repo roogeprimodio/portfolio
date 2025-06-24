@@ -8,7 +8,7 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      delay: 3.5, // Increased delay for the new animation
+      delay: 3.5, // Total duration before exiting
       when: 'afterChildren',
     },
   },
@@ -44,16 +44,8 @@ export function OpeningAnimation() {
       exit="exit"
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background overflow-hidden"
     >
-        {/* Flash Effect */}
-        <motion.div
-            className="absolute w-px h-px rounded-full bg-primary"
-            initial={{ scale: 0, opacity: 0.5 }}
-            animate={{ scale: [0, 600, 0], opacity: [0, 1, 0] }}
-            transition={{ duration: 1, ease: "easeInOut", delay: 1.6 }}
-        />
-        
         <div className="relative flex items-center justify-center">
-            <svg width="150" height="150" viewBox="0 0 100 100" className="drop-shadow-[0_0_15px_hsl(var(--accent)/0.5)] z-10">
+            <svg width="200" height="200" viewBox="0 0 100 100" className="drop-shadow-[0_0_15px_hsl(var(--accent)/0.5)] z-10">
                 {/* Eye Group */}
                 <g>
                     {/* Top Eyelid */}
@@ -62,8 +54,8 @@ export function OpeningAnimation() {
                         stroke="hsl(var(--accent))"
                         strokeWidth="2.5"
                         strokeLinecap="round"
-                        initial={{ d: "M 30 50 Q 50 50 70 50" }}
-                        animate={{ d: "M 30 50 Q 50 30 70 50" }}
+                        initial={{ d: "M 20 50 Q 50 50 80 50" }}
+                        animate={{ d: "M 20 50 Q 50 25 80 50" }}
                         transition={{ duration: 0.8, ease: "easeInOut", delay: 1 }}
                     />
                     {/* Bottom Eyelid */}
@@ -72,19 +64,35 @@ export function OpeningAnimation() {
                         stroke="hsl(var(--accent))"
                         strokeWidth="2.5"
                         strokeLinecap="round"
-                        initial={{ d: "M 30 50 Q 50 50 70 50" }}
-                        animate={{ d: "M 30 50 Q 50 70 70 50" }}
+                        initial={{ d: "M 20 50 Q 50 50 80 50" }}
+                        animate={{ d: "M 20 50 Q 50 75 80 50" }}
                         transition={{ duration: 0.8, ease: "easeInOut", delay: 1 }}
                     />
                     {/* Pupil */}
                     <motion.circle
                         cx="50"
                         cy="50"
-                        r="6"
+                        r="8"
                         fill="hsl(var(--primary))"
                         initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.4, ease: "easeOut", delay: 1.8 }}
+                        animate={{
+                            scale: 1,
+                            opacity: 1,
+                            cx: [50, 47, 53, 50],
+                            cy: [50, 52, 48, 50],
+                        }}
+                        transition={{
+                            // Default transition for looping animations (cx, cy)
+                            default: {
+                                duration: 2.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: 2.2, // Start after eye is fully open
+                            },
+                            // Specific transitions for initial appearance (non-looping)
+                            scale: { duration: 0.4, ease: "easeOut", delay: 1.8, repeat: 0 },
+                            opacity: { duration: 0.4, ease: "easeOut", delay: 1.8, repeat: 0 },
+                        }}
                     />
                 </g>
             </svg>
