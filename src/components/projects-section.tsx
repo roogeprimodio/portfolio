@@ -35,6 +35,15 @@ const projects = [
     liveUrl: "#",
     githubUrl: "#",
   },
+  {
+    title: "Cyber-Security Suite",
+    description: "An integrated security suite featuring real-time threat detection and network vulnerability scanning, all presented in a holographic interface.",
+    tags: ["Python", "AI", "CyberSec"],
+    image: "https://placehold.co/600x400.png",
+    imageHint: "cyber security",
+    liveUrl: "#",
+    githubUrl: "#",
+  }
 ];
 
 const cardVariants = {
@@ -44,7 +53,7 @@ const cardVariants = {
     y: 0,
     rotateX: 0,
     transition: {
-      delay: i * 0.15,
+      delay: i * 0.1,
       duration: 0.6,
       ease: "easeOut",
     },
@@ -59,7 +68,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: true, amount: 0.3 }}
       whileHover="hover"
       transition={{ type: 'spring', stiffness: 300 }}
       className="group relative w-full max-w-sm h-96 [transform-style:preserve-3d]"
@@ -99,17 +108,22 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="h-screen flex flex-col items-center justify-center p-4 overflow-hidden [perspective:1000px]" style={{ scrollSnapAlign: 'start' }}>
-      <div className="text-center space-y-2 mb-12">
+    <section id="projects" className="h-screen flex flex-col items-center justify-center overflow-hidden [perspective:1000px]" style={{ scrollSnapAlign: 'start' }}>
+      <div className="text-center space-y-2 mb-12 px-4">
         <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
           Projects Vault
         </h2>
         <p className="text-accent font-code">A collection of memory chips.</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
-        {projects.map((project, index) => (
-          <ProjectCard key={project.title} project={project} index={index} />
-        ))}
+
+      <div className="w-full flex-grow flex items-center">
+        <div className="flex w-full overflow-x-auto py-8 px-8 md:px-16 space-x-8 scrollbar-hide" style={{ scrollSnapType: 'x mandatory' }}>
+          {projects.map((project, index) => (
+            <div key={project.title} className="flex-shrink-0" style={{ scrollSnapAlign: 'center' }}>
+              <ProjectCard project={project} index={index} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
