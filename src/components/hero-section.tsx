@@ -51,9 +51,8 @@ export function HeroSection() {
         >
           <div className="absolute -inset-2 rounded-full bg-accent animate-glitch-subtle opacity-50 blur-xl"></div>
           <Image
-            src="https://placehold.co/120x120.png"
+            src="/profile.png"
             alt="Avatar"
-            data-ai-hint="profile picture"
             width={120}
             height={120}
             className="rounded-full object-cover border-2 border-accent/50 shadow-2xl shadow-accent/20"
