@@ -4,7 +4,7 @@
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Gamepad2, Bot, Cpu } from "lucide-react";
+import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Gamepad2, Bot, Cpu, Code } from "lucide-react";
 
 const aboutData = {
   summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
@@ -48,11 +48,16 @@ const aboutData = {
       year: "2022",
     },
   ],
-  languages: [
+  programmingLanguages: [
+    { name: "Python", proficiency: "Fluent" },
+    { name: "TypeScript", proficiency: "Fluent" },
+    { name: "JavaScript", proficiency: "Fluent" },
+    { name: "SQL", proficiency: "Advanced" },
+    { name: "Binary", proficiency: "Heavily Accented" },
+  ],
+  spokenLanguages: [
     { name: "English", proficiency: "Native" },
     { name: "Japanese", proficiency: "Business" },
-    { name: "Python", proficiency: "Fluent" },
-    { name: "Binary", proficiency: "Heavily Accented" },
   ],
   hobbies: [
     { name: "Neuro-Hacking", icon: BrainCircuit },
@@ -78,7 +83,6 @@ const cardVariants = {
 export function AboutSection() {
   const timelineItemsCount = aboutData.experience.length + aboutData.education.length;
   const certItemsCount = aboutData.certifications.length;
-  const langItemsCount = aboutData.languages.length;
 
   return (
     <section id="about" className="h-screen flex flex-col items-center justify-center p-4 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
@@ -89,7 +93,7 @@ export function AboutSection() {
         <p className="text-accent font-code">My background and experience.</p>
       </div>
 
-      <div className="w-full max-w-4xl h-[60vh] overflow-y-auto scrollbar-hide space-y-12 px-4">
+      <div className="w-full max-w-4xl h-[75vh] overflow-y-auto scrollbar-hide space-y-12 px-4">
         {/* Summary */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -205,14 +209,14 @@ export function AboutSection() {
         
         {/* Languages & Hobbies */}
         <div className="grid md:grid-cols-2 gap-12 pt-6">
-            {/* Languages */}
+            {/* Programming Languages */}
             <div>
                 <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
-                    <Languages className="h-8 w-8 text-accent" />
-                    <span>Languages</span>
+                    <Code className="h-8 w-8 text-accent" />
+                    <span>Programming Languages</span>
                 </h3>
                 <div className="space-y-4">
-                    {aboutData.languages.map((lang, index) => (
+                    {aboutData.programmingLanguages.map((lang, index) => (
                         <motion.div 
                             key={index}
                             custom={index + timelineItemsCount + certItemsCount}
@@ -229,28 +233,51 @@ export function AboutSection() {
                 </div>
             </div>
 
-            {/* Hobbies */}
+            {/* Spoken Languages */}
             <div>
                 <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
-                    <Gamepad2 className="h-8 w-8 text-accent" />
-                    <span>Hobbies & Interests</span>
+                    <Languages className="h-8 w-8 text-accent" />
+                    <span>Spoken Languages</span>
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
-                    {aboutData.hobbies.map((hobby, index) => (
+                <div className="space-y-4">
+                    {aboutData.spokenLanguages.map((lang, index) => (
                         <motion.div 
                             key={index}
-                            custom={index + timelineItemsCount + certItemsCount + langItemsCount}
+                            custom={index + timelineItemsCount + certItemsCount + aboutData.programmingLanguages.length}
                             variants={cardVariants}
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true, amount: 0.5 }}
-                            className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-accent/20 text-center h-28"
+                            className="flex justify-between items-center p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-accent/20"
                         >
-                            <hobby.icon className="h-8 w-8 text-accent" />
-                            <span className="font-code text-primary text-sm text-center">{hobby.name}</span>
+                            <span className="font-code text-primary">{lang.name}</span>
+                            <Badge variant="secondary" className="font-code bg-accent/10 text-accent border-accent/20">{lang.proficiency}</Badge>
                         </motion.div>
                     ))}
                 </div>
+            </div>
+        </div>
+
+        <div className="pt-6">
+            <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
+                <Gamepad2 className="h-8 w-8 text-accent" />
+                <span>Hobbies & Interests</span>
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {aboutData.hobbies.map((hobby, index) => (
+                    <motion.div 
+                        key={index}
+                        custom={index + timelineItemsCount + certItemsCount + aboutData.programmingLanguages.length + aboutData.spokenLanguages.length}
+                        variants={cardVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.5 }}
+                        className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-accent/20 text-center h-28"
+                    >
+                        <hobby.icon className="h-8 w-8 text-accent" />
+                        <span className="font-code text-primary text-sm text-center">{hobby.name}</span>
+                    </motion.div>
+                ))}
             </div>
         </div>
       </div>
