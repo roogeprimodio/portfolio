@@ -39,36 +39,58 @@ export function SkillsSection() {
           animate={{ rotateY: 360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         >
-          {isMounted && skills.map((skill, i) => {
-            const isSecondStrand = i % 2 !== 0;
-            const nodeIndex = Math.floor(i / 2);
+          {isMounted && (
+            <>
+              {/* DNA Rungs */}
+              {Array.from({ length: numSkills / 2 }).map((_, i) => {
+                const angle = i * angleStep;
+                const y = (i - numSkills / 4) * verticalSpacing;
+                return (
+                  <motion.div
+                    key={`line-${i}`}
+                    className="absolute top-0 left-0 h-px bg-accent/30 origin-center"
+                    style={{
+                      width: `${radius * 2}px`,
+                      transformStyle: "preserve-3d",
+                      transform: `translateY(${y}px) translateX(-${radius}px) rotateY(${angle}rad)`,
+                    }}
+                  />
+                );
+              })}
 
-            const angle = nodeIndex * angleStep;
-            const finalAngle = isSecondStrand ? angle + Math.PI : angle;
+              {/* DNA Nodes (Skills) */}
+              {skills.map((skill, i) => {
+                const isSecondStrand = i % 2 !== 0;
+                const nodeIndex = Math.floor(i / 2);
 
-            const x = radius * Math.cos(finalAngle);
-            const z = radius * Math.sin(finalAngle);
-            const y = (nodeIndex - (numSkills / 4)) * verticalSpacing;
+                const angle = nodeIndex * angleStep;
+                const finalAngle = isSecondStrand ? angle + Math.PI : angle;
 
-            return (
-              <motion.div
-                key={skill}
-                className="absolute top-0 left-0 group"
-                style={{
-                  transformStyle: "preserve-3d",
-                  transform: `translateY(${y}px) translateX(${x}px) translateZ(${z}px) rotateY(${-finalAngle}rad)`,
-                }}
-              >
-                <motion.div
-                  whileHover={{ scale: 1.2, boxShadow: "0px 10px 30px hsla(var(--accent)/0.3)" }}
-                  className="relative flex items-center justify-center p-2 rounded-lg border border-accent/20 bg-card/70 backdrop-blur-md shadow-lg shadow-black/50 w-36 h-16"
-                >
-                  <div className="absolute inset-0 rounded-lg bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <p className="font-code text-center text-sm text-primary transition-colors">{skill}</p>
-                </motion.div>
-              </motion.div>
-            );
-          })}
+                const x = radius * Math.cos(finalAngle);
+                const z = radius * Math.sin(finalAngle);
+                const y = (nodeIndex - numSkills / 4) * verticalSpacing;
+
+                return (
+                  <motion.div
+                    key={skill}
+                    className="absolute top-0 left-0 group"
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transform: `translateY(${y}px) translateX(${x}px) translateZ(${z}px) rotateY(${-finalAngle}rad)`,
+                    }}
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.2, boxShadow: "0px 10px 30px hsla(var(--accent)/0.3)" }}
+                      className="relative flex items-center justify-center p-2 rounded-lg border border-accent/20 bg-card/70 backdrop-blur-md shadow-lg shadow-black/50 w-36 h-16"
+                    >
+                      <div className="absolute inset-0 rounded-lg bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <p className="font-code text-center text-sm text-primary transition-colors">{skill}</p>
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
+            </>
+          )}
         </motion.div>
       </div>
     </section>
