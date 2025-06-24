@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useTransition, useRef, useState } from "react";
+import { useTransition, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { sendContactMessageAction } from "@/app/actions";
 
@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Loader2 } from "lucide-react";
+import { Loader2, Github, Linkedin, Twitter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
@@ -102,6 +102,21 @@ export function ContactSection() {
           </CardContent>
         </Card>
       </motion.div>
+
+      <div className="mt-12 text-center">
+        <p className="font-code text-accent mb-4">Or connect on other networks</p>
+        <div className="flex justify-center gap-6">
+          <motion.a href="#" target="_blank" whileHover={{ scale: 1.2, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="text-accent hover:text-primary transition-colors">
+            <Github className="h-8 w-8" />
+          </motion.a>
+          <motion.a href="#" target="_blank" whileHover={{ scale: 1.2, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="text-accent hover:text-primary transition-colors">
+            <Linkedin className="h-8 w-8" />
+          </motion.a>
+          <motion.a href="#" target="_blank" whileHover={{ scale: 1.2, y: -5 }} transition={{ type: "spring", stiffness: 300 }} className="text-accent hover:text-primary transition-colors">
+            <Twitter className="h-8 w-8" />
+          </motion.a>
+        </div>
+      </div>
     </section>
   );
 }
