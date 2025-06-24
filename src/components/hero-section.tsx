@@ -61,7 +61,7 @@ export function HeroSection() {
                     />
                 </div>
               </PopoverTrigger>
-              <PopoverContent className="w-80" align="center">
+              <PopoverContent className="w-80 md:w-96" align="center">
                 <div className="grid gap-4">
                   <div className="space-y-2">
                     <h4 className="font-medium leading-none">Jane Doe</h4>
@@ -118,7 +118,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2, duration: 0.8 }}
             >
-              I build modern, responsive, and user-centric web applications. Click my picture for details, and let's turn your ideas into reality.
+              I specialize in building intuitive, high-performance web applications. Explore my work and let's create something amazing together.
             </motion.p>
           </div>
 

@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { Code, Database, Braces, TerminalSquare } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, useInView } from "framer-motion";
 
 const skillCategories = [
@@ -33,14 +33,19 @@ export function SkillsSection() {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, staggerChildren: 0.1 } },
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
   return (
     <section id="skills" ref={ref} className="py-16 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
-        <div className="text-center space-y-4 mb-12">
+        <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-primary">
             Technologies I Master
           </h2>
@@ -49,36 +54,36 @@ export function SkillsSection() {
           </p>
         </div>
         <motion.div
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          <Card className="max-w-5xl mx-auto bg-card/50 backdrop-blur-lg border border-border/20 rounded-xl overflow-hidden p-8 md:p-12">
-            <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-              {skillCategories.map((category) => (
-                <motion.div
-                  key={category.title}
-                  className="flex flex-col items-center text-center sm:items-start sm:text-left"
-                  variants={containerVariants}
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="bg-accent/10 p-3 rounded-lg">
-                      {React.cloneElement(category.icon, { className: "h-6 w-6 text-accent" })}
-                    </div>
-                    <h3 className="text-xl font-headline font-bold">{category.title}</h3>
+          {skillCategories.map((category) => (
+            <motion.div
+              key={category.title}
+              variants={itemVariants}
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Card className="h-full bg-card/50 backdrop-blur-lg border-border/20 rounded-xl overflow-hidden shadow-lg p-6 text-center sm:text-left">
+                <CardHeader className="p-0 flex flex-col items-center sm:items-start space-y-4">
+                  <div className="bg-accent/10 p-3 rounded-lg">
+                    {React.cloneElement(category.icon, { className: "h-8 w-8 text-accent" })}
                   </div>
-                  <ul className="mt-4 space-y-2 text-muted-foreground">
-                    {category.skills.map((skill) => (
-                      <li key={skill} className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                        <span>{skill}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
-            </div>
-          </Card>
+                  <CardTitle className="text-xl font-headline font-bold">{category.title}</CardTitle>
+                </CardHeader>
+                <ul className="mt-4 space-y-2.5 text-muted-foreground">
+                  {category.skills.map((skill) => (
+                    <li key={skill} className="flex items-center gap-3 justify-center sm:justify-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      <span>{skill}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
