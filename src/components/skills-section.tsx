@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const skills = [
   "JavaScript", "TypeScript", "Python", "HTML5", "CSS3", "SQL",
@@ -10,8 +11,24 @@ const skills = [
   "Git", "GitHub", "Docker", "Vercel", "Figma",
 ];
 
+const mobileCardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const mobileContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+
 export function SkillsSection() {
   const [isMounted, setIsMounted] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setIsMounted(true);
@@ -32,17 +49,35 @@ export function SkillsSection() {
         <p className="text-accent font-code">The building blocks of my craft.</p>
       </div>
 
-      <div className="w-full h-[60vh] flex items-center justify-center" style={{ perspective: '1200px' }}>
-        <motion.div
-          className="relative"
-          style={{ transformStyle: "preserve-3d", width: '1px', height: '1px' }}
-          animate={{ rotateY: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        >
-          {isMounted && (
-            <>
+      <div className="w-full flex-grow flex items-center justify-center" style={{ perspective: isMobile ? 'none' : '1200px' }}>
+        {isMounted && (
+          isMobile ? (
+            <motion.div
+              className="grid grid-cols-2 gap-4 w-full max-w-md px-4"
+              variants={mobileContainerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              {skills.map((skill) => (
+                <motion.div
+                  key={skill}
+                  variants={mobileCardVariants}
+                  className="relative flex items-center justify-center p-2 rounded-lg border border-accent/20 bg-card/70 backdrop-blur-md shadow-lg shadow-black/50 h-20"
+                >
+                  <p className="font-code text-center text-sm text-primary transition-colors">{skill}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              className="relative"
+              style={{ transformStyle: "preserve-3d", width: '1px', height: '1px' }}
+              animate={{ rotateY: 360 }}
+              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            >
               {/* DNA Rungs */}
-              {Array.from({ length: numSkills / 2 }).map((_, i) => {
+              {Array.from({ length: Math.floor(numSkills / 2) }).map((_, i) => {
                 const angle = i * angleStep;
                 const y = (i - numSkills / 4) * verticalSpacing;
                 return (
@@ -89,9 +124,9 @@ export function SkillsSection() {
                   </motion.div>
                 );
               })}
-            </>
-          )}
-        </motion.div>
+            </motion.div>
+          )
+        )}
       </div>
     </section>
   );
