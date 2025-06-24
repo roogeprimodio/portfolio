@@ -14,6 +14,14 @@ const sections = [
   { id: "contact", icon: Send, label: "Establish Link" },
 ];
 
+const LogoIcon = () => (
+    <svg width="24" height="24" viewBox="0 0 100 100" className="text-primary">
+        <path d="M 10 50 Q 50 10 90 50" stroke="currentColor" strokeWidth="10" fill="none" strokeLinecap="round" />
+        <path d="M 10 50 Q 50 90 90 50" stroke="currentColor" strokeWidth="10" fill="none" strokeLinecap="round" />
+        <circle cx="50" cy="50" r="15" fill="currentColor" />
+    </svg>
+)
+
 export function SideNav() {
   const [activeSection, setActiveSection] = useState("home");
 
@@ -73,8 +81,19 @@ export function SideNav() {
       // Responsive positioning for smaller screens
       className="fixed top-1/2 -translate-y-1/2 left-2 md:left-4 z-50"
     >
-      {/* Make the nav thinner and more strip-like */}
-      <ul className="flex flex-col gap-3 p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
+      <ul className="flex flex-col items-center gap-2 p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
+        {/* Custom Logo */}
+        <li>
+            <div className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-default" title="Wh1te Dem0n">
+                <LogoIcon />
+            </div>
+        </li>
+
+        {/* Separator */}
+        <li className="w-full px-2">
+            <div className="h-px w-full bg-accent/20"></div>
+        </li>
+
         {sections.map((section) => (
           <li key={section.id}>
             {/* Using <a> with onClick for reliable smooth scroll */}

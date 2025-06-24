@@ -29,7 +29,7 @@ const textVariants = {
       transition: { 
         duration: 0.5, 
         ease: 'easeOut',
-        delay: 1,
+        delay: 1.5,
       } 
     },
 };
@@ -45,26 +45,38 @@ export function OpeningAnimation() {
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
     >
         <svg width="150" height="150" viewBox="0 0 100 100" className="drop-shadow-[0_0_15px_hsl(var(--accent)/0.5)]">
+            {/* Top Eyelid */}
             <motion.path
-                d="M50 10 L90 50 L50 90 L10 50 Z"
                 fill="none"
                 stroke="hsl(var(--accent))"
-                strokeWidth="2"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
+                strokeWidth="3"
+                strokeLinecap="round"
+                initial={{ d: "M 10 50 Q 50 50 90 50" }}
+                animate={{ d: "M 10 50 Q 50 10 90 50" }}
+                transition={{ duration: 1, ease: "easeInOut", delay: 0.2 }}
             />
-             <motion.path
-                d="M50 10 L90 50 L50 90 L10 50 Z"
+            {/* Bottom Eyelid */}
+            <motion.path
                 fill="none"
-                stroke="hsl(var(--primary))"
-                strokeWidth="1"
-                initial={{ pathLength: 0, opacity: 0, scale: 0.8, rotate: 45, x: '50%', y: '50%' }}
-                animate={{ pathLength: 1, opacity: 0.5, scale: 1, rotate: 0 }}
-                transition={{ duration: 1.5, delay: 0.2, ease: "easeInOut" }}
-                style={{ transformOrigin: 'center center' }}
+                stroke="hsl(var(--accent))"
+                strokeWidth="3"
+                strokeLinecap="round"
+                initial={{ d: "M 10 50 Q 50 50 90 50" }}
+                animate={{ d: "M 10 50 Q 50 90 90 50" }}
+                transition={{ duration: 1, ease: "easeInOut", delay: 0.2 }}
+            />
+            {/* Pupil */}
+            <motion.circle
+                cx="50"
+                cy="50"
+                r="8"
+                fill="hsl(var(--primary))"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}
             />
         </svg>
+
         <motion.div variants={textVariants}>
             <h1 className="mt-4 font-headline text-2xl text-primary tracking-widest">
                 Wh1te Dem0n
