@@ -1,12 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Github } from "lucide-react";
-import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { ArrowUpRight, Github, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const projects = [
   {
@@ -75,58 +74,103 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
   );
 };
 
+const variants = {
+  enter: (direction: number) => {
+    return {
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0,
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 0,
+    };
+  },
+};
+
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
 
 export function ProjectsSection() {
-    const carouselRef = useRef<HTMLDivElement>(null);
-    const [carouselWidth, setCarouselWidth] = useState(0);
+    const [[page, direction], setPage] = useState([0, 0]);
 
-    useEffect(() => {
-        const calculateWidth = () => {
-            if (carouselRef.current) {
-                const scrollWidth = carouselRef.current.scrollWidth;
-                const offsetWidth = carouselRef.current.offsetWidth;
-                setCarouselWidth(scrollWidth - offsetWidth);
-            }
-        }
-        
-        calculateWidth();
-        window.addEventListener('resize', calculateWidth);
-        
-        return () => window.removeEventListener('resize', calculateWidth);
-    }, []);
+    const paginate = (newDirection: number) => {
+      setPage([page + newDirection, newDirection]);
+    };
+
+    // This makes the carousel wrap around
+    const projectIndex = ((page % projects.length) + projects.length) % projects.length;
 
   return (
-    <section id="projects" className="h-screen flex flex-col items-center justify-center overflow-x-hidden [perspective:1000px]" style={{ scrollSnapAlign: 'start' }}>
+    <section id="projects" className="h-screen flex flex-col items-center justify-center overflow-hidden [perspective:1000px] p-4" style={{ scrollSnapAlign: 'start' }}>
       <div className="text-center space-y-2 mb-12 px-4">
         <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
           Projects Vault
         </h2>
         <p className="text-accent font-code">A collection of memory chips.</p>
       </div>
-
-      <motion.div 
-        ref={carouselRef} 
-        className="cursor-grab w-full"
-        whileTap={{ cursor: "grabbing" }}
-      >
-        <motion.div 
-          drag="x" 
-          dragConstraints={{ right: 0, left: -carouselWidth }}
-          className="flex space-x-8 px-8 md:px-16"
-        >
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ rotateY: 10, rotateX: -5, scale: 1.05 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-              className="group relative flex-shrink-0 w-[320px] md:w-[380px] h-96 [transform-style:preserve-3d]"
-            >
-              <div className="absolute inset-0 bg-accent/10 rounded-xl blur-lg transition-all duration-500 group-hover:blur-2xl group-hover:bg-accent/20"></div>
-              <ProjectCard project={project} />
-            </motion.div>
-          ))}
+      
+      <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg h-[420px] flex items-center justify-center">
+        <motion.div
+            className="absolute z-20 left-0 md:-left-16 top-1/2 -translate-y-1/2"
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+          <Button onClick={() => paginate(-1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground">
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
         </motion.div>
-      </motion.div>
+
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={page}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.1}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
+
+              if (swipe < -swipeConfidenceThreshold) {
+                paginate(1);
+              } else if (swipe > swipeConfidenceThreshold) {
+                paginate(-1);
+              }
+            }}
+            className="group absolute w-[320px] md:w-[380px] h-96 [transform-style:preserve-3d]"
+          >
+            <div className="absolute inset-0 bg-accent/10 rounded-xl blur-lg transition-all duration-500 group-hover:blur-2xl group-hover:bg-accent/20"></div>
+            <ProjectCard project={projects[projectIndex]} />
+          </motion.div>
+        </AnimatePresence>
+        
+        <motion.div
+            className="absolute z-20 right-0 md:-right-16 top-1/2 -translate-y-1/2"
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+          <Button onClick={() => paginate(1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground">
+            <ChevronRight className="h-6 w-6" />
+          </Button>
+        </motion.div>
+      </div>
     </section>
   );
 }
