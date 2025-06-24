@@ -54,20 +54,8 @@ export function OpeningAnimation() {
         
         <div className="relative flex items-center justify-center">
             <svg width="150" height="150" viewBox="0 0 100 100" className="drop-shadow-[0_0_15px_hsl(var(--accent)/0.5)] z-10">
-                {/* Illuminati Triangle */}
-                <motion.path
-                    d="M 50,10 L 90,80 L 10,80 Z"
-                    fill="none"
-                    stroke="hsl(var(--accent))"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                />
-
-                {/* Eye Group, positioned inside the triangle */}
-                <g transform="translate(0, 5)">
+                {/* Eye Group */}
+                <g>
                     {/* Top Eyelid */}
                     <motion.path
                         fill="none"
