@@ -20,11 +20,11 @@ const mobileContainerVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.08,
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };
-
 
 export function SkillsSection() {
   const [isMounted, setIsMounted] = useState(false);
@@ -42,33 +42,68 @@ export function SkillsSection() {
 
   return (
     <section id="skills" className="h-screen flex flex-col items-center justify-center p-4 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
-      <div className="text-center space-y-2 mb-16 z-10 relative">
+      <div className="text-center space-y-2 mb-12 z-10 relative">
         <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
           Skills DNA
         </h2>
         <p className="text-accent font-code">The building blocks of my craft.</p>
       </div>
 
-      <div className="w-full flex-grow flex items-center justify-center" style={{ perspective: isMobile ? 'none' : '1200px' }}>
+      <div className="w-full flex-grow flex items-center justify-center overflow-hidden" style={{ perspective: isMobile ? 'none' : '1200px' }}>
         {isMounted && (
           isMobile ? (
-            <motion.div
-              className="grid grid-cols-2 gap-4 w-full max-w-md px-4"
-              variants={mobileContainerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              {skills.map((skill) => (
-                <motion.div
-                  key={skill}
-                  variants={mobileCardVariants}
-                  className="relative flex items-center justify-center p-2 rounded-lg border border-accent/20 bg-card/70 backdrop-blur-md shadow-lg shadow-black/50 h-20"
-                >
-                  <p className="font-code text-center text-sm text-primary transition-colors">{skill}</p>
-                </motion.div>
-              ))}
-            </motion.div>
+            <div className="w-full h-full overflow-y-auto flex justify-center pt-8 pb-16">
+                <div className="relative w-full max-w-xs">
+                    {/* DNA Rungs */}
+                    {Array.from({ length: Math.floor(skills.length / 2) }).map((_, i) => (
+                        <div
+                            key={`rung-${i}`}
+                            className="absolute left-1/4 right-1/4 h-px bg-accent/30"
+                            style={{ top: `${i * 128 + 80}px` }} 
+                        />
+                    ))}
+
+                    <div className="flex justify-between w-full">
+                        {/* Left Strand */}
+                        <motion.div
+                            className="flex flex-col items-center gap-16 w-[120px]"
+                            variants={mobileContainerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.1 }}
+                        >
+                            {skills.filter((_, i) => i % 2 === 0).map((skill) => (
+                                <motion.div
+                                    key={skill}
+                                    variants={mobileCardVariants}
+                                    className="relative flex items-center justify-center p-2 rounded-lg border border-accent/20 bg-card/70 backdrop-blur-md shadow-lg shadow-black/50 h-16 w-full"
+                                >
+                                    <p className="font-code text-center text-sm text-primary transition-colors">{skill}</p>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+
+                        {/* Right Strand */}
+                        <motion.div
+                            className="flex flex-col items-center gap-16 w-[120px] mt-24"
+                             variants={mobileContainerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.1 }}
+                        >
+                            {skills.filter((_, i) => i % 2 !== 0).map((skill) => (
+                                <motion.div
+                                    key={skill}
+                                    variants={mobileCardVariants}
+                                    className="relative flex items-center justify-center p-2 rounded-lg border border-accent/20 bg-card/70 backdrop-blur-md shadow-lg shadow-black/50 h-16 w-full"
+                                >
+                                    <p className="font-code text-center text-sm text-primary transition-colors">{skill}</p>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    </div>
+                </div>
+            </div>
           ) : (
             <motion.div
               className="relative"
