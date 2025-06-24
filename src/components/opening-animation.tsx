@@ -83,7 +83,7 @@ export function OpeningAnimation() {
                             cx: [50, 47, 53, 50],
                             cy: [50, 52, 48, 50],
                             strokeDashoffset: -51,
-                            fill: ["hsl(var(--primary))", "hsl(var(--primary))", "hsl(0 70% 55%)"],
+                            fill: ["hsl(var(--primary))", "hsl(var(--primary))", "hsl(0 70% 90%)"],
                         }}
                         transition={{
                             // Looping animations
