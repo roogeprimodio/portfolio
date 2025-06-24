@@ -51,7 +51,7 @@ export function HeroSection() {
         >
           <div className="absolute -inset-2 rounded-full bg-accent animate-glitch-subtle opacity-50 blur-xl"></div>
           <Image
-            src="/profile.png"
+            src="/profile.jpg"
             alt="Avatar"
             width={120}
             height={120}
