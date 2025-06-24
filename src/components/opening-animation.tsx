@@ -73,25 +73,28 @@ export function OpeningAnimation() {
                         cx="50"
                         cy="50"
                         r="8"
-                        fill="hsl(var(--primary))"
-                        initial={{ scale: 0, opacity: 0 }}
+                        stroke="hsl(var(--accent))"
+                        strokeWidth="2"
+                        strokeDasharray="5 46"
+                        initial={{ scale: 0, opacity: 0, strokeDashoffset: 0 }}
                         animate={{
                             scale: 1,
                             opacity: 1,
                             cx: [50, 47, 53, 50],
                             cy: [50, 52, 48, 50],
+                            strokeDashoffset: -51,
+                            fill: ["hsl(var(--primary))", "hsl(var(--primary))", "hsl(0 70% 55%)"],
                         }}
                         transition={{
-                            // Default transition for looping animations (cx, cy)
-                            default: {
-                                duration: 2.5,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: 2.2, // Start after eye is fully open
-                            },
-                            // Specific transitions for initial appearance (non-looping)
+                            // Looping animations
+                            cx: { duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 2.2 },
+                            cy: { duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 2.2 },
+                            strokeDashoffset: { duration: 1.5, repeat: Infinity, ease: "linear", delay: 2.0 },
+                            
+                            // One-time animations
                             scale: { duration: 0.4, ease: "easeOut", delay: 1.8, repeat: 0 },
                             opacity: { duration: 0.4, ease: "easeOut", delay: 1.8, repeat: 0 },
+                            fill: { duration: 0.5, ease: "easeIn", delay: 3.0, repeat: 0 }
                         }}
                     />
                 </g>
