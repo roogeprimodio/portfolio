@@ -17,8 +17,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['"Chakra Petch"', 'sans-serif'],
+        body: ['Raleway', 'sans-serif'],
+        headline: ['Cinzel', 'serif'],
         code: ['"Source Code Pro"', 'monospace'],
       },
       colors: {
