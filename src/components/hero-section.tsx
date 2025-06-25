@@ -54,7 +54,7 @@ export function HeroSection() {
             alt="JAGDISH ODEDARA"
             width={160}
             height={210}
-            className="object-contain drop-shadow-[0_10px_15px_hsl(var(--primary)/0.2)]"
+            className="object-contain rounded-3xl drop-shadow-[0_10px_15px_hsl(var(--primary)/0.2)]"
             priority
             data-ai-hint="profile picture"
           />
