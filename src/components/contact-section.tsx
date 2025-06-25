@@ -54,9 +54,9 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="flex flex-col items-center justify-center p-4 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
+    <section id="contact" className="flex flex-col items-center justify-center p-4 overflow-hidden">
       <div className="text-center space-y-2 mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
           Establish Link
         </h2>
         <p className="text-accent font-code">Send a transmission.</p>

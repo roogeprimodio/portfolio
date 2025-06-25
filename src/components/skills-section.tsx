@@ -69,7 +69,7 @@ export function SkillsSection() {
   return (
     <section id="skills" className="flex flex-col items-center justify-center p-4 py-24 min-h-screen overflow-hidden">
       <div className="text-center space-y-2 mb-12 z-10 relative">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
           Skills DNA
         </h2>
         <p className="text-accent font-code">The building blocks of my craft.</p>
@@ -116,15 +116,15 @@ export function SkillsSection() {
                   transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.15 }}
                   className="relative flex items-center"
                 >
-                  <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-[0_0_12px_hsl(var(--accent)/0.5)] left-1/2 -translate-x-1/2"></div>
+                  <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-[0_0_10px_hsl(var(--accent)/0.45)] left-1/2 -translate-x-1/2"></div>
                   <div className={`w-1/2 px-4 ${isLeft ? 'pr-10 text-right' : 'pl-10 text-left ml-auto'}`}>
                     <AccordionItem value={`item-${index}`} className="border-b-0">
                       <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50 inline-block w-full">
                         <AccordionTrigger className="p-0 hover:no-underline [&>svg]:hidden w-full">
                           <CardHeader className="w-full">
-                            <CardTitle className={`flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'} [text-shadow:0_0_8px_hsl(var(--primary)/0.6)]`}>
+                            <CardTitle className={`flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'} [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]`}>
                               {isLeft && <span>{category.title}</span>}
-                              <category.icon className="h-6 w-6 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.7)]" />
+                              <category.icon className="h-6 w-6 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
                               {!isLeft && <span>{category.title}</span>}
                             </CardTitle>
                           </CardHeader>

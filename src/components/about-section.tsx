@@ -89,9 +89,9 @@ export function AboutSection() {
   const certItemsCount = aboutData.certifications.length;
 
   return (
-    <section id="about" className="flex flex-col items-center justify-center p-4 md:py-24 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
+    <section id="about" className="flex flex-col items-center justify-center p-4 md:py-24 overflow-hidden">
       <div className="text-center space-y-2 mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
           Personal Datastream
         </h2>
         <p className="text-accent font-code">My background and experience.</p>
@@ -107,8 +107,8 @@ export function AboutSection() {
         >
           <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent">
-                <BrainCircuit className="h-8 w-8" />
+              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent [text-shadow:0_0_8px_hsl(var(--accent)/0.5)]">
+                <BrainCircuit className="h-8 w-8 drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
                 <span>Self-Summary</span>
               </CardTitle>
             </CardHeader>
@@ -127,8 +127,8 @@ export function AboutSection() {
         >
           <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent">
-                <MapPin className="h-8 w-8" />
+              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent [text-shadow:0_0_8px_hsl(var(--accent)/0.5)]">
+                <MapPin className="h-8 w-8 drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
                 <span>Location & Contact</span>
               </CardTitle>
             </CardHeader>
@@ -147,8 +147,8 @@ export function AboutSection() {
 
         {/* Experience */}
         <div>
-          <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
-            <Briefcase className="h-8 w-8 text-accent" />
+          <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+            <Briefcase className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
             <span>Experience Log</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
@@ -179,8 +179,8 @@ export function AboutSection() {
 
         {/* Education */}
         <div>
-           <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
-            <GraduationCap className="h-8 w-8 text-accent" />
+           <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+            <GraduationCap className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
             <span>Education Archive</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
@@ -211,8 +211,8 @@ export function AboutSection() {
         
         {/* Certifications */}
         <div>
-           <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
-            <Award className="h-8 w-8 text-accent" />
+           <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+            <Award className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
             <span>Accolades & Certifications</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
@@ -242,8 +242,8 @@ export function AboutSection() {
         <div className="grid md:grid-cols-2 gap-12 pt-6">
             {/* Programming Languages */}
             <div>
-                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
-                    <Code className="h-8 w-8 text-accent" />
+                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+                    <Code className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
                     <span>Programming Languages</span>
                 </h3>
                 <div className="space-y-4">
@@ -266,8 +266,8 @@ export function AboutSection() {
 
             {/* Spoken Languages */}
             <div>
-                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
-                    <Languages className="h-8 w-8 text-accent" />
+                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+                    <Languages className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
                     <span>Spoken Languages</span>
                 </h3>
                 <div className="space-y-4">
@@ -290,8 +290,8 @@ export function AboutSection() {
         </div>
 
         <div className="pt-6">
-            <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6">
-                <Gamepad2 className="h-8 w-8 text-accent" />
+            <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+                <Gamepad2 className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
                 <span>Hobbies & Interests</span>
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

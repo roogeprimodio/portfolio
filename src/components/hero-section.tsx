@@ -40,7 +40,7 @@ const AnimatedText = ({ text, el: Wrapper = "p", className }: { text: string, el
 
 export function HeroSection() {
   return (
-    <section id="home" className="relative h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
+    <section id="home" className="relative h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
       
       <div className="relative flex flex-col items-center z-10">
         <motion.div
@@ -58,8 +58,8 @@ export function HeroSection() {
           />
         </motion.div>
         
-        <AnimatedText text="Wh1te Dem0n" el="h1" className="font-headline text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase" />
-        <AnimatedText text="Digital Craftsman & Code Poet" el="p" className="mt-4 font-code text-lg md:text-xl text-accent" />
+        <AnimatedText text="Wh1te Dem0n" el="h1" className="font-headline text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]" />
+        <AnimatedText text="Digital Craftsman & Code Poet" el="p" className="mt-4 font-code text-lg md:text-xl text-accent [text-shadow:0_0_8px_hsl(var(--accent)/0.5)]" />
 
         <motion.div
             initial={{ opacity: 0, y: 20 }}

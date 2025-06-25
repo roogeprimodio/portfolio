@@ -44,7 +44,6 @@
     @apply bg-background text-foreground;
   }
   section {
-    scroll-snap-align: start;
     min-height: 100vh;
   }
 }

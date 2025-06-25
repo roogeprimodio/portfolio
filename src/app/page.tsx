@@ -35,7 +35,7 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-transparent to-background"></div>
         
         <SideNav />
-        <main className="h-screen w-screen overflow-y-auto overflow-x-hidden" style={{ scrollSnapType: 'y mandatory' }}>
+        <main className="h-screen w-screen overflow-y-auto overflow-x-hidden">
           <HeroSection />
           <AboutSection />
           <ProjectsSection />
