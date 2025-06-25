@@ -51,17 +51,17 @@ export function HeroSection() {
         >
           {/* The diamond frame in the background, shaped with clip-path */}
           <div
-            className="absolute inset-0 bg-card/60 backdrop-blur-sm border-4 border-accent/30 shadow-2xl"
+            className="absolute inset-0 bg-primary/10 backdrop-blur-sm border-4 border-primary shadow-[0_0_20px_hsl(var(--primary)/0.6)]"
             style={{ clipPath: 'polygon(50% 0, 100% 35%, 50% 100%, 0 35%)' }}
           />
 
           {/* The image, positioned on top to create a pop-out effect */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full z-10 transition-transform duration-500 group-hover:scale-105 -translate-y-1">
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full z-10 -translate-y-1">
             <Image
               src="/jagdish.png"
               alt="JAGDISH ODEDARA"
               fill
-              className="object-contain drop-shadow-xl"
+              className="object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-105"
               priority
               data-ai-hint="profile picture"
             />
