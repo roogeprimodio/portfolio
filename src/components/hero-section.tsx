@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -50,7 +49,7 @@ export function HeroSection() {
           className="relative mb-8"
         >
           <Image
-            src="/avatar.png"
+            src="/passsword.jpg"
             alt="Avatar"
             width={120}
             height={120}
