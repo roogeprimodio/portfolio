@@ -15,8 +15,6 @@ const projects = [
     title: "PG Hub – Owner & User Apps",
     description: "Flutter-based PG accommodation management system for owners and tenants.",
     tags: ["Flutter", "Firebase", "Google Maps"],
-    image: "https://placehold.co/600x400.png",
-    imageHint: "mobile application",
     liveUrl: "https://beeeshive.netlify.app/login",
     githubUrl: "https://github.com/roogeprimodio/Pg-hub.git",
   },
@@ -24,8 +22,6 @@ const projects = [
     title: "DIOS Forge – AI Project Report Generator",
     description: "AI-powered report generator using OpenRouter API.",
     tags: ["React.js", "Node.js", "AI"],
-    image: "https://placehold.co/600x400.png",
-    imageHint: "ai generator",
     liveUrl: "https://reportforge.netlify.app/",
     githubUrl: "https://github.com/roogeprimodio/diosforge.git",
   },
@@ -33,8 +29,6 @@ const projects = [
     title: "Pabble Battle – Web Game",
     description: "Casual web game with reflex-based mechanics.",
     tags: ["JavaScript", "HTML5 Canvas", "Game"],
-    image: "https://placehold.co/600x400.png",
-    imageHint: "web game",
     liveUrl: "https://pabblebattle.netlify.app/",
     githubUrl: "https://github.com/roogeprimodio/pabble-battle.git",
   },
@@ -42,8 +36,6 @@ const projects = [
     title: "Gesture Controlled Mouse",
     description: "Python app to control cursor using hand gestures.",
     tags: ["Python", "OpenCV", "MediaPipe"],
-    image: "https://placehold.co/600x400.png",
-    imageHint: "computer vision",
     liveUrl: "#",
     githubUrl: "https://github.com/roogeprimodio/hand-gesture-controlled-mouse.git",
   },
@@ -51,8 +43,6 @@ const projects = [
     title: "QR Wizard – QR Code Tool",
     description: "Scan and create QR codes for web and mobile use.",
     tags: ["JavaScript", "Flutter", "Utility"],
-    image: "https://placehold.co/600x400.png",
-    imageHint: "qr code",
     liveUrl: "#",
     githubUrl: "https://github.com/buddhhu/QR-Wizard.git",
   },
@@ -60,8 +50,6 @@ const projects = [
     title: "Madhuli – Business Showcase Website",
     description: "Personal business portfolio built for a family member.",
     tags: ["React", "Expo", "Firebase"],
-    image: "https://placehold.co/600x400.png",
-    imageHint: "business portfolio",
     liveUrl: "#",
     githubUrl: "https://github.com/roogeprimodio/madhuli.git",
   },
@@ -69,23 +57,22 @@ const projects = [
     title: "Rollex International – Business Website",
     description: "PHP-based website for a local mobile brand.",
     tags: ["PHP", "MySQL", "Website"],
-    image: "https://placehold.co/600x400.png",
-    imageHint: "business website",
     liveUrl: "#",
     githubUrl: "#",
   },
 ];
 
 const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
+  const avatarUrl = `https://api.dicebear.com/8.x/bottts-neutral/svg?seed=${encodeURIComponent(project.title)}`;
+  
   return (
     <div className="group relative w-full h-full rounded-3xl border border-accent/20 bg-card/50 backdrop-blur-sm p-6 flex flex-col shadow-lg">
       <div className="relative h-48 w-full mb-6 rounded-xl overflow-hidden border border-accent/10 bg-black/30">
         <Image
-          src={project.image}
+          src={avatarUrl}
           alt={project.title}
           fill
-          className="object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300"
-          data-ai-hint={project.imageHint}
+          className="object-contain p-4 opacity-70 group-hover:opacity-90 transition-opacity duration-300"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10"></div>
         <div className="absolute top-3 left-3 font-code text-xs text-accent/70 tracking-widest">
