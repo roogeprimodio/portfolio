@@ -84,12 +84,17 @@ export default {
           '50%': { textShadow: '-1px -1px 0 hsl(var(--primary) / 0.3)' },
           '75%': { textShadow: '1px -1px 0 hsl(var(--accent) / 0.5)' },
         },
+        'border-shine': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'glitch': 'glitch 0.2s linear 3',
         'glitch-subtle': 'glitch-subtle 4s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate',
+        'border-shine': 'border-shine 6s linear infinite',
       },
     },
   },

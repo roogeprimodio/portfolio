@@ -29,7 +29,7 @@ const AnimatedText = ({ text, el: Wrapper = "p", className }: { text: string, el
       <motion.span variants={sentence} initial="hidden" animate="visible" aria-label={text}>
         {text.split("").map((char, index) => (
           <motion.span key={char + "-" + index} variants={letter} className="inline-block" aria-hidden="true">
-            {char === " " ? "\u00A0" : char}
+            {char === " " ? " " : char}
           </motion.span>
         ))}
       </motion.span>
@@ -47,14 +47,16 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative mb-6 p-1 bg-card/50 backdrop-blur-sm border border-accent/20 rounded-3xl shadow-2xl shadow-black/50"
+          className="relative w-44 h-56 mb-6 group"
         >
+          <div className="absolute -inset-1 bg-[conic-gradient(from_90deg_at_50%_50%,hsl(var(--accent)/0.6)_0%,hsl(var(--primary))_50%,hsl(var(--accent)/0.6)_100%)] rounded-[3rem] blur-lg animate-border-shine opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
           <Image 
             src="/jagdish.png"
             alt="JAGDISH ODEDARA"
-            width={160}
-            height={210}
-            className="object-contain rounded-[1.25rem]"
+            width={176}
+            height={224}
+            className="relative z-10 object-cover rounded-[3rem] w-44 h-56 transform scale-[1.02] hover:scale-105 transition-transform duration-500"
+            style={{ transform: "scale(1.04) translateY(-10px)" }}
             priority
             data-ai-hint="profile picture"
           />
