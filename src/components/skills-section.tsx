@@ -1,13 +1,12 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, Brain, Handshake, Languages, BarChart2, HardHat, Beaker, Building2 } from 'lucide-react';
-import { motion, AnimatePresence } from "framer-motion";
-import { Switch } from "@/components/ui/switch";
-import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const skillData = [
   // Strand 1: Technical & Analytical
@@ -54,7 +53,6 @@ const skillData = [
   }
 ];
 
-// Weave the two strands together for an alternating display in DNA view
 const wovenSkills = [];
 const leftStrand = skillData.slice(0, 4);
 const rightStrand = skillData.slice(4, 8);
@@ -64,43 +62,7 @@ for (let i = 0; i < 4; i++) {
   if (rightStrand[i]) wovenSkills.push({ ...rightStrand[i], side: 'right' });
 }
 
-const cardVariants = (side?: 'left' | 'right') => ({
-  hidden: { opacity: 0, x: side ? (side === 'left' ? -50 : 50) : 0, y: side ? 0 : 20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut"
-    },
-  },
-});
-
-const SkillCard = ({ category, isLeft }: { category: typeof skillData[0] & { side?: 'left' | 'right' }, isLeft?: boolean }) => (
-  <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50 inline-block w-full">
-    <CardHeader>
-      <CardTitle className={`flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : ''}`}>
-        {isLeft && <span>{category.title}</span>}
-        <category.icon className="h-6 w-6 text-accent" />
-        {!isLeft && <span>{category.title}</span>}
-      </CardTitle>
-    </CardHeader>
-    <CardContent>
-      <div className={`flex flex-wrap gap-2 ${isLeft ? 'justify-end' : 'justify-start'}`}>
-        {category.skills.map((skill, skillIndex) => (
-          <Badge key={skillIndex} variant="secondary" className="font-code text-base bg-accent/10 text-accent border-accent/20 cursor-default">
-            {skill}
-          </Badge>
-        ))}
-      </div>
-    </CardContent>
-  </Card>
-);
-
 export function SkillsSection() {
-  const [view, setView] = useState('rna'); // 'rna' or 'dna'
-
   return (
     <section id="skills" className="flex flex-col items-center justify-center p-4 py-24 min-h-screen overflow-hidden">
       <div className="text-center space-y-2 mb-12 z-10 relative">
@@ -110,75 +72,54 @@ export function SkillsSection() {
         <p className="text-accent font-code">The building blocks of my craft.</p>
       </div>
       
-      <div className="flex items-center justify-center gap-4 mb-16 z-10">
-        <span className={cn('font-code transition-colors', view === 'rna' ? 'text-primary' : 'text-muted-foreground')}>RNA View</span>
-        <Switch
-          checked={view === 'dna'}
-          onCheckedChange={(checked) => setView(checked ? 'dna' : 'rna')}
-          aria-label="Toggle between RNA and DNA view"
-        />
-        <span className={cn('font-code transition-colors', view === 'dna' ? 'text-primary' : 'text-muted-foreground')}>DNA View</span>
-      </div>
-
-      <AnimatePresence mode="wait">
-        {view === 'rna' ? (
-          <motion.div
-            key="rna"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full max-w-2xl"
-          >
-            <div className="space-y-8">
-              {skillData.map((category) => (
+      <div className="w-full max-w-4xl">
+        <Accordion type="multiple" className="relative">
+          <div className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-gradient-to-b from-transparent via-accent/30 to-transparent"></div>
+          <div className="space-y-12">
+            {wovenSkills.map((category, index) => {
+              const isLeft = category.side === 'left';
+              return (
                 <motion.div
                   key={category.title}
-                  layoutId={`skill-card-${category.title}`}
-                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                  initial="hidden"
-                  animate="visible"
-                  variants={cardVariants()}
+                  initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
+                  className="relative flex items-center"
                 >
-                  <SkillCard category={category} />
+                  <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-md left-1/2 -translate-x-1/2"></div>
+                  <div className={`w-1/2 px-4 ${isLeft ? 'pr-10 text-right' : 'pl-10 text-left ml-auto'}`}>
+                    <AccordionItem value={`item-${index}`} className="border-b-0">
+                      <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50 inline-block w-full">
+                        <AccordionTrigger className="p-0 hover:no-underline [&>svg]:hidden w-full">
+                          <CardHeader className="w-full">
+                            <CardTitle className={`flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'}`}>
+                              {isLeft && <span>{category.title}</span>}
+                              <category.icon className="h-6 w-6 text-accent" />
+                              {!isLeft && <span>{category.title}</span>}
+                            </CardTitle>
+                          </CardHeader>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <CardContent className="pt-0">
+                            <div className={`flex flex-wrap gap-2 pt-2 ${isLeft ? 'justify-end' : 'justify-start'}`}>
+                              {category.skills.map((skill, skillIndex) => (
+                                <Badge key={skillIndex} variant="secondary" className="font-code text-sm bg-accent/10 text-accent border-accent/20 cursor-default">
+                                  {skill}
+                                </Badge>
+                              ))}
+                            </div>
+                          </CardContent>
+                        </AccordionContent>
+                      </Card>
+                    </AccordionItem>
+                  </div>
                 </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="dna"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full max-w-4xl"
-          >
-            <div className="relative">
-              <div className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-gradient-to-b from-transparent via-accent/30 to-transparent"></div>
-              <div className="space-y-12">
-                {wovenSkills.map((category) => {
-                  const isLeft = category.side === 'left';
-                  return (
-                    <motion.div
-                      key={category.title}
-                      layoutId={`skill-card-${category.title}`}
-                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                      className="relative flex items-center"
-                    >
-                      <div className={`absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-md left-1/2 -translate-x-1/2`}></div>
-                      <div className={`w-1/2 px-4 ${isLeft ? 'pr-10 text-right' : 'pl-10 text-left ml-auto'}`}>
-                        <SkillCard category={category} isLeft={isLeft} />
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              );
+            })}
+          </div>
+        </Accordion>
+      </div>
     </section>
   );
 }
-
