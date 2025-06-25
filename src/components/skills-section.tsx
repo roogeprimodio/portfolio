@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -11,14 +12,14 @@ const skills = [
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="h-screen flex flex-col items-center justify-center p-4 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
+    <section id="skills" className="flex flex-col items-center justify-center p-4 md:py-24 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
       <div className="text-center space-y-2 mb-12 z-10 relative">
         <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
           Skills DNA
         </h2>
         <p className="text-accent font-code">The building blocks of my craft.</p>
       </div>
-      <div className="w-full max-w-md h-[60vh] overflow-y-auto scrollbar-hide">
+      <div className="w-full max-w-md">
         <div className="relative flex justify-between gap-4 px-4">
           <div className="w-1/2 flex flex-col items-center gap-16 pt-8">
             {skills.filter((_, i) => i % 2 === 0).map((skill) => (

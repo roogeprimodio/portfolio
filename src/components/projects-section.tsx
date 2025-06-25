@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -111,7 +112,7 @@ export function ProjectsSection() {
     const projectIndex = ((page % projects.length) + projects.length) % projects.length;
 
   return (
-    <section id="projects" className="h-screen flex flex-col items-center justify-center overflow-hidden [perspective:1000px] p-4" style={{ scrollSnapAlign: 'start' }}>
+    <section id="projects" className="flex flex-col items-center justify-center overflow-hidden [perspective:1000px] p-4" style={{ scrollSnapAlign: 'start' }}>
       <div className="text-center space-y-2 mb-12 px-4">
         <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
           Projects Vault

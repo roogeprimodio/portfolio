@@ -89,7 +89,7 @@ export function AboutSection() {
   const certItemsCount = aboutData.certifications.length;
 
   return (
-    <section id="about" className="h-screen flex flex-col items-center justify-center p-4 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
+    <section id="about" className="flex flex-col items-center justify-center p-4 md:py-24 overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
       <div className="text-center space-y-2 mb-12">
         <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle">
           Personal Datastream
@@ -97,7 +97,7 @@ export function AboutSection() {
         <p className="text-accent font-code">My background and experience.</p>
       </div>
 
-      <div className="w-full max-w-4xl h-[75vh] overflow-y-auto scrollbar-hide space-y-12 px-4">
+      <div className="w-full max-w-4xl space-y-12 px-4">
         {/* Summary */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}
