@@ -40,7 +40,8 @@ export function SideNav() {
       },
       { 
         root: mainElement,
-        threshold: 0.5,
+        // Using a lower threshold to ensure sections of different heights are detected reliably.
+        threshold: 0.4,
       }
     );
 
@@ -95,11 +96,12 @@ export function SideNav() {
 
         {sections.map((section) => (
           <li key={section.id}>
-            {/* Using <a> with onClick for reliable smooth scroll */}
-            <a 
+            {/* The whole link element now moves, carrying the background and icon with it */}
+            <motion.a 
               href={`#${section.id}`} 
               onClick={(e) => handleScroll(e, section.id)}
-              // Responsive sizing for the link area
+              animate={{ x: activeSection === section.id ? 4 : 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="group relative flex cursor-pointer items-center justify-center h-8 w-8 md:h-10 md:w-10"
               aria-label={`Scroll to ${section.label}`}
             >
@@ -108,11 +110,10 @@ export function SideNav() {
                   activeSection === section.id ? "scale-100 opacity-100" : "scale-0 opacity-0"
               )}></span>
               
-              {/* Add motion for scaling and moving the icon */}
+              {/* This wrapper just scales the icon for a more dynamic effect */}
               <motion.div
                 animate={{ 
-                  scale: activeSection === section.id ? 1.25 : 1,
-                  x: activeSection === section.id ? 4 : 0
+                  scale: activeSection === section.id ? 1.25 : 1
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 className="relative z-10"
@@ -126,7 +127,7 @@ export function SideNav() {
               <div className="absolute left-full ml-4 px-3 py-1 rounded-md bg-card border border-accent/20 text-accent font-code text-sm whitespace-nowrap opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all pointer-events-none">
                 {section.label}
               </div>
-            </a>
+            </motion.a>
           </li>
         ))}
       </ul>
