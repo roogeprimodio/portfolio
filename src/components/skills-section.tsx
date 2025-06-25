@@ -226,7 +226,7 @@ export function SkillsSection() {
                           <CardContent className="pt-0">
                             <div className={`flex flex-wrap gap-2 pt-2 ${isLeft ? 'justify-end' : 'justify-start'}`}>
                               {category.skills.map((skill, skillIndex) => (
-                                <Badge key={skillIndex} variant="secondary" className="font-code text-sm bg-accent/10 text-accent border-accent/20 cursor-default">
+                                <Badge key={skillIndex} variant="secondary" className="h-auto whitespace-normal text-center font-code text-sm bg-accent/10 text-accent border-accent/20 cursor-default">
                                   {skill}
                                 </Badge>
                               ))}

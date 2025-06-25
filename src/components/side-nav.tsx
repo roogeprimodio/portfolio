@@ -79,7 +79,7 @@ export function SideNav() {
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 3.5 }}
       // Responsive positioning for smaller screens
-      className="fixed top-1/2 -translate-y-1/2 left-2 md:left-4 z-50"
+      className="hidden md:flex fixed top-1/2 -translate-y-1/2 left-2 md:left-4 z-50"
     >
       <ul className="flex flex-col items-center gap-2 p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
         {/* Custom Logo */}
