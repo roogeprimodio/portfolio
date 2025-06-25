@@ -41,7 +41,7 @@ export function SideNav() {
       { 
         root: mainElement,
         threshold: 0.5,
-        rootMargin: "-30% 0px -30% 0px",
+        rootMargin: "-40% 0px -40% 0px",
       }
     );
 
@@ -109,9 +109,12 @@ export function SideNav() {
                   activeSection === section.id ? "scale-100 opacity-100" : "scale-0 opacity-0"
               )}></span>
               
-              {/* Add motion for scaling the icon */}
+              {/* Add motion for scaling and moving the icon */}
               <motion.div
-                animate={{ scale: activeSection === section.id ? 1.25 : 1 }}
+                animate={{ 
+                  scale: activeSection === section.id ? 1.25 : 1,
+                  x: activeSection === section.id ? 4 : 0
+                }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 className="relative z-10"
               >
