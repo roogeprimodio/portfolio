@@ -62,107 +62,127 @@ for (let i = 0; i < 4; i++) {
   if (rightStrand[i]) wovenSkills.push({ ...rightStrand[i], side: 'right' });
 }
 
+type RungPoint = { y: number; x1: number; x2: number; };
+
 export function SkillsSection() {
   const amplitude = 30;
   const frequency = 0.02;
   const containerRef = useRef<HTMLDivElement>(null);
+  
   const [xOffsets, setXOffsets] = useState<number[]>([]);
+  const currentOffsets = useRef<number[]>([]);
+  const animationFrameId = useRef<number | null>(null);
+
   const [dnaPath, setDnaPath] = useState("M 48 0");
   const [dnaPath2, setDnaPath2] = useState("M 48 0");
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [rungPoints, setRungPoints] = useState<RungPoint[]>([]);
 
-  const generateDnaPath = (height: number) => {
-    if (height <= 0) return "M 48 0";
-    let path = "M 48 0";
-    const svgWidth = 96; // corresponding to w-24
-    const centerX = svgWidth / 2;
-    for (let y = 1; y <= height; y++) {
-      const x = centerX + Math.sin(y * frequency) * amplitude;
-      path += ` L ${x.toFixed(2)} ${y}`;
-    }
-    return path;
-  };
-
-  const generateDnaPath2 = (height: number) => {
-    if (height <= 0) return "M 48 0";
-    let path = "M 48 0";
-    const svgWidth = 96; // corresponding to w-24
-    const centerX = svgWidth / 2;
-    for (let y = 1; y <= height; y++) {
-      const x = centerX - Math.sin(y * frequency) * amplitude;
-      path += ` L ${x.toFixed(2)} ${y}`;
-    }
-    return path;
-  };
-
-  const calculateOffsetsAndPath = useCallback(() => {
+  const calculateLayout = useCallback(() => {
     if (!containerRef.current) return;
 
     const containerTop = containerRef.current.getBoundingClientRect().top;
-    const newOffsets: number[] = [];
-    
+    const svgWidth = 96; // w-24
+    const centerX = svgWidth / 2;
+
+    // Calculate target X offsets for cards
+    const newTargetOffsets: number[] = [];
     Array.from(containerRef.current.children).forEach((child) => {
       const itemEl = child as HTMLElement;
       const itemRect = itemEl.getBoundingClientRect();
       const itemCenterY = itemRect.top + itemRect.height / 2;
       const yPos = itemCenterY - containerTop;
       const xOffset = Math.sin(yPos * frequency) * amplitude;
-      newOffsets.push(xOffset);
+      newTargetOffsets.push(xOffset);
     });
-    
-    setXOffsets(newOffsets);
-    
+    setXOffsets(newTargetOffsets);
+
+    // Calculate DNA paths and rungs
     const containerHeight = containerRef.current.scrollHeight;
-    setDnaPath(generateDnaPath(containerHeight));
-    setDnaPath2(generateDnaPath2(containerHeight));
+    if (containerHeight <= 0) {
+      setDnaPath("M 48 0");
+      setDnaPath2("M 48 0");
+      setRungPoints([]);
+      return;
+    }
+
+    let path1 = "M 48 0";
+    let path2 = "M 48 0";
+    const newRungPoints: RungPoint[] = [];
+    const rungInterval = 40;
+
+    for (let y = 1; y <= containerHeight; y++) {
+      const x1 = centerX + Math.sin(y * frequency) * amplitude;
+      const x2 = centerX - Math.sin(y * frequency) * amplitude;
+      path1 += ` L ${x1.toFixed(2)} ${y}`;
+      path2 += ` L ${x2.toFixed(2)} ${y}`;
+
+      if (y % rungInterval === 0) {
+        newRungPoints.push({ y, x1, x2 });
+      }
+    }
+
+    setDnaPath(path1);
+    setDnaPath2(path2);
+    setRungPoints(newRungPoints);
+
   }, []);
 
-  // Effect for handling resize and initial calculation
+  const animate = useCallback(() => {
+    if (!containerRef.current) return;
+
+    const easing = 0.1;
+    let changed = false;
+
+    const newCurrentOffsets = currentOffsets.current.map((current, index) => {
+      const target = xOffsets[index] || 0;
+      const diff = target - current;
+      if (Math.abs(diff) < 0.1) return target;
+      
+      changed = true;
+      return current + diff * easing;
+    });
+    
+    currentOffsets.current = newCurrentOffsets;
+
+    (Array.from(containerRef.current.children) as HTMLElement[]).forEach((child, index) => {
+      child.style.transform = `translateX(${newCurrentOffsets[index]}px)`;
+    });
+    
+    if (changed) {
+      animationFrameId.current = requestAnimationFrame(animate);
+    } else {
+      animationFrameId.current = null;
+    }
+  }, [xOffsets]);
+
   useEffect(() => {
-    const observer = new ResizeObserver(calculateOffsetsAndPath);
+    calculateLayout();
+    if(animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+    animationFrameId.current = requestAnimationFrame(animate);
+  }, [xOffsets, animate, calculateLayout]);
+
+  useEffect(() => {
+    const observer = new ResizeObserver(calculateLayout);
     const currentContainer = containerRef.current;
     if (currentContainer) {
       observer.observe(currentContainer);
+      // Initialize offsets
+      currentOffsets.current = Array(wovenSkills.length).fill(0);
+      calculateLayout();
     }
     
-    const timer = setTimeout(calculateOffsetsAndPath, 100);
-
     return () => {
-      if (currentContainer) {
-        observer.unobserve(currentContainer);
-      }
-      clearTimeout(timer);
+      if(animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+      if (currentContainer) observer.unobserve(currentContainer);
     };
-  }, [calculateOffsetsAndPath]);
+  }, [calculateLayout]);
 
-  // Effect for running the animation loop
-  useEffect(() => {
-    let animationFrameId: number | null = null;
-
-    const animate = () => {
-      calculateOffsetsAndPath();
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    if (isAnimating) {
-      animate();
-    }
-
-    return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-    };
-  }, [isAnimating, calculateOffsetsAndPath]);
 
   const handleAccordionToggle = () => {
-    setIsAnimating(true);
-    setTimeout(() => {
-      setIsAnimating(false);
-      calculateOffsetsAndPath(); // Final calculation for perfect alignment
-    }, 220); // A little more than the 200ms accordion animation to be safe
+    setTimeout(calculateLayout, 20);
+    setTimeout(calculateLayout, 100); 
+    setTimeout(calculateLayout, 220); // Recalculate after animation
   };
-
 
   return (
     <section id="skills" className="flex flex-col items-center justify-center p-4 py-24 min-h-screen overflow-hidden">
@@ -180,47 +200,42 @@ export function SkillsSection() {
             className="absolute left-1/2 top-0 h-full w-24 -translate-x-1/2"
             fill="none"
           >
-            <defs>
-              <linearGradient id="dna-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style={{ stopColor: "hsl(var(--background))", stopOpacity: 0 }} />
-                <stop offset="10%" style={{ stopColor: "hsl(var(--accent))", stopOpacity: 0.3 }} />
-                <stop offset="90%" style={{ stopColor: "hsl(var(--accent))", stopOpacity: 0.3 }} />
-                <stop offset="100%" style={{ stopColor: "hsl(var(--background))", stopOpacity: 0 }} />
-              </linearGradient>
-            </defs>
-            <motion.path
+            {/* Rungs */}
+            <g>
+              {rungPoints.map(({ y, x1, x2 }) => {
+                const isLeftInFront = Math.sin(y * frequency) > 0;
+                return (
+                  <g key={y} style={{ zIndex: isLeftInFront ? 1 : -1 }}>
+                    <line x1={x1} y1={y+1} x2={x2} y2={y+1} stroke="hsl(var(--accent)/0.2)" strokeWidth="1" />
+                    <line x1={x1} y1={y} x2={x2} y2={y} stroke="hsl(var(--accent)/0.4)" strokeWidth="1" />
+                  </g>
+                );
+              })}
+            </g>
+             
+            {/* Helix Strands */}
+            <path
               d={dnaPath}
-              stroke="url(#dna-gradient)"
+              stroke="hsl(var(--accent)/0.3)"
               strokeWidth="2"
-              transition={{ duration: 0, ease: "linear" }}
             />
-            <motion.path
+            <path
               d={dnaPath2}
-              stroke="url(#dna-gradient)"
+              stroke="hsl(var(--accent)/0.3)"
               strokeWidth="2"
-              transition={{ duration: 0, ease: "linear" }}
             />
           </svg>
 
           <div ref={containerRef} className="space-y-12">
             {wovenSkills.map((category, index) => {
               const isLeft = category.side === 'left';
-              const xOffset = xOffsets[index] || 0;
-
               return (
-                <motion.div
+                <div
                   key={category.title}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  animate={{ x: xOffset }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{
-                    opacity: { duration: 0.8, ease: "easeOut", delay: index * 0.15 },
-                    x: { duration: 0, ease: 'linear' }
-                  }}
                   className="relative flex items-center"
+                  style={{ willChange: 'transform' }}
                 >
-                  <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-[0_0_10px_hsl(var(--accent)/0.45)] left-1/2 -translate-x-1/2"></div>
+                  <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-[0_0_10px_hsl(var(--accent)/0.45)] left-1/2 -translate-x-1/2 z-10"></div>
                   <div className={`w-1/2 px-4 ${isLeft ? 'pr-10 text-right' : 'pl-10 text-left ml-auto'}`}>
                     <AccordionItem value={`item-${index}`} className="border-b-0">
                       <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50 inline-block w-full">
@@ -247,7 +262,7 @@ export function SkillsSection() {
                       </Card>
                     </AccordionItem>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
