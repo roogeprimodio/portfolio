@@ -67,8 +67,21 @@ export function SkillsSection() {
   const frequency = 0.02;
   const containerRef = useRef<HTMLDivElement>(null);
   const [xOffsets, setXOffsets] = useState<number[]>([]);
+  const [dnaPath, setDnaPath] = useState("M 48 0");
 
-  const calculateOffsets = useCallback(() => {
+  const generateDnaPath = (height: number) => {
+    if (height <= 0) return "M 48 0";
+    let path = "M 48 0";
+    const svgWidth = 96; // corresponding to w-24
+    const centerX = svgWidth / 2;
+    for (let y = 1; y <= height; y++) {
+      const x = centerX + Math.sin(y * frequency) * amplitude;
+      path += ` L ${x.toFixed(2)} ${y}`;
+    }
+    return path;
+  };
+
+  const calculateOffsetsAndPath = useCallback(() => {
     if (!containerRef.current) return;
 
     const containerTop = containerRef.current.getBoundingClientRect().top;
@@ -83,31 +96,32 @@ export function SkillsSection() {
     });
     
     setXOffsets(newOffsets);
+    
+    const containerHeight = containerRef.current.scrollHeight;
+    setDnaPath(generateDnaPath(containerHeight));
   }, []);
 
   useEffect(() => {
-    const resizeObserver = new ResizeObserver(calculateOffsets);
+    const observer = new ResizeObserver(calculateOffsetsAndPath);
     const currentContainer = containerRef.current;
     if (currentContainer) {
-      resizeObserver.observe(currentContainer);
+      observer.observe(currentContainer);
     }
     
-    window.addEventListener('resize', calculateOffsets);
-    
-    calculateOffsets();
-    const timer = setTimeout(calculateOffsets, 100);
+    // Initial calculation after a short delay to allow for rendering
+    const timer = setTimeout(calculateOffsetsAndPath, 100);
 
     return () => {
       if (currentContainer) {
-        resizeObserver.unobserve(currentContainer);
+        observer.unobserve(currentContainer);
       }
-      window.removeEventListener('resize', calculateOffsets);
       clearTimeout(timer);
     };
-  }, [calculateOffsets]);
+  }, [calculateOffsetsAndPath]);
 
   const handleAccordionToggle = () => {
-    setTimeout(calculateOffsets, 210);
+    // Recalculate positions after the accordion animation completes
+    setTimeout(calculateOffsetsAndPath, 210);
   };
 
 
@@ -136,13 +150,10 @@ export function SkillsSection() {
               </linearGradient>
             </defs>
             <motion.path
-              d="M 50 0 Q 20 120, 50 240 T 50 480 Q 80 600, 50 720 T 50 960 Q 20 1080, 50 1200 T 50 1440 Q 80 1560, 50 1680 T 50 1920 Q 20 2040, 50 2160 T 50 2400 Q 80 2520, 50 2640 T 50 2880"
+              d={dnaPath}
               stroke="url(#dna-gradient)"
               strokeWidth="2"
-              initial={{ pathLength: 0, opacity: 0 }}
-              whileInView={{ pathLength: 1, opacity: 1 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 3, ease: "easeInOut" }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
             />
           </svg>
 
@@ -200,3 +211,4 @@ export function SkillsSection() {
     </section>
   );
 }
+
