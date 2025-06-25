@@ -47,21 +47,23 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative w-48 h-60 mb-6 group"
+          className="relative w-48 h-48 mb-16 group"
         >
-          {/* The Frame */}
-          <div className="absolute inset-0 rounded-[3rem] border-4 border-accent/30 bg-card/50 backdrop-blur-sm shadow-2xl"></div>
-
-          {/* The Image with 3D Pop-out Effect */}
-          <Image
-            src="/jagdish.png"
-            alt="JAGDISH ODEDARA"
-            width={192}
-            height={240}
-            className="relative z-10 object-contain drop-shadow-xl transition-transform duration-500 ease-out group-hover:scale-105 scale-110 -translate-y-4"
-            priority
-            data-ai-hint="profile picture"
-          />
+          {/* Diamond Frame - Rotated Square with overflow hidden */}
+          <div className="w-full h-full rotate-45 rounded-3xl border-4 border-accent/30 bg-card/60 backdrop-blur-sm shadow-2xl overflow-hidden">
+            {/* This container "un-rotates" the image to be upright inside the diamond */}
+            <div className="w-full h-full -rotate-45 scale-[1.42]">
+              <Image
+                src="/jagdish.png"
+                alt="JAGDISH ODEDARA"
+                width={192}
+                height={240}
+                className="object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-105 -translate-y-8"
+                priority
+                data-ai-hint="profile picture"
+              />
+            </div>
+          </div>
         </motion.div>
         
         <AnimatedText text="JAGDISH ODEDARA" el="h1" className="font-headline text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]" />
