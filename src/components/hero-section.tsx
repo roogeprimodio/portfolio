@@ -47,16 +47,18 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative w-44 h-56 mb-6 group"
+          className="relative w-48 h-60 mb-6 group"
         >
-          <div className="absolute -inset-1 bg-[conic-gradient(from_90deg_at_50%_50%,hsl(var(--accent)/0.6)_0%,hsl(var(--primary))_50%,hsl(var(--accent)/0.6)_100%)] rounded-[3rem] blur-lg animate-border-shine opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <Image 
+          {/* The Frame */}
+          <div className="absolute inset-0 rounded-[3rem] border-4 border-accent/30 bg-card/50 backdrop-blur-sm shadow-2xl"></div>
+
+          {/* The Image with 3D Pop-out Effect */}
+          <Image
             src="/jagdish.png"
             alt="JAGDISH ODEDARA"
-            width={176}
-            height={224}
-            className="relative z-10 object-cover rounded-[3rem] w-44 h-56 transform scale-[1.02] hover:scale-105 transition-transform duration-500"
-            style={{ transform: "scale(1.04) translateY(-10px)" }}
+            width={192}
+            height={240}
+            className="relative z-10 object-contain drop-shadow-xl transition-transform duration-500 ease-out group-hover:scale-105 scale-110 -translate-y-4"
             priority
             data-ai-hint="profile picture"
           />
