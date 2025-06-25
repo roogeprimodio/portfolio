@@ -50,7 +50,7 @@ export function HeroSection() {
           className="relative mb-6"
         >
           <Image
-            src="/profile.png"
+            src="/passsword.jpg"
             alt="JAGDISH ODEDARA"
             width={160}
             height={210}
