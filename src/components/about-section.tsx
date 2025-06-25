@@ -3,8 +3,7 @@
 
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Code, MapPin, Mail } from "lucide-react";
+import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Code, MapPin, Mail, ArrowUpRight } from "lucide-react";
 
 const aboutData = {
   summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
@@ -204,40 +203,39 @@ export function AboutSection() {
         
         {/* Certifications */}
         <div>
-           <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+          <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
             <Award className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
             <span>Accolades & Certifications</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
             {aboutData.certifications.map((item, index) => (
-              <Dialog key={item.name}>
-                <DialogTrigger asChild>
-                  <motion.div 
-                    custom={index + timelineItemsCount}
-                    variants={cardVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.5 }}
-                    className="relative cursor-pointer"
-                  >
-                    <div className="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-accent border-2 border-background"></div>
-                    <Card className="bg-card/50 backdrop-blur-sm border border-accent/20 hover:border-accent transition-colors">
-                      <CardHeader>
-                        <CardTitle className="text-xl font-code text-primary">{item.name}</CardTitle>
-                        <CardDescription className="font-code text-accent">{item.issuer} // Acquired: {item.year}</CardDescription>
-                      </CardHeader>
-                    </Card>
-                  </motion.div>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl h-4/5">
-                  <DialogHeader>
-                    <DialogTitle className="font-headline text-accent">{item.name}</DialogTitle>
-                  </DialogHeader>
-                  <div className="w-full h-full rounded-lg overflow-hidden border border-accent/20">
-                    <iframe src={item.url} title={item.name} className="w-full h-full" />
-                  </div>
-                </DialogContent>
-              </Dialog>
+              <a
+                key={item.name}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <motion.div
+                  custom={index + timelineItemsCount}
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.5 }}
+                  className="relative"
+                >
+                  <div className="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-accent border-2 border-background"></div>
+                  <Card className="bg-card/50 backdrop-blur-sm border border-accent/20 hover:border-accent transition-colors group">
+                    <CardHeader>
+                      <CardTitle className="flex items-center justify-between text-xl font-code text-primary">
+                        <span>{item.name}</span>
+                        <ArrowUpRight className="h-5 w-5 text-accent/70 group-hover:text-accent transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      </CardTitle>
+                      <CardDescription className="font-code text-accent">{item.issuer} // Acquired: {item.year}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </motion.div>
+              </a>
             ))}
           </div>
         </div>
