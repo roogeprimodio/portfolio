@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useRef, useState, useLayoutEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, Brain, Handshake, Languages, BarChart2, HardHat, Beaker, Building2 } from 'lucide-react';
@@ -63,54 +63,58 @@ for (let i = 0; i < 4; i++) {
 }
 
 export function SkillsSection() {
-  const amplitude = 30; // Wave amplitude in pixels
-  const frequency = 0.02; // Wave frequency
+  const amplitude = 30;
+  const frequency = 0.02;
   const containerRef = useRef<HTMLDivElement>(null);
   const [xOffsets, setXOffsets] = useState<number[]>([]);
 
-  useLayoutEffect(() => {
-    const calculateOffsets = () => {
-      if (!containerRef.current) return;
+  const calculateOffsets = useCallback(() => {
+    if (!containerRef.current) return;
 
-      const containerTop = containerRef.current.getBoundingClientRect().top;
-      const newOffsets: number[] = [];
-      
-      Array.from(containerRef.current.children).forEach((child) => {
-        const itemEl = child as HTMLElement;
-        const itemTop = itemEl.getBoundingClientRect().top;
-        const yPos = itemTop - containerTop;
-        const xOffset = Math.sin(yPos * frequency) * amplitude;
-        newOffsets.push(xOffset);
-      });
-      
-      setXOffsets(newOffsets);
-    };
+    const containerTop = containerRef.current.getBoundingClientRect().top;
+    const newOffsets: number[] = [];
+    
+    Array.from(containerRef.current.children).forEach((child) => {
+      const itemEl = child as HTMLElement;
+      const itemTop = itemEl.getBoundingClientRect().top;
+      const yPos = itemTop - containerTop;
+      const xOffset = Math.sin(yPos * frequency) * amplitude;
+      newOffsets.push(xOffset);
+    });
+    
+    setXOffsets(newOffsets);
+  }, []);
 
-    // Initial calculation and on subsequent resizes.
-    // Using ResizeObserver is key for dynamic content like accordions.
+  useEffect(() => {
     const resizeObserver = new ResizeObserver(calculateOffsets);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
+    const currentContainer = containerRef.current;
+    if (currentContainer) {
+      resizeObserver.observe(currentContainer);
     }
     
-    // Also calculate on window resize for broader responsiveness
     window.addEventListener('resize', calculateOffsets);
     
-    // Initial calculation after mount
     calculateOffsets();
+    const timer = setTimeout(calculateOffsets, 100);
 
     return () => {
-      if (containerRef.current) {
-        resizeObserver.unobserve(containerRef.current);
+      if (currentContainer) {
+        resizeObserver.unobserve(currentContainer);
       }
       window.removeEventListener('resize', calculateOffsets);
+      clearTimeout(timer);
     };
-  }, []);
+  }, [calculateOffsets]);
+
+  const handleAccordionToggle = () => {
+    setTimeout(calculateOffsets, 210);
+  };
+
 
   return (
     <section id="skills" className="flex flex-col items-center justify-center p-4 py-24 min-h-screen overflow-hidden">
       <div className="text-center space-y-2 mb-12 z-10 relative">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
           Skills DNA
         </h2>
         <p className="text-accent font-code">The building blocks of my craft.</p>
@@ -156,7 +160,7 @@ export function SkillsSection() {
                   viewport={{ once: true, amount: 0.5 }}
                   transition={{
                     opacity: { duration: 0.8, ease: "easeOut", delay: index * 0.15 },
-                    x: { type: 'spring', stiffness: 300, damping: 30 }
+                    x: { type: 'spring', stiffness: 400, damping: 35 }
                   }}
                   className="relative flex items-center"
                 >
@@ -164,11 +168,11 @@ export function SkillsSection() {
                   <div className={`w-1/2 px-4 ${isLeft ? 'pr-10 text-right' : 'pl-10 text-left ml-auto'}`}>
                     <AccordionItem value={`item-${index}`} className="border-b-0">
                       <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50 inline-block w-full">
-                        <AccordionTrigger className="p-0 hover:no-underline [&>svg]:hidden w-full">
+                        <AccordionTrigger onClick={handleAccordionToggle} className="p-0 hover:no-underline [&>svg]:hidden w-full">
                           <CardHeader className="w-full">
-                            <CardTitle className={`flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'} [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]`}>
+                            <CardTitle className={`flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'} [text-shadow:0_0_6px_hsl(var(--primary)/0.6)]`}>
                               {isLeft && <span>{category.title}</span>}
-                              <category.icon className="h-6 w-6 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
+                              <category.icon className="h-6 w-6 text-accent drop-shadow-[0_0_4px_hsl(var(--accent)/0.7)]" />
                               {!isLeft && <span>{category.title}</span>}
                             </CardTitle>
                           </CardHeader>
