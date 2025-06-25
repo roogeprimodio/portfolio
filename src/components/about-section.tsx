@@ -3,86 +3,64 @@
 
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Gamepad2, Bot, Cpu, Code, MapPin, Mail } from "lucide-react";
+import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Code, MapPin, Mail } from "lucide-react";
 
 const aboutData = {
   summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
   contactInfo: {
-    address: "Sector 7, Neo-Kyoto, Earth",
-    email: "contact@jagdishodedara.dev",
+    address: "India, Gujarat, Porbandar 360576",
+    email: "jagdishodedara47@gmail.com",
   },
   experience: [
     {
-      company: "CyberCorp",
-      role: "Lead Systems Architect",
-      duration: "2022 - Present",
-      description: "Designed and implemented scalable backend systems for next-gen security platforms. Led a team of engineers to develop and deploy microservices, improving system efficiency by 40%."
-    },
-    {
-      company: "Innovatech Solutions",
-      role: "Full-Stack Developer",
-      duration: "2020 - 2022",
-      description: "Developed and maintained full-stack web applications for various clients, utilizing React, Node.js, and Python. Contributed to all phases of the development lifecycle."
+      company: "Preppers Infotect Pvt Ltd",
+      role: "Graphic Designer and Video Editor",
+      duration: "2024 – 2025",
+      description: "Created compelling graphic designs and edited high-impact videos for digital campaigns, branding materials, and corporate communication. Collaborated closely with marketing and development teams to maintain visual consistency and deliver engaging multimedia content."
     }
   ],
   education: [
     {
-      institution: "MIT - Massachusetts Institute of Technology",
-      degree: "Master of Science in Computer Science & AI",
-      duration: "2018 - 2020",
-      description: "Focused on machine learning, neural networks, and advanced algorithms. Thesis project involved developing a predictive model for network threat detection."
+      institution: "K.J. Institute of Engineering & Technology, Savli",
+      degree: "Bachelor’s Degree (4-Year Course)",
+      duration: "2021 – 2025",
+      description: "Pursuing undergraduate engineering studies with emphasis on practical learning, design, and development."
     },
     {
-      institution: "University of Neo-Tokyo",
-      degree: "Bachelor of Science in Cybernetics",
-      duration: "2014 - 2018",
-      description: "Graduated with honors. Specialized in human-computer interaction and robotics."
+      institution: "Shree Swaminarayan Gurukul Vidhyalaya, Junagadh",
+      degree: "Secondary & Higher Secondary Education",
+      duration: "8th to 12th Grade",
+      description: "Completed foundational and senior secondary schooling with a focus on discipline and values-driven learning."
     }
   ],
   certifications: [
     {
-      name: "React (Basic)",
+      name: "Problem Solving (Intermediate)",
       issuer: "HackerRank",
-      year: "2024",
+      year: "2025",
       url: "https://www.hackerrank.com/certificates/aba7c97fd4ea",
     },
     {
-      name: "JavaScript (Intermediate)",
+      name: "Python (Basic)",
       issuer: "HackerRank",
-      year: "2024",
+      year: "2025",
       url: "https://www.hackerrank.com/certificates/6544ad97d607",
-    },
-    {
-      name: "Google Certified Professional - Cloud Architect",
-      issuer: "Google Cloud",
-      year: "2023",
-      url: "about:blank"
-    },
-    {
-      name: "Certified Kubernetes Administrator (CKA)",
-      issuer: "Cloud Native Computing Foundation",
-      year: "2022",
-      url: "about:blank"
     },
   ],
   programmingLanguages: [
-    { name: "Python", proficiency: "Fluent" },
-    { name: "TypeScript", proficiency: "Fluent" },
-    { name: "JavaScript", proficiency: "Fluent" },
-    { name: "SQL", proficiency: "Advanced" },
-    { name: "Binary", proficiency: "Heavily Accented" },
+    { name: "JavaScript" },
+    { name: "Python" },
+    { name: "Java" },
+    { name: "React.js" },
+    { name: "Next.js" },
+    { name: "Flutter" },
+    { name: "Node.js" },
   ],
   spokenLanguages: [
-    { name: "English", proficiency: "Native" },
-    { name: "Japanese", proficiency: "Business" },
-  ],
-  hobbies: [
-    { name: "Neuro-Hacking", icon: BrainCircuit },
-    { name: "Retro VR Gaming", icon: Gamepad2 },
-    { name: "Drone Piloting", icon: Bot },
-    { name: "Quantum Computing Theory", icon: Cpu },
+    { name: "English", proficiency: "Proficient" },
+    { name: "Hindi", proficiency: "Native" },
+    { name: "Gujarati", proficiency: "Native" },
   ],
 }
 
@@ -264,7 +242,7 @@ export function AboutSection() {
           </div>
         </div>
         
-        {/* Languages & Hobbies */}
+        {/* Languages */}
         <div className="grid md:grid-cols-2 gap-12 pt-6">
             {/* Programming Languages */}
             <div>
@@ -284,7 +262,6 @@ export function AboutSection() {
                             className="flex justify-between items-center p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-accent/20"
                         >
                             <span className="font-code text-primary">{lang.name}</span>
-                            <Badge variant="secondary" className="font-code bg-accent/10 text-accent border-accent/20">{lang.proficiency}</Badge>
                         </motion.div>
                     ))}
                 </div>
@@ -308,38 +285,13 @@ export function AboutSection() {
                             className="flex justify-between items-center p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-accent/20"
                         >
                             <span className="font-code text-primary">{lang.name}</span>
-                            <Badge variant="secondary" className="font-code bg-accent/10 text-accent border-accent/20">{lang.proficiency}</Badge>
+                            <span className="font-code text-muted-foreground">{lang.proficiency}</span>
                         </motion.div>
                     ))}
                 </div>
-            </div>
-        </div>
-
-        <div className="pt-6">
-            <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
-                <Gamepad2 className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
-                <span>Hobbies & Interests</span>
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {aboutData.hobbies.map((hobby, index) => (
-                    <motion.div 
-                        key={index}
-                        custom={index + timelineItemsCount + certItemsCount + aboutData.programmingLanguages.length + aboutData.spokenLanguages.length}
-                        variants={cardVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.5 }}
-                        className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-accent/20 text-center h-28"
-                    >
-                        <hobby.icon className="h-8 w-8 text-accent" />
-                        <span className="font-code text-primary text-sm text-center">{hobby.name}</span>
-                    </motion.div>
-                ))}
             </div>
         </div>
       </div>
     </section>
   )
 }
-
-    

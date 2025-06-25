@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: 'JAGDISH ODEDARA // Portfolio',
-  description: 'The Mind of a Digital Craftsman.',
+  description: 'Digital Craftsman & Code Poet',
 };
 
 export default function RootLayout({

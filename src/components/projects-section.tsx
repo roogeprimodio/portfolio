@@ -12,41 +12,68 @@ import { cn } from "@/lib/utils";
 
 const projects = [
   {
-    title: "E-Commerce Platform",
-    description: "A full-stack e-commerce website with Next.js, Stripe, and a PostgreSQL database.",
-    tags: ["Next.js", "React", "Stripe", "Auth"],
+    title: "PG Hub – Owner & User Apps",
+    description: "Flutter-based PG accommodation management system for owners and tenants.",
+    tags: ["Flutter", "Firebase", "Google Maps"],
     image: "https://placehold.co/600x400.png",
-    imageHint: "online shopping",
+    imageHint: "mobile application",
+    liveUrl: "https://beeeshive.netlify.app/login",
+    githubUrl: "https://github.com/roogeprimodio/Pg-hub.git",
+  },
+  {
+    title: "DIOS Forge – AI Project Report Generator",
+    description: "AI-powered report generator using OpenRouter API.",
+    tags: ["React.js", "Node.js", "AI"],
+    image: "https://placehold.co/600x400.png",
+    imageHint: "ai generator",
+    liveUrl: "https://reportforge.netlify.app/",
+    githubUrl: "https://github.com/roogeprimodio/diosforge.git",
+  },
+  {
+    title: "Pabble Battle – Web Game",
+    description: "Casual web game with reflex-based mechanics.",
+    tags: ["JavaScript", "HTML5 Canvas", "Game"],
+    image: "https://placehold.co/600x400.png",
+    imageHint: "web game",
+    liveUrl: "https://pabblebattle.netlify.app/",
+    githubUrl: "https://github.com/roogeprimodio/pabble-battle.git",
+  },
+  {
+    title: "Gesture Controlled Mouse",
+    description: "Python app to control cursor using hand gestures.",
+    tags: ["Python", "OpenCV", "MediaPipe"],
+    image: "https://placehold.co/600x400.png",
+    imageHint: "computer vision",
+    liveUrl: "#",
+    githubUrl: "https://github.com/roogeprimodio/hand-gesture-controlled-mouse.git",
+  },
+  {
+    title: "QR Wizard – QR Code Tool",
+    description: "Scan and create QR codes for web and mobile use.",
+    tags: ["JavaScript", "Flutter", "Utility"],
+    image: "https://placehold.co/600x400.png",
+    imageHint: "qr code",
+    liveUrl: "#",
+    githubUrl: "https://github.com/buddhhu/QR-Wizard.git",
+  },
+  {
+    title: "Madhuli – Business Showcase Website",
+    description: "Personal business portfolio built for a family member.",
+    tags: ["React", "Expo", "Firebase"],
+    image: "https://placehold.co/600x400.png",
+    imageHint: "business portfolio",
+    liveUrl: "#",
+    githubUrl: "https://github.com/roogeprimodio/madhuli.git",
+  },
+    {
+    title: "Rollex International – Business Website",
+    description: "PHP-based website for a local mobile brand.",
+    tags: ["PHP", "MySQL", "Website"],
+    image: "https://placehold.co/600x400.png",
+    imageHint: "business website",
     liveUrl: "#",
     githubUrl: "#",
   },
-  {
-    title: "Task Management App",
-    description: "A collaborative task app with drag-and-drop functionality and real-time updates.",
-    tags: ["React", "Node.js", "WebSockets"],
-    image: "https://placehold.co/600x400.png",
-    imageHint: "project management",
-    liveUrl: "#",
-    githubUrl: "#",
-  },
-  {
-    title: "Data Viz Dashboard",
-    description: "A dashboard for visualizing complex datasets, allowing users to interact with charts.",
-    tags: ["D3.js", "JavaScript", "API"],
-    image: "https://placehold.co/600x400.png",
-    imageHint: "data dashboard",
-    liveUrl: "#",
-    githubUrl: "#",
-  },
-  {
-    title: "Cyber-Security Suite",
-    description: "An integrated security suite with real-time threat detection and vulnerability scanning.",
-    tags: ["Python", "AI", "CyberSec"],
-    image: "https://placehold.co/600x400.png",
-    imageHint: "cyber security",
-    liveUrl: "#",
-    githubUrl: "#",
-  }
 ];
 
 const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
@@ -79,12 +106,12 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
       </p>
       
       <div className="flex w-full gap-4 pt-4 mt-auto">
-        <Button asChild size="sm" className="flex-1 bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-md hover:shadow-accent/40 font-code">
+        <Button asChild size="sm" className="flex-1 bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-md hover:shadow-accent/40 font-code" disabled={project.liveUrl === '#'}>
           <Link href={project.liveUrl} target="_blank">
             VIEW <ArrowUpRight className="ml-1 h-4 w-4" />
           </Link>
         </Button>
-        <Button asChild size="sm" variant="outline" className="flex-1 bg-card/80 border-accent/50 hover:bg-card hover:border-accent font-code">
+        <Button asChild size="sm" variant="outline" className="flex-1 bg-card/80 border-accent/50 hover:bg-card hover:border-accent font-code" disabled={project.githubUrl === '#'}>
           <Link href={project.githubUrl} target="_blank">
             <Github className="mr-1 h-4 w-4" /> Schematics
           </Link>

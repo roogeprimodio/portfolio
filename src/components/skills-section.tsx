@@ -1,9 +1,10 @@
+
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code, Brain, Handshake, Languages, BarChart2, HardHat, Beaker, Building2 } from 'lucide-react';
+import { Code, Brain, Handshake, Languages, BarChart2, HardHat } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const skillData = [
@@ -11,51 +12,42 @@ const skillData = [
   {
     title: "Technical Skills",
     icon: Code,
-    skills: ["JavaScript", "TypeScript", "Python", "HTML5", "CSS3", "SQL", "React", "Next.js", "Node.js", "Express", "Tailwind CSS", "Framer Motion", "PostgreSQL", "MongoDB", "Firebase"],
+    skills: ["JavaScript", "Java", "Python", "React.js", "Next.js", "Flutter", "Node.js", "Express.js", "HTML5", "CSS3", "Tailwind CSS", "Firebase", "REST APIs", "SSR", "JWT Auth"],
   },
   {
     title: "Analytical & Data Skills",
     icon: BarChart2,
-    skills: ["Data Analysis", "Machine Learning", "Data Visualization", "SQL", "Pandas", "NumPy", "D3.js"],
+    skills: ["MySQL", "MongoDB", "SQLite", "Data Structures & Algorithms", "JSON", "API Handling"],
   },
   {
     title: "Tools & Platforms",
     icon: HardHat,
-    skills: ["Git", "GitHub", "Docker", "Vercel", "Figma", "JIRA", "Stripe", "Postman", "Webpack"],
-  },
-  {
-    title: "Industry-Specific Skills",
-    icon: Building2,
-    skills: ["Cyber-Security", "E-commerce Optimization", "FinTech Solutions", "API Design", "Network Security"],
+    skills: ["Git", "GitHub", "AWS", "Vercel", "Netlify", "Figma", "Adobe Illustrator", "Premiere Pro", "Postman", "VS Code"],
   },
   // Strand 2: Professional & Soft
   {
     title: "Professional Skills",
     icon: Handshake,
-    skills: ["Agile Methodologies", "Project Management", "Team Leadership", "Client Communication", "Technical Writing", "Code Review"],
+    skills: ["Agile Methodologies", "Scrum", "Team Collaboration", "Project Planning", "Technical Documentation"],
   },
   {
     title: "Soft Skills",
     icon: Brain,
-    skills: ["Problem-Solving", "Adaptability", "Collaboration", "Creativity", "Time Management", "Critical Thinking"],
-  },
-  {
-    title: "Research & Academic Skills",
-    icon: Beaker,
-    skills: ["Algorithm Design", "Quantum Computing Theory", "Academic Writing", "Statistical Analysis", "System Architecture"],
+    skills: ["Time Management", "Creative Thinking", "Problem-Solving", "Adaptability"],
   },
   {
     title: "Language Skills",
     icon: Languages,
-    skills: ["English: Native", "Japanese: Business", "Binary: Heavily Accented"],
+    skills: ["English: Proficient", "Hindi: Native", "Gujarati: Native"],
   }
 ];
 
-const wovenSkills = [];
-const leftStrand = skillData.slice(0, 4);
-const rightStrand = skillData.slice(4, 8);
+const wovenSkills: (typeof skillData[0] & { side: 'left' | 'right' })[] = [];
+const midPoint = Math.ceil(skillData.length / 2);
+const leftStrand = skillData.slice(0, midPoint);
+const rightStrand = skillData.slice(midPoint);
 
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < midPoint; i++) {
   if (leftStrand[i]) wovenSkills.push({ ...leftStrand[i], side: 'left' });
   if (rightStrand[i]) wovenSkills.push({ ...rightStrand[i], side: 'right' });
 }
