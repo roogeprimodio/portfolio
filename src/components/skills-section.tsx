@@ -160,7 +160,7 @@ export function SkillsSection() {
                   viewport={{ once: true, amount: 0.5 }}
                   transition={{
                     opacity: { duration: 0.8, ease: "easeOut", delay: index * 0.15 },
-                    x: { type: 'spring', stiffness: 400, damping: 35 }
+                    x: { duration: 0.2, ease: "easeInOut" }
                   }}
                   className="relative flex items-center"
                 >
