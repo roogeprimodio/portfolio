@@ -2,11 +2,13 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Github, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 const projects = [
   {
@@ -49,17 +51,25 @@ const projects = [
 
 const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
   return (
-    <div className="relative w-full h-full rounded-xl border border-accent/30 bg-card/60 backdrop-blur-md p-6 text-left [transform-style:preserve-3d] transition-shadow duration-300 group-hover:shadow-2xl group-hover:shadow-accent/20 flex flex-col">
-      <div className="absolute -top-4 -left-4 -right-4 h-24 bg-gradient-to-b from-accent/10 to-transparent [transform:translateZ(20px)] rounded-t-xl"></div>
-      <h3 className="font-headline text-2xl font-bold text-primary [transform:translateZ(40px)]">{project.title}</h3>
-      <div className="flex flex-wrap gap-2 mt-2 [transform:translateZ(30px)]">
+    <div className="relative w-full h-full rounded-xl border border-accent/30 bg-card/60 backdrop-blur-md p-6 text-left flex flex-col shadow-lg">
+      <div className="relative h-40 w-full mb-4 rounded-lg overflow-hidden">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover"
+          data-ai-hint={project.imageHint}
+        />
+      </div>
+      <h3 className="font-headline text-xl font-bold text-primary">{project.title}</h3>
+      <div className="flex flex-wrap gap-2 mt-2">
         {project.tags.map((tag) => (
-          <Badge key={tag} variant="secondary" className="font-code bg-accent/10 text-accent border-accent/20">{tag}</Badge>
+          <Badge key={tag} variant="secondary" className="font-code text-xs bg-accent/10 text-accent border-accent/20">{tag}</Badge>
         ))}
       </div>
-      <p className="mt-4 text-muted-foreground text-sm flex-grow [transform:translateZ(20px)]">{project.description}</p>
+      <p className="mt-3 text-muted-foreground text-sm flex-grow">{project.description}</p>
       
-      <div className="flex w-full gap-4 pt-2 [transform:translateZ(50px)]">
+      <div className="flex w-full gap-4 pt-2 mt-auto">
         <Button asChild size="sm" className="flex-1 bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-md hover:shadow-accent/40 font-code">
           <Link href={project.liveUrl} target="_blank">
             Live Demo <ArrowUpRight className="ml-1 h-4 w-4" />
@@ -75,44 +85,25 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
   );
 };
 
-const variants = {
-  enter: (direction: number) => {
-    return {
-      x: direction > 0 ? '100%' : '-100%',
-      opacity: 0,
-    };
-  },
-  center: {
-    zIndex: 1,
-    x: 0,
-    opacity: 1,
-  },
-  exit: (direction: number) => {
-    return {
-      zIndex: 0,
-      x: direction < 0 ? '100%' : '-100%',
-      opacity: 0,
-    };
-  },
-};
-
 const swipeConfidenceThreshold = 10000;
 const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity;
 };
 
 export function ProjectsSection() {
-    const [[page, direction], setPage] = useState([0, 0]);
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const paginate = (newDirection: number) => {
-      setPage([page + newDirection, newDirection]);
+      setActiveIndex((prevIndex) => (prevIndex + newDirection + projects.length) % projects.length);
     };
 
-    // This makes the carousel wrap around
-    const projectIndex = ((page % projects.length) + projects.length) % projects.length;
+    const cardWidth = 320; // w-80
+    const mdCardWidth = 384; // w-96
+    const cardGap = 16; // gap-4
+    const mdCardGap = 32; // md:gap-8
 
   return (
-    <section id="projects" className="flex flex-col items-center justify-center overflow-hidden [perspective:1000px] p-4">
+    <section id="projects" className="flex flex-col items-center justify-center p-4 py-24 overflow-hidden">
       <div className="text-center space-y-2 mb-12 px-4">
         <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
           Projects Vault
@@ -120,57 +111,76 @@ export function ProjectsSection() {
         <p className="text-accent font-code">A collection of memory chips.</p>
       </div>
       
-      <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg h-[420px] flex items-center justify-center">
-        <motion.div
-            className="absolute z-20 left-0 md:-left-16 top-1/2 -translate-y-1/2"
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-          <Button onClick={() => paginate(-1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground">
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
-        </motion.div>
-
-        <AnimatePresence initial={false} custom={direction}>
+      <div className="relative w-full flex flex-col items-center">
+        <div className="relative w-full h-[480px] flex items-center justify-center overflow-x-hidden">
+          {/* Carousel Track */}
           <motion.div
-            key={page}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 },
-            }}
+            className="absolute flex items-center"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.1}
             onDragEnd={(e, { offset, velocity }) => {
-              const swipe = swipePower(offset.x, velocity.x);
-
-              if (swipe < -swipeConfidenceThreshold) {
-                paginate(1);
-              } else if (swipe > swipeConfidenceThreshold) {
-                paginate(-1);
-              }
+                const swipe = swipePower(offset.x, velocity.x);
+                if (swipe < -swipeConfidenceThreshold) {
+                    paginate(1);
+                } else if (swipe > swipeConfidenceThreshold) {
+                    paginate(-1);
+                }
             }}
-            className="group absolute w-[320px] md:w-[380px] h-96 [transform-style:preserve-3d]"
+            // This custom property is used to dynamically center the active card based on screen size
+            animate={{ 
+              x: `calc(50% - var(--card-width, ${cardWidth}px) / 2 - ${activeIndex} * (var(--card-width, ${cardWidth}px) + var(--card-gap, ${cardGap}px)))`
+            }}
+            transition={{ type: "spring", stiffness: 400, damping: 60 }}
           >
-            <div className="absolute inset-0 bg-accent/10 rounded-xl blur-lg transition-all duration-500 group-hover:blur-2xl group-hover:bg-accent/20"></div>
-            <ProjectCard project={projects[projectIndex]} />
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                className="flex-shrink-0 w-80 md:w-96 h-[450px]"
+                style={{
+                  margin: `0 ${cardGap / 2}px`,
+                  // @ts-ignore
+                  "--card-width": "320px",
+                  "--card-gap": `${cardGap}px`
+                }}
+                animate={{
+                    scale: index === activeIndex ? 1 : 0.85,
+                    opacity: index === activeIndex ? 1 : 0.6,
+                    zIndex: projects.length - Math.abs(activeIndex - index),
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 50 }}
+              >
+                <div
+                    className="md:hidden"
+                    style={{
+                      // @ts-ignore
+                      "--card-width": `${cardWidth}px`,
+                      "--card-gap": `${cardGap}px`,
+                    }}
+                ></div>
+                <div
+                    className="hidden md:block"
+                    style={{
+                      // @ts-ignore
+                      "--card-width": `${mdCardWidth}px`,
+                      "--card-gap": `${mdCardGap}px`,
+                    }}
+                ></div>
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
           </motion.div>
-        </AnimatePresence>
-        
-        <motion.div
-            className="absolute z-20 right-0 md:-right-16 top-1/2 -translate-y-1/2"
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-          <Button onClick={() => paginate(1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground">
-            <ChevronRight className="h-6 w-6" />
-          </Button>
-        </motion.div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex items-center gap-8 mt-8">
+            <Button onClick={() => paginate(-1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground z-20">
+                <ChevronLeft className="h-6 w-6" />
+            </Button>
+            <Button onClick={() => paginate(1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground z-20">
+                <ChevronRight className="h-6 w-6" />
+            </Button>
+        </div>
       </div>
     </section>
   );
