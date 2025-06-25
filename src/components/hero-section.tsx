@@ -50,12 +50,12 @@ export function HeroSection() {
           className="relative mb-8"
         >
           <Image
-            src="https://placehold.co/120x120.png"
+            src="/avatar.png"
             alt="Avatar"
             width={120}
             height={120}
             className="rounded-full object-cover border-2 border-accent/50 shadow-2xl shadow-accent/20"
-            data-ai-hint="avatar portrait"
+            priority
           />
         </motion.div>
         
