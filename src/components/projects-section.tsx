@@ -49,48 +49,57 @@ const projects = [
   }
 ];
 
-const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
+const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
   return (
-    // Main capsule body with gradient and border for 3D feel
-    <div className="relative w-full h-full rounded-[60px] border-2 border-accent/10 bg-gradient-to-b from-card/60 via-card/80 to-black/30 p-3 text-left flex flex-col shadow-lg backdrop-blur-sm">
-        {/* Inner frame */}
-        <div className="relative w-full h-full rounded-[48px] border border-white/10 bg-card/50 flex flex-col p-4 overflow-hidden">
-            
-            {/* Window/Viewport for the image */}
-            <div className="relative h-48 w-full mb-4 rounded-3xl overflow-hidden border border-accent/20 bg-black/50 shadow-inner">
-                <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover opacity-80"
-                    data-ai-hint={project.imageHint}
-                />
-                 <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-transparent to-transparent"></div>
+    // Main capsule body with a subtle gradient and rounded shape
+    <div className="group relative w-full h-full rounded-[80px] border-2 border-neutral-800 bg-gradient-to-b from-neutral-900 to-black p-2 shadow-2xl backdrop-blur-sm">
+      {/* Inner decorative frame */}
+      <div className="w-full h-full rounded-[70px] border border-neutral-700/80 p-2">
+        {/* Main content viewport */}
+        <div className="relative w-full h-full rounded-[60px] bg-black/50 flex flex-col p-4 overflow-hidden">
+          
+          {/* "Glass" Window for the image */}
+          <div className="relative h-56 w-full mb-4 rounded-[40px] overflow-hidden border border-accent/20 bg-black/50 shadow-inner">
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+              data-ai-hint={project.imageHint}
+            />
+            {/* Glossy overlay for the glass effect */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+            <div className="absolute top-4 left-4 font-code text-xs text-accent/70 tracking-widest">
+              SPECIMEN: #00{index + 1}
             </div>
+          </div>
 
-            <h3 className="font-headline text-xl font-bold text-primary text-center truncate">{project.title}</h3>
-            
-            <div className="flex flex-wrap gap-1.5 justify-center mt-2">
-                {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="font-code text-xs bg-accent/10 text-accent border-accent/20">{tag}</Badge>
-                ))}
-            </div>
+          <h3 className="font-headline text-xl font-bold text-primary text-center truncate">{project.title}</h3>
+          
+          <div className="flex flex-wrap gap-1.5 justify-center mt-2">
+            {project.tags.map((tag) => (
+              <Badge key={tag} variant="secondary" className="font-code text-xs bg-accent/10 text-accent border-accent/20">{tag}</Badge>
+            ))}
+          </div>
 
-            <p className="mt-4 text-muted-foreground text-sm flex-grow text-center px-2">{project.description}</p>
-            
-            <div className="flex w-full gap-2 pt-4 mt-auto">
-                <Button asChild size="sm" className="flex-1 bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-md hover:shadow-accent/40 font-code">
-                    <Link href={project.liveUrl} target="_blank">
-                        Live <ArrowUpRight className="ml-1 h-4 w-4" />
-                    </Link>
-                </Button>
-                <Button asChild size="sm" variant="outline" className="flex-1 bg-card/80 border-accent/50 hover:bg-card hover:border-accent font-code">
-                    <Link href={project.githubUrl} target="_blank">
-                        <Github className="mr-1 h-4 w-4" /> Code
-                    </Link>
-                </Button>
-            </div>
+          <p className="mt-4 text-muted-foreground text-sm flex-grow text-center px-2 h-16 overflow-hidden">
+            {project.description}
+          </p>
+          
+          <div className="flex w-full gap-2 pt-4 mt-auto">
+            <Button asChild size="sm" className="flex-1 bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-md hover:shadow-accent/40 font-code">
+              <Link href={project.liveUrl} target="_blank">
+                VIEW <ArrowUpRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild size="sm" variant="outline" className="flex-1 bg-card/80 border-accent/50 hover:bg-card hover:border-accent font-code">
+              <Link href={project.githubUrl} target="_blank">
+                <Github className="mr-1 h-4 w-4" /> Schematics
+              </Link>
+            </Button>
+          </div>
         </div>
+      </div>
     </div>
   );
 };
@@ -117,13 +126,13 @@ export function ProjectsSection() {
     <section id="projects" className="flex flex-col items-center justify-center p-4 py-24 overflow-hidden">
       <div className="text-center space-y-2 mb-12 px-4">
         <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
-          Projects Vault
+          Hibernation Vault
         </h2>
-        <p className="text-accent font-code">A collection of memory chips.</p>
+        <p className="text-accent font-code">A collection of cryo-preserved projects.</p>
       </div>
       
       <div className="relative w-full flex flex-col items-center">
-        <div className="relative w-full h-[580px] flex items-center justify-center overflow-x-hidden">
+        <div className="relative w-full h-[680px] flex items-center justify-center overflow-x-hidden">
           {/* Carousel Track */}
           <motion.div
             className="absolute flex items-center"
@@ -147,7 +156,7 @@ export function ProjectsSection() {
             {projects.map((project, index) => (
               <motion.div
                 key={project.title}
-                className="flex-shrink-0 w-72 md:w-80 h-[540px]"
+                className="flex-shrink-0 w-72 md:w-80 h-[640px]"
                 style={{
                   margin: `0 ${cardGap / 2}px`,
                   // @ts-ignore
@@ -155,8 +164,8 @@ export function ProjectsSection() {
                   "--card-gap": `${cardGap}px`
                 }}
                 animate={{
-                    scale: index === activeIndex ? 1 : 0.75,
-                    opacity: index === activeIndex ? 1 : 0.4,
+                    scale: index === activeIndex ? 1 : 0.7,
+                    opacity: index === activeIndex ? 1 : 0.3,
                     zIndex: projects.length - Math.abs(activeIndex - index),
                 }}
                 transition={{ type: "spring", stiffness: 400, damping: 50 }}
@@ -177,7 +186,7 @@ export function ProjectsSection() {
                       "--card-gap": `${mdCardGap}px`,
                     }}
                 ></div>
-                <ProjectCard project={project} />
+                <ProjectCard project={project} index={index} />
               </motion.div>
             ))}
           </motion.div>
