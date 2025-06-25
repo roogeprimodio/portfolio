@@ -55,13 +55,13 @@ const RedditIcon = (props: React.ComponentProps<"svg">) => (
 )
 
 const socialIcons = [
-  { Icon: Instagram, href: "#", name: "Instagram", position: { top: "15%", left: "-15%" } },
-  { Icon: Twitter, href: "#", name: "Twitter", position: { top: "0%", right: "10%" } },
-  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", position: { top: "40%", right: "-20%" } },
-  { Icon: Linkedin, href: "#", name: "LinkedIn", position: { top: "75%", right: "-5%" } },
-  { Icon: RedditIcon, href: "#", name: "Reddit", position: { bottom: "0%", right: "20%" } },
-  { Icon: Send, href: "#", name: "Telegram", position: { bottom: "25%", left: "-10%" } },
-  { Icon: Phone, href: "#", name: "Call", position: { bottom: "-5%", left: "35%" } },
+  { Icon: Instagram, href: "#", name: "Instagram", position: { top: "10%", left: "-25%" } },
+  { Icon: Twitter, href: "#", name: "Twitter", position: { top: "-10%", right: "0%" } },
+  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", position: { top: "40%", right: "-35%" } },
+  { Icon: Linkedin, href: "#", name: "LinkedIn", position: { top: "85%", right: "-20%" } },
+  { Icon: RedditIcon, href: "#", name: "Reddit", position: { bottom: "-10%", right: "10%" } },
+  { Icon: Send, href: "#", name: "Telegram", position: { bottom: "20%", left: "-25%" } },
+  { Icon: Phone, href: "#", name: "Call", position: { bottom: "-15%", left: "35%" } },
 ];
 
 
