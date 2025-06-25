@@ -59,9 +59,9 @@ export function HeroSection() {
           <Image
             src="/jagdish.png"
             alt="JAGDISH ODEDARA"
-            width={192}
-            height={240}
-            className="absolute top-0 -translate-y-4 left-1/2 -translate-x-1/2 object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-105 z-10"
+            width={180}
+            height={225}
+            className="absolute top-0 -translate-y-2 left-1/2 -translate-x-1/2 object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-105 z-10"
             priority
             data-ai-hint="profile picture"
           />
