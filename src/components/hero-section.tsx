@@ -49,7 +49,7 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative w-48 h-60 mb-16 group"
+          className="relative w-44 h-64 mb-16 group"
         >
           {/* The oval capsule frame, using a simple div with rounded-full */}
           <div
