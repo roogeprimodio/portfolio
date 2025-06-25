@@ -51,54 +51,44 @@ const projects = [
 
 const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
   return (
-    // Main capsule body with a subtle gradient and rounded shape
-    <div className="group relative w-full h-full rounded-[80px] border-2 border-neutral-800 bg-gradient-to-b from-neutral-900 to-black p-2 shadow-2xl backdrop-blur-sm">
-      {/* Inner decorative frame */}
-      <div className="w-full h-full rounded-[70px] border border-neutral-700/80 p-2">
-        {/* Main content viewport */}
-        <div className="relative w-full h-full rounded-[60px] bg-black/50 flex flex-col p-4 overflow-hidden">
-          
-          {/* "Glass" Window for the image */}
-          <div className="relative h-56 w-full mb-4 rounded-[40px] overflow-hidden border border-accent/20 bg-black/50 shadow-inner">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
-              data-ai-hint={project.imageHint}
-            />
-            {/* Glossy overlay for the glass effect */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-            <div className="absolute top-4 left-4 font-code text-xs text-accent/70 tracking-widest">
-              SPECIMEN: #00{index + 1}
-            </div>
-          </div>
-
-          <h3 className="font-headline text-xl font-bold text-primary text-center truncate">{project.title}</h3>
-          
-          <div className="flex flex-wrap gap-1.5 justify-center mt-2">
-            {project.tags.map((tag) => (
-              <Badge key={tag} variant="secondary" className="font-code text-xs bg-accent/10 text-accent border-accent/20">{tag}</Badge>
-            ))}
-          </div>
-
-          <p className="mt-4 text-muted-foreground text-sm flex-grow text-center px-2 h-16 overflow-hidden">
-            {project.description}
-          </p>
-          
-          <div className="flex w-full gap-2 pt-4 mt-auto">
-            <Button asChild size="sm" className="flex-1 bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-md hover:shadow-accent/40 font-code">
-              <Link href={project.liveUrl} target="_blank">
-                VIEW <ArrowUpRight className="ml-1 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild size="sm" variant="outline" className="flex-1 bg-card/80 border-accent/50 hover:bg-card hover:border-accent font-code">
-              <Link href={project.githubUrl} target="_blank">
-                <Github className="mr-1 h-4 w-4" /> Schematics
-              </Link>
-            </Button>
-          </div>
+    <div className="group relative w-full h-full rounded-3xl border border-accent/20 bg-card/50 backdrop-blur-sm p-6 flex flex-col shadow-lg">
+      <div className="relative h-48 w-full mb-6 rounded-xl overflow-hidden border border-accent/10 bg-black/30">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300"
+          data-ai-hint={project.imageHint}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10"></div>
+        <div className="absolute top-3 left-3 font-code text-xs text-accent/70 tracking-widest">
+          SPECIMEN: #00{index + 1}
         </div>
+      </div>
+
+      <h3 className="font-headline text-2xl font-bold text-primary text-center truncate">{project.title}</h3>
+      
+      <div className="flex flex-wrap gap-2 justify-center mt-3">
+        {project.tags.map((tag) => (
+          <Badge key={tag} variant="secondary" className="font-code text-xs bg-accent/10 text-accent border-accent/20">{tag}</Badge>
+        ))}
+      </div>
+
+      <p className="mt-4 text-muted-foreground text-sm flex-grow text-center px-2 h-16 overflow-hidden">
+        {project.description}
+      </p>
+      
+      <div className="flex w-full gap-4 pt-4 mt-auto">
+        <Button asChild size="sm" className="flex-1 bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-md hover:shadow-accent/40 font-code">
+          <Link href={project.liveUrl} target="_blank">
+            VIEW <ArrowUpRight className="ml-1 h-4 w-4" />
+          </Link>
+        </Button>
+        <Button asChild size="sm" variant="outline" className="flex-1 bg-card/80 border-accent/50 hover:bg-card hover:border-accent font-code">
+          <Link href={project.githubUrl} target="_blank">
+            <Github className="mr-1 h-4 w-4" /> Schematics
+          </Link>
+        </Button>
       </div>
     </div>
   );
@@ -132,7 +122,7 @@ export function ProjectsSection() {
       </div>
       
       <div className="relative w-full flex flex-col items-center">
-        <div className="relative w-full h-[680px] flex items-center justify-center overflow-x-hidden">
+        <div className="relative w-full h-[680px] flex items-center justify-center">
           {/* Carousel Track */}
           <motion.div
             className="absolute flex items-center"
