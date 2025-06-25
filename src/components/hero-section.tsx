@@ -47,7 +47,7 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative w-48 h-64 mb-16 group"
+          className="relative w-48 h-60 mb-16 group"
         >
           {/* The diamond frame in the background, shaped with clip-path */}
           <div
@@ -56,15 +56,16 @@ export function HeroSection() {
           />
 
           {/* The image, positioned on top to create a pop-out effect */}
-          <Image
-            src="/jagdish.png"
-            alt="JAGDISH ODEDARA"
-            width={180}
-            height={225}
-            className="absolute top-0 -translate-y-2 left-1/2 -translate-x-1/2 object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-105 z-10"
-            priority
-            data-ai-hint="profile picture"
-          />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[105%] z-10 transition-transform duration-500 group-hover:scale-105">
+            <Image
+              src="/jagdish.png"
+              alt="JAGDISH ODEDARA"
+              fill
+              className="object-contain drop-shadow-xl"
+              priority
+              data-ai-hint="profile picture"
+            />
+          </div>
         </motion.div>
         
         <AnimatedText text="JAGDISH ODEDARA" el="h1" className="font-headline text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]" />
