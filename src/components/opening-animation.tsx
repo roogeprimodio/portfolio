@@ -104,7 +104,7 @@ export function OpeningAnimation() {
 
         <motion.div variants={textVariants}>
             <h1 className="mt-4 font-headline text-2xl text-primary tracking-widest">
-                Wh1te Dem0n
+                JAGDISH ODEDARA
             </h1>
         </motion.div>
         <motion.div variants={textVariants}>

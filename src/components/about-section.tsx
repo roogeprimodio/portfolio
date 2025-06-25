@@ -11,7 +11,7 @@ const aboutData = {
   summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
   contactInfo: {
     address: "Sector 7, Neo-Kyoto, Earth",
-    email: "contact@wh1tedem0n.dev",
+    email: "contact@jagdishodedara.dev",
   },
   experience: [
     {

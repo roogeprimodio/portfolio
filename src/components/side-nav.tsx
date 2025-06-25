@@ -84,7 +84,7 @@ export function SideNav() {
       <ul className="flex flex-col items-center gap-2 p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
         {/* Custom Logo */}
         <li>
-            <div className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-default" title="Wh1te Dem0n">
+            <div className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-default" title="JAGDISH ODEDARA">
                 <LogoIcon />
             </div>
         </li>
