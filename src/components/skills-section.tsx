@@ -63,6 +63,9 @@ for (let i = 0; i < 4; i++) {
 }
 
 export function SkillsSection() {
+  const amplitude = 30; // Wave amplitude in pixels
+  const frequency = 0.02; // Wave frequency
+
   return (
     <section id="skills" className="flex flex-col items-center justify-center p-4 py-24 min-h-screen overflow-hidden">
       <div className="text-center space-y-2 mb-12 z-10 relative">
@@ -74,17 +77,43 @@ export function SkillsSection() {
       
       <div className="w-full max-w-4xl">
         <Accordion type="multiple" className="relative">
-          <div className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-gradient-to-b from-transparent via-accent/30 to-transparent"></div>
+          <svg
+            aria-hidden="true"
+            className="absolute left-1/2 top-0 h-full w-24 -translate-x-1/2"
+            fill="none"
+          >
+            <defs>
+              <linearGradient id="dna-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style={{ stopColor: "hsl(var(--background))", stopOpacity: 0 }} />
+                <stop offset="10%" style={{ stopColor: "hsl(var(--accent))", stopOpacity: 0.3 }} />
+                <stop offset="90%" style={{ stopColor: "hsl(var(--accent))", stopOpacity: 0.3 }} />
+                <stop offset="100%" style={{ stopColor: "hsl(var(--background))", stopOpacity: 0 }} />
+              </linearGradient>
+            </defs>
+            <motion.path
+              d="M 50 0 Q 20 120, 50 240 T 50 480 Q 80 600, 50 720 T 50 960 Q 20 1080, 50 1200 T 50 1440 Q 80 1560, 50 1680 T 50 1920"
+              stroke="url(#dna-gradient)"
+              strokeWidth="2"
+              initial={{ pathLength: 0, opacity: 0 }}
+              whileInView={{ pathLength: 1, opacity: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 3, ease: "easeInOut" }}
+            />
+          </svg>
+
           <div className="space-y-12">
             {wovenSkills.map((category, index) => {
               const isLeft = category.side === 'left';
+              const yPos = index * 150; // Approximate vertical position for sine wave calculation
+              const xOffset = Math.sin(yPos * frequency) * amplitude;
+
               return (
                 <motion.div
                   key={category.title}
-                  initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, x: (isLeft ? -50 : 50) + xOffset }}
+                  whileInView={{ opacity: 1, x: xOffset }}
                   viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
+                  transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.15 }}
                   className="relative flex items-center"
                 >
                   <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-md left-1/2 -translate-x-1/2"></div>
