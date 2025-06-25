@@ -46,7 +46,13 @@ const aboutData = {
       name: "React (Basic)",
       issuer: "HackerRank",
       year: "2024",
-      url: "https://www.hackerrank.com/certificates/sample_id_goes_here",
+      url: "https://www.hackerrank.com/certificates/aba7c97fd4ea",
+    },
+    {
+      name: "JavaScript (Intermediate)",
+      issuer: "HackerRank",
+      year: "2024",
+      url: "https://www.hackerrank.com/certificates/6544ad97d607",
     },
     {
       name: "Google Certified Professional - Cloud Architect",
