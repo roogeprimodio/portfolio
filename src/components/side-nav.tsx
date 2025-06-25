@@ -1,4 +1,3 @@
-
 "use client";
 
 import { UserCircle, Archive, Dna, Send, FileText } from "lucide-react";
@@ -40,8 +39,9 @@ export function SideNav() {
         });
       },
       { 
-        root: mainElement, // Important for scrollable containers
-        threshold: 0.5 
+        root: mainElement,
+        threshold: 0.5,
+        rootMargin: "-30% 0px -30% 0px",
       }
     );
 
