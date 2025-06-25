@@ -1,11 +1,9 @@
-
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, Brain, Handshake, Languages, BarChart2, HardHat, Beaker, Building2 } from 'lucide-react';
-import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const skillData = [
@@ -65,12 +63,7 @@ for (let i = 0; i < 4; i++) {
 type RungPoint = { y: number; x1: number; x2: number; };
 
 export function SkillsSection() {
-  const amplitude = 30;
-  const frequency = 0.02;
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  const [xOffsets, setXOffsets] = useState<number[]>([]);
-  const currentOffsets = useRef<number[]>([]);
   const animationFrameId = useRef<number | null>(null);
 
   const [dnaPath, setDnaPath] = useState("M 48 0");
@@ -79,22 +72,13 @@ export function SkillsSection() {
 
   const calculateLayout = useCallback(() => {
     if (!containerRef.current) return;
+    
+    const amplitude = 30;
+    const frequency = 0.02;
 
     const containerTop = containerRef.current.getBoundingClientRect().top;
     const svgWidth = 96; // w-24
     const centerX = svgWidth / 2;
-
-    // Calculate target X offsets for cards
-    const newTargetOffsets: number[] = [];
-    Array.from(containerRef.current.children).forEach((child) => {
-      const itemEl = child as HTMLElement;
-      const itemRect = itemEl.getBoundingClientRect();
-      const itemCenterY = itemRect.top + itemRect.height / 2;
-      const yPos = itemCenterY - containerTop;
-      const xOffset = Math.sin(yPos * frequency) * amplitude;
-      newTargetOffsets.push(xOffset);
-    });
-    setXOffsets(newTargetOffsets);
 
     // Calculate DNA paths and rungs
     const containerHeight = containerRef.current.scrollHeight;
@@ -124,65 +108,62 @@ export function SkillsSection() {
     setDnaPath(path1);
     setDnaPath2(path2);
     setRungPoints(newRungPoints);
+    
+    // Position cards
+    const cardElements = Array.from(containerRef.current.children) as HTMLElement[];
+    const rects = cardElements.map(el => el.getBoundingClientRect());
+
+    cardElements.forEach((el, index) => {
+      const itemRect = rects[index];
+      const itemCenterY = itemRect.top + itemRect.height / 2;
+      const yPos = itemCenterY - containerTop;
+      const xOffset = Math.sin(yPos * frequency) * amplitude;
+      el.style.transform = `translateX(${xOffset}px)`;
+    });
 
   }, []);
 
-  const animate = useCallback(() => {
-    if (!containerRef.current) return;
-
-    const easing = 0.1;
-    let changed = false;
-
-    const newCurrentOffsets = currentOffsets.current.map((current, index) => {
-      const target = xOffsets[index] || 0;
-      const diff = target - current;
-      if (Math.abs(diff) < 0.1) return target;
-      
-      changed = true;
-      return current + diff * easing;
-    });
-    
-    currentOffsets.current = newCurrentOffsets;
-
-    (Array.from(containerRef.current.children) as HTMLElement[]).forEach((child, index) => {
-      child.style.transform = `translateX(${newCurrentOffsets[index]}px)`;
-    });
-    
-    if (changed) {
-      animationFrameId.current = requestAnimationFrame(animate);
-    } else {
-      animationFrameId.current = null;
+  const handleAccordionToggle = useCallback(() => {
+    if (animationFrameId.current) {
+      cancelAnimationFrame(animationFrameId.current);
     }
-  }, [xOffsets]);
+    
+    const startTime = performance.now();
+    const duration = 220;
+
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      calculateLayout();
+      
+      if (elapsed < duration) {
+        animationFrameId.current = requestAnimationFrame(animate);
+      } else {
+        animationFrameId.current = null;
+        calculateLayout(); // one final snap
+      }
+    };
+
+    animationFrameId.current = requestAnimationFrame(animate);
+  }, [calculateLayout]);
 
   useEffect(() => {
     calculateLayout();
-    if(animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
-    animationFrameId.current = requestAnimationFrame(animate);
-  }, [xOffsets, animate, calculateLayout]);
-
-  useEffect(() => {
     const observer = new ResizeObserver(calculateLayout);
     const currentContainer = containerRef.current;
     if (currentContainer) {
       observer.observe(currentContainer);
-      // Initialize offsets
-      currentOffsets.current = Array(wovenSkills.length).fill(0);
-      calculateLayout();
     }
     
     return () => {
-      if(animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
-      if (currentContainer) observer.unobserve(currentContainer);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+      if (currentContainer) {
+        observer.unobserve(currentContainer);
+      }
     };
   }, [calculateLayout]);
 
-
-  const handleAccordionToggle = () => {
-    setTimeout(calculateLayout, 20);
-    setTimeout(calculateLayout, 100); 
-    setTimeout(calculateLayout, 220); // Recalculate after animation
-  };
 
   return (
     <section id="skills" className="flex flex-col items-center justify-center p-4 py-24 min-h-screen overflow-hidden">
@@ -203,6 +184,7 @@ export function SkillsSection() {
             {/* Rungs */}
             <g>
               {rungPoints.map(({ y, x1, x2 }) => {
+                const frequency = 0.02;
                 const isLeftInFront = Math.sin(y * frequency) > 0;
                 return (
                   <g key={y} style={{ zIndex: isLeftInFront ? 1 : -1 }}>
