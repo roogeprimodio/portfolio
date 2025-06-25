@@ -26,22 +26,22 @@ export function SideNav() {
 
   // This effect handles highlighting the active section in the nav
   useEffect(() => {
-    // The main element is the scrolling container, not the window
     const mainElement = document.querySelector('main');
     if (!mainElement) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        
+        if (visibleSections.length > 0) {
+          setActiveSection(visibleSections[0].target.id);
+        }
       },
       { 
         root: mainElement,
-        // Using a lower threshold to ensure sections of different heights are detected reliably.
-        threshold: 0.4,
+        threshold: 0.4, // A section is considered "visible" if 40% of it is in the viewport.
       }
     );
 
