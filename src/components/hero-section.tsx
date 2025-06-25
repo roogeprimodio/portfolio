@@ -8,18 +8,20 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const AnimatedText = ({ text, el: Wrapper = "p", className }: { text: string, el?: keyof JSX.IntrinsicElements, className?: string }) => {
+  const words = text.split(" ");
+
   const sentence = {
     hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05,
+        staggerChildren: 0.1, // Stagger by word
         delayChildren: 0.2,
       },
     },
   };
 
-  const letter = {
+  const wordVariant = {
     hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
     visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { type: "spring", damping: 12, stiffness: 200 } },
   };
@@ -27,9 +29,9 @@ const AnimatedText = ({ text, el: Wrapper = "p", className }: { text: string, el
   return (
     <Wrapper className={className}>
       <motion.span variants={sentence} initial="hidden" animate="visible" aria-label={text}>
-        {text.split("").map((char, index) => (
-          <motion.span key={char + "-" + index} variants={letter} className="inline-block" aria-hidden="true">
-            {char === " " ? " " : char}
+        {words.map((word, index) => (
+          <motion.span key={word + "-" + index} variants={wordVariant} className="inline-block" aria-hidden="true">
+            {word}{index < words.length - 1 ? "\u00A0" : ""}
           </motion.span>
         ))}
       </motion.span>
