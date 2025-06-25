@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -60,7 +61,7 @@ export function HeroSection() {
             alt="JAGDISH ODEDARA"
             width={192}
             height={240}
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-105 z-10"
+            className="absolute top-0 -translate-y-4 left-1/2 -translate-x-1/2 object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-105 z-10"
             priority
             data-ai-hint="profile picture"
           />
