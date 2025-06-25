@@ -5,6 +5,9 @@ import { Toaster } from "@/components/ui/toaster";
 export const metadata: Metadata = {
   title: 'JAGDISH ODEDARA // Portfolio',
   description: 'Digital Craftsman & Code Poet',
+  icons: {
+    icon: '/faviconicon.png',
+  },
 };
 
 export default function RootLayout({
