@@ -54,8 +54,9 @@ export function HeroSection() {
             alt="Avatar"
             width={120}
             height={120}
-            className="rounded-full object-cover border-2 border-accent/50 shadow-2xl shadow-accent/20"
+            className="rounded-3xl object-cover border-2 border-accent/50 shadow-2xl shadow-accent/20"
             priority
+            data-ai-hint="profile picture"
           />
         </motion.div>
         
