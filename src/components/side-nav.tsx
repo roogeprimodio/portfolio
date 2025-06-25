@@ -41,7 +41,6 @@ export function SideNav() {
       { 
         root: mainElement,
         threshold: 0.5,
-        rootMargin: "-40% 0px -40% 0px",
       }
     );
 
