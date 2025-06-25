@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -60,7 +61,7 @@ const socialIcons = [
   { Icon: Linkedin, href: "#", name: "LinkedIn", position: { top: "85%", right: "-20%" } },
   { Icon: RedditIcon, href: "#", name: "Reddit", position: { bottom: "-10%", right: "10%" } },
   { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", position: { bottom: "20%", left: "-25%" } },
-  { Icon: Phone, href: "#", name: "Call", position: { bottom: "-15%", left: "35%" } },
+  { Icon: Phone, href: "tel:9773075648", name: "Call", position: { bottom: "-15%", left: "35%" } },
 ];
 
 
