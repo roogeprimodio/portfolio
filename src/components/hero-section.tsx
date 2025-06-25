@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -47,23 +46,24 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative w-48 h-48 mb-16 group"
+          className="relative w-48 h-64 mb-16 group"
         >
-          {/* Diamond Frame - Rotated Square with overflow hidden */}
-          <div className="w-full h-full rotate-45 rounded-3xl border-4 border-accent/30 bg-card/60 backdrop-blur-sm shadow-2xl overflow-hidden">
-            {/* This container "un-rotates" the image to be upright inside the diamond */}
-            <div className="w-full h-full -rotate-45 scale-[1.42]">
-              <Image
-                src="/jagdish.png"
-                alt="JAGDISH ODEDARA"
-                width={192}
-                height={240}
-                className="object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-105 -translate-y-8"
-                priority
-                data-ai-hint="profile picture"
-              />
-            </div>
-          </div>
+          {/* The diamond frame in the background, shaped with clip-path */}
+          <div
+            className="absolute inset-0 bg-card/60 backdrop-blur-sm border-4 border-accent/30 shadow-2xl"
+            style={{ clipPath: 'polygon(50% 0, 100% 35%, 50% 100%, 0 35%)' }}
+          />
+
+          {/* The image, positioned on top to create a pop-out effect */}
+          <Image
+            src="/jagdish.png"
+            alt="JAGDISH ODEDARA"
+            width={192}
+            height={240}
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-105 z-10"
+            priority
+            data-ai-hint="profile picture"
+          />
         </motion.div>
         
         <AnimatedText text="JAGDISH ODEDARA" el="h1" className="font-headline text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]" />
