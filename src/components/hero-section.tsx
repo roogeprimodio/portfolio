@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -43,17 +44,17 @@ export function HeroSection() {
       
       <div className="relative flex flex-col items-center z-10">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-          className="relative mb-8"
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+          className="relative mb-6"
         >
           <Image
-            src="/passsword.jpg"
-            alt="Avatar"
-            width={120}
-            height={120}
-            className="rounded-3xl object-cover border-2 border-accent/50 shadow-2xl shadow-accent/20"
+            src="/profile.png"
+            alt="JAGDISH ODEDARA"
+            width={160}
+            height={210}
+            className="object-contain drop-shadow-[0_10px_15px_hsl(var(--primary)/0.2)]"
             priority
             data-ai-hint="profile picture"
           />
