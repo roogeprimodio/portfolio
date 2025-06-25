@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Gamepad2, Bot, Cpu, Code, MapPin, Mail } from "lucide-react";
 
 const aboutData = {
@@ -42,14 +43,22 @@ const aboutData = {
   ],
   certifications: [
     {
+      name: "React (Basic)",
+      issuer: "HackerRank",
+      year: "2024",
+      url: "https://www.hackerrank.com/certificates/sample_id_goes_here",
+    },
+    {
       name: "Google Certified Professional - Cloud Architect",
       issuer: "Google Cloud",
       year: "2023",
+      url: "about:blank"
     },
     {
       name: "Certified Kubernetes Administrator (CKA)",
       issuer: "Cloud Native Computing Foundation",
       year: "2022",
+      url: "about:blank"
     },
   ],
   programmingLanguages: [
@@ -217,23 +226,34 @@ export function AboutSection() {
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
             {aboutData.certifications.map((item, index) => (
-              <motion.div 
-                key={index}
-                custom={index + timelineItemsCount}
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                className="relative"
-              >
-                <div className="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-accent border-2 border-background"></div>
-                <Card className="bg-card/50 backdrop-blur-sm border border-accent/20">
-                  <CardHeader>
-                    <CardTitle className="text-xl font-code text-primary">{item.name}</CardTitle>
-                    <CardDescription className="font-code text-accent">{item.issuer} // Acquired: {item.year}</CardDescription>
-                  </CardHeader>
-                </Card>
-              </motion.div>
+              <Dialog key={item.name}>
+                <DialogTrigger asChild>
+                  <motion.div 
+                    custom={index + timelineItemsCount}
+                    variants={cardVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="relative cursor-pointer"
+                  >
+                    <div className="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-accent border-2 border-background"></div>
+                    <Card className="bg-card/50 backdrop-blur-sm border border-accent/20 hover:border-accent transition-colors">
+                      <CardHeader>
+                        <CardTitle className="text-xl font-code text-primary">{item.name}</CardTitle>
+                        <CardDescription className="font-code text-accent">{item.issuer} // Acquired: {item.year}</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  </motion.div>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl h-4/5">
+                  <DialogHeader>
+                    <DialogTitle className="font-headline text-accent">{item.name}</DialogTitle>
+                  </DialogHeader>
+                  <div className="w-full h-full rounded-lg overflow-hidden border border-accent/20">
+                    <iframe src={item.url} title={item.name} className="w-full h-full" />
+                  </div>
+                </DialogContent>
+              </Dialog>
             ))}
           </div>
         </div>
