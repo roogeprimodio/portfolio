@@ -58,8 +58,8 @@ const socialIcons = [
   { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", position: { top: "10%", left: "-25%" } },
   { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter", position: { top: "-10%", right: "0%" } },
   { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", position: { top: "40%", right: "-35%" } },
-  { Icon: Linkedin, href: "#", name: "LinkedIn", position: { top: "85%", right: "-20%" } },
-  { Icon: RedditIcon, href: "#", name: "Reddit", position: { bottom: "-10%", right: "10%" } },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", position: { top: "85%", right: "-20%" } },
+  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit", position: { bottom: "-10%", right: "10%" } },
   { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", position: { bottom: "20%", left: "-25%" } },
   { Icon: Phone, href: "tel:9773075648", name: "Call", position: { bottom: "-15%", left: "35%" } },
 ];
