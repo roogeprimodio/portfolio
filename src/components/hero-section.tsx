@@ -49,8 +49,8 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           className="relative mb-6"
         >
-          <Image
-            src="/passsword.jpg"
+          <Image 
+            src="/jagdish.png"
             alt="JAGDISH ODEDARA"
             width={160}
             height={210}
