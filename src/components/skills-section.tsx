@@ -68,6 +68,7 @@ export function SkillsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [xOffsets, setXOffsets] = useState<number[]>([]);
   const [dnaPath, setDnaPath] = useState("M 48 0");
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const generateDnaPath = (height: number) => {
     if (height <= 0) return "M 48 0";
@@ -89,8 +90,9 @@ export function SkillsSection() {
     
     Array.from(containerRef.current.children).forEach((child) => {
       const itemEl = child as HTMLElement;
-      const itemTop = itemEl.getBoundingClientRect().top;
-      const yPos = itemTop - containerTop;
+      const itemRect = itemEl.getBoundingClientRect();
+      const itemCenterY = itemRect.top + itemRect.height / 2;
+      const yPos = itemCenterY - containerTop;
       const xOffset = Math.sin(yPos * frequency) * amplitude;
       newOffsets.push(xOffset);
     });
@@ -101,6 +103,7 @@ export function SkillsSection() {
     setDnaPath(generateDnaPath(containerHeight));
   }, []);
 
+  // Effect for handling resize and initial calculation
   useEffect(() => {
     const observer = new ResizeObserver(calculateOffsetsAndPath);
     const currentContainer = containerRef.current;
@@ -108,7 +111,6 @@ export function SkillsSection() {
       observer.observe(currentContainer);
     }
     
-    // Initial calculation after a short delay to allow for rendering
     const timer = setTimeout(calculateOffsetsAndPath, 100);
 
     return () => {
@@ -119,9 +121,32 @@ export function SkillsSection() {
     };
   }, [calculateOffsetsAndPath]);
 
+  // Effect for running the animation loop
+  useEffect(() => {
+    let animationFrameId: number | null = null;
+
+    const animate = () => {
+      calculateOffsetsAndPath();
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    if (isAnimating) {
+      animate();
+    }
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [isAnimating, calculateOffsetsAndPath]);
+
   const handleAccordionToggle = () => {
-    // Recalculate positions after the accordion animation completes
-    setTimeout(calculateOffsetsAndPath, 210);
+    setIsAnimating(true);
+    setTimeout(() => {
+      setIsAnimating(false);
+      calculateOffsetsAndPath(); // Final calculation for perfect alignment
+    }, 220); // A little more than the 200ms accordion animation to be safe
   };
 
 
@@ -153,7 +178,7 @@ export function SkillsSection() {
               d={dnaPath}
               stroke="url(#dna-gradient)"
               strokeWidth="2"
-              transition={{ duration: 0.2, ease: "easeInOut" }}
+              transition={{ duration: isAnimating ? 0 : 0.2, ease: "linear" }}
             />
           </svg>
 
@@ -171,7 +196,7 @@ export function SkillsSection() {
                   viewport={{ once: true, amount: 0.5 }}
                   transition={{
                     opacity: { duration: 0.8, ease: "easeOut", delay: index * 0.15 },
-                    x: { duration: 0.2, ease: "easeInOut" }
+                    x: { duration: isAnimating ? 0 : 0.5, ease: 'easeOut' }
                   }}
                   className="relative flex items-center"
                 >
@@ -211,4 +236,3 @@ export function SkillsSection() {
     </section>
   );
 }
-
