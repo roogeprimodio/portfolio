@@ -51,18 +51,21 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           className="relative w-44 h-64 mb-16 group"
         >
-          {/* The oval capsule frame, using a simple div with rounded-full */}
-          <div
-            className="absolute inset-0 rounded-full bg-primary/10 backdrop-blur-sm border-4 border-primary shadow-[0_0_20px_hsl(var(--primary)/0.6)]"
-          />
-
-          {/* The image, positioned on top to create a pop-out effect */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full z-10 -translate-y-1">
+          {/*
+            This single div is now the frame and the container for the image.
+            - rounded-full creates the oval shape.
+            - overflow-hidden ensures the image is perfectly clipped and does not "pop out".
+            - The border and shadow create the frame effect.
+          */}
+          <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary bg-primary/10 shadow-[0_0_20px_hsl(var(--primary)/0.6)]">
             <Image
               src="/jagdish.png"
               alt="JAGDISH ODEDARA"
               fill
-              className="object-contain drop-shadow-xl transition-transform duration-500 group-hover:scale-105"
+              // The image is scaled up slightly to fill the space better.
+              // The drop-shadow creates the 3D depth effect inside the frame.
+              // The hover effect is maintained.
+              className="object-contain scale-105 drop-shadow-xl transition-transform duration-500 group-hover:scale-110"
               priority
               data-ai-hint="profile picture"
             />
