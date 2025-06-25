@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -55,7 +54,7 @@ const RedditIcon = (props: React.ComponentProps<"svg">) => (
 )
 
 const socialIcons = [
-  { Icon: Instagram, href: "#", name: "Instagram", position: { top: "10%", left: "-25%" } },
+  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", position: { top: "10%", left: "-25%" } },
   { Icon: Twitter, href: "#", name: "Twitter", position: { top: "-10%", right: "0%" } },
   { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", position: { top: "40%", right: "-35%" } },
   { Icon: Linkedin, href: "#", name: "LinkedIn", position: { top: "85%", right: "-20%" } },
