@@ -93,7 +93,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
         </div>
       </div>
 
-      <h3 className="font-headline text-2xl font-bold text-primary text-center truncate">{project.title}</h3>
+      <h3 className="font-headline text-2xl font-bold text-primary text-center">{project.title}</h3>
       
       <div className="flex flex-wrap gap-2 justify-center mt-3">
         {project.tags.map((tag) => (
@@ -101,7 +101,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
         ))}
       </div>
 
-      <p className="mt-4 text-muted-foreground text-sm flex-grow text-center px-2 h-16 overflow-hidden">
+      <p className="mt-4 text-muted-foreground text-sm flex-grow text-center px-2">
         {project.description}
       </p>
       

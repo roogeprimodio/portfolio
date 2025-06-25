@@ -56,7 +56,7 @@ export function HeroSection() {
           />
 
           {/* The image, positioned on top to create a pop-out effect */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[105%] z-10 transition-transform duration-500 group-hover:scale-105">
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full z-10 transition-transform duration-500 group-hover:scale-105 -translate-y-1">
             <Image
               src="/jagdish.png"
               alt="JAGDISH ODEDARA"
