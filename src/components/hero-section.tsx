@@ -51,10 +51,9 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           className="relative w-48 h-60 mb-16 group"
         >
-          {/* The diamond frame in the background, shaped with clip-path */}
+          {/* The oval capsule frame, using a simple div with rounded-full */}
           <div
-            className="absolute inset-0 bg-primary/10 backdrop-blur-sm border-4 border-primary shadow-[0_0_20px_hsl(var(--primary)/0.6)]"
-            style={{ clipPath: 'polygon(50% 0, 100% 35%, 50% 100%, 0 35%)' }}
+            className="absolute inset-0 rounded-full bg-primary/10 backdrop-blur-sm border-4 border-primary shadow-[0_0_20px_hsl(var(--primary)/0.6)]"
           />
 
           {/* The image, positioned on top to create a pop-out effect */}
