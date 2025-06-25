@@ -47,14 +47,14 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative mb-6"
+          className="relative mb-6 p-1 bg-card/50 backdrop-blur-sm border border-accent/20 rounded-3xl shadow-2xl shadow-black/50"
         >
           <Image 
             src="/jagdish.png"
             alt="JAGDISH ODEDARA"
             width={160}
             height={210}
-            className="object-contain rounded-3xl drop-shadow-[0_10px_15px_hsl(var(--primary)/0.2)]"
+            className="object-contain rounded-[1.25rem]"
             priority
             data-ai-hint="profile picture"
           />
