@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 const projects = [
   {
     title: "E-Commerce Platform",
-    description: "A full-stack e-commerce website built with Next.js, Stripe for payments, and a PostgreSQL database. Features product listings, search, and a user authentication system.",
+    description: "A full-stack e-commerce website with Next.js, Stripe, and a PostgreSQL database.",
     tags: ["Next.js", "React", "Stripe", "Auth"],
     image: "https://placehold.co/600x400.png",
     imageHint: "online shopping",
@@ -22,8 +22,8 @@ const projects = [
   },
   {
     title: "Task Management App",
-    description: "A collaborative task management application with drag-and-drop functionality, real-time updates using WebSockets, and a clean, intuitive user interface.",
-    tags: ["React", "Node.js", "MongoDB", "WebSockets"],
+    description: "A collaborative task app with drag-and-drop functionality and real-time updates.",
+    tags: ["React", "Node.js", "WebSockets"],
     image: "https://placehold.co/600x400.png",
     imageHint: "project management",
     liveUrl: "#",
@@ -31,7 +31,7 @@ const projects = [
   },
   {
     title: "Data Viz Dashboard",
-    description: "A dashboard for visualizing complex datasets using D3.js. Allows users to interact with charts and graphs to explore data insights dynamically.",
+    description: "A dashboard for visualizing complex datasets, allowing users to interact with charts.",
     tags: ["D3.js", "JavaScript", "API"],
     image: "https://placehold.co/600x400.png",
     imageHint: "data dashboard",
@@ -40,7 +40,7 @@ const projects = [
   },
   {
     title: "Cyber-Security Suite",
-    description: "An integrated security suite featuring real-time threat detection and network vulnerability scanning, all presented in a holographic interface.",
+    description: "An integrated security suite with real-time threat detection and vulnerability scanning.",
     tags: ["Python", "AI", "CyberSec"],
     image: "https://placehold.co/600x400.png",
     imageHint: "cyber security",
@@ -51,39 +51,50 @@ const projects = [
 
 const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
   return (
-    <div className="relative w-full h-full rounded-xl border border-accent/30 bg-card/60 backdrop-blur-md p-6 text-left flex flex-col shadow-lg">
-      <div className="relative h-40 w-full mb-4 rounded-lg overflow-hidden">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover"
-          data-ai-hint={project.imageHint}
-        />
-      </div>
-      <h3 className="font-headline text-xl font-bold text-primary">{project.title}</h3>
-      <div className="flex flex-wrap gap-2 mt-2">
-        {project.tags.map((tag) => (
-          <Badge key={tag} variant="secondary" className="font-code text-xs bg-accent/10 text-accent border-accent/20">{tag}</Badge>
-        ))}
-      </div>
-      <p className="mt-3 text-muted-foreground text-sm flex-grow">{project.description}</p>
-      
-      <div className="flex w-full gap-4 pt-2 mt-auto">
-        <Button asChild size="sm" className="flex-1 bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-md hover:shadow-accent/40 font-code">
-          <Link href={project.liveUrl} target="_blank">
-            Live Demo <ArrowUpRight className="ml-1 h-4 w-4" />
-          </Link>
-        </Button>
-        <Button asChild size="sm" variant="outline" className="flex-1 bg-card/80 border-accent/50 hover:bg-card hover:border-accent font-code">
-          <Link href={project.githubUrl} target="_blank">
-            <Github className="mr-1 h-4 w-4" /> GitHub
-          </Link>
-        </Button>
-      </div>
+    // Main capsule body with gradient and border for 3D feel
+    <div className="relative w-full h-full rounded-[60px] border-2 border-accent/10 bg-gradient-to-b from-card/60 via-card/80 to-black/30 p-3 text-left flex flex-col shadow-lg backdrop-blur-sm">
+        {/* Inner frame */}
+        <div className="relative w-full h-full rounded-[48px] border border-white/10 bg-card/50 flex flex-col p-4 overflow-hidden">
+            
+            {/* Window/Viewport for the image */}
+            <div className="relative h-48 w-full mb-4 rounded-3xl overflow-hidden border border-accent/20 bg-black/50 shadow-inner">
+                <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover opacity-80"
+                    data-ai-hint={project.imageHint}
+                />
+                 <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-transparent to-transparent"></div>
+            </div>
+
+            <h3 className="font-headline text-xl font-bold text-primary text-center truncate">{project.title}</h3>
+            
+            <div className="flex flex-wrap gap-1.5 justify-center mt-2">
+                {project.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary" className="font-code text-xs bg-accent/10 text-accent border-accent/20">{tag}</Badge>
+                ))}
+            </div>
+
+            <p className="mt-4 text-muted-foreground text-sm flex-grow text-center px-2">{project.description}</p>
+            
+            <div className="flex w-full gap-2 pt-4 mt-auto">
+                <Button asChild size="sm" className="flex-1 bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-md hover:shadow-accent/40 font-code">
+                    <Link href={project.liveUrl} target="_blank">
+                        Live <ArrowUpRight className="ml-1 h-4 w-4" />
+                    </Link>
+                </Button>
+                <Button asChild size="sm" variant="outline" className="flex-1 bg-card/80 border-accent/50 hover:bg-card hover:border-accent font-code">
+                    <Link href={project.githubUrl} target="_blank">
+                        <Github className="mr-1 h-4 w-4" /> Code
+                    </Link>
+                </Button>
+            </div>
+        </div>
     </div>
   );
 };
+
 
 const swipeConfidenceThreshold = 10000;
 const swipePower = (offset: number, velocity: number) => {
@@ -97,8 +108,8 @@ export function ProjectsSection() {
       setActiveIndex((prevIndex) => (prevIndex + newDirection + projects.length) % projects.length);
     };
 
-    const cardWidth = 320; // w-80
-    const mdCardWidth = 384; // w-96
+    const cardWidth = 288; // w-72
+    const mdCardWidth = 320; // w-80
     const cardGap = 16; // gap-4
     const mdCardGap = 32; // md:gap-8
 
@@ -112,7 +123,7 @@ export function ProjectsSection() {
       </div>
       
       <div className="relative w-full flex flex-col items-center">
-        <div className="relative w-full h-[480px] flex items-center justify-center overflow-x-hidden">
+        <div className="relative w-full h-[580px] flex items-center justify-center overflow-x-hidden">
           {/* Carousel Track */}
           <motion.div
             className="absolute flex items-center"
@@ -136,16 +147,16 @@ export function ProjectsSection() {
             {projects.map((project, index) => (
               <motion.div
                 key={project.title}
-                className="flex-shrink-0 w-80 md:w-96 h-[450px]"
+                className="flex-shrink-0 w-72 md:w-80 h-[540px]"
                 style={{
                   margin: `0 ${cardGap / 2}px`,
                   // @ts-ignore
-                  "--card-width": "320px",
+                  "--card-width": "288px",
                   "--card-gap": `${cardGap}px`
                 }}
                 animate={{
-                    scale: index === activeIndex ? 1 : 0.85,
-                    opacity: index === activeIndex ? 1 : 0.6,
+                    scale: index === activeIndex ? 1 : 0.75,
+                    opacity: index === activeIndex ? 1 : 0.4,
                     zIndex: projects.length - Math.abs(activeIndex - index),
                 }}
                 transition={{ type: "spring", stiffness: 400, damping: 50 }}
