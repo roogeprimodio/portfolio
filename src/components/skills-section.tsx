@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, Brain, Handshake, Languages, BarChart2, HardHat, Beaker, Building2 } from 'lucide-react';
@@ -65,11 +65,52 @@ for (let i = 0; i < 4; i++) {
 export function SkillsSection() {
   const amplitude = 30; // Wave amplitude in pixels
   const frequency = 0.02; // Wave frequency
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [xOffsets, setXOffsets] = useState<number[]>([]);
+
+  useLayoutEffect(() => {
+    const calculateOffsets = () => {
+      if (!containerRef.current) return;
+
+      const containerTop = containerRef.current.getBoundingClientRect().top;
+      const newOffsets: number[] = [];
+      
+      Array.from(containerRef.current.children).forEach((child) => {
+        const itemEl = child as HTMLElement;
+        const itemTop = itemEl.getBoundingClientRect().top;
+        const yPos = itemTop - containerTop;
+        const xOffset = Math.sin(yPos * frequency) * amplitude;
+        newOffsets.push(xOffset);
+      });
+      
+      setXOffsets(newOffsets);
+    };
+
+    // Initial calculation and on subsequent resizes.
+    // Using ResizeObserver is key for dynamic content like accordions.
+    const resizeObserver = new ResizeObserver(calculateOffsets);
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+    
+    // Also calculate on window resize for broader responsiveness
+    window.addEventListener('resize', calculateOffsets);
+    
+    // Initial calculation after mount
+    calculateOffsets();
+
+    return () => {
+      if (containerRef.current) {
+        resizeObserver.unobserve(containerRef.current);
+      }
+      window.removeEventListener('resize', calculateOffsets);
+    };
+  }, []);
 
   return (
     <section id="skills" className="flex flex-col items-center justify-center p-4 py-24 min-h-screen overflow-hidden">
       <div className="text-center space-y-2 mb-12 z-10 relative">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
           Skills DNA
         </h2>
         <p className="text-accent font-code">The building blocks of my craft.</p>
@@ -91,29 +132,32 @@ export function SkillsSection() {
               </linearGradient>
             </defs>
             <motion.path
-              d="M 50 0 Q 20 120, 50 240 T 50 480 Q 80 600, 50 720 T 50 960 Q 20 1080, 50 1200 T 50 1440 Q 80 1560, 50 1680 T 50 1920"
+              d="M 50 0 Q 20 120, 50 240 T 50 480 Q 80 600, 50 720 T 50 960 Q 20 1080, 50 1200 T 50 1440 Q 80 1560, 50 1680 T 50 1920 Q 20 2040, 50 2160 T 50 2400 Q 80 2520, 50 2640 T 50 2880"
               stroke="url(#dna-gradient)"
               strokeWidth="2"
               initial={{ pathLength: 0, opacity: 0 }}
               whileInView={{ pathLength: 1, opacity: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 3, ease: "easeInOut" }}
             />
           </svg>
 
-          <div className="space-y-12">
+          <div ref={containerRef} className="space-y-12">
             {wovenSkills.map((category, index) => {
               const isLeft = category.side === 'left';
-              const yPos = index * 150; // Approximate vertical position for sine wave calculation
-              const xOffset = Math.sin(yPos * frequency) * amplitude;
+              const xOffset = xOffsets[index] || 0;
 
               return (
                 <motion.div
                   key={category.title}
-                  initial={{ opacity: 0, x: (isLeft ? -50 : 50) + xOffset }}
-                  whileInView={{ opacity: 1, x: xOffset }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  animate={{ x: xOffset }}
                   viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.15 }}
+                  transition={{
+                    opacity: { duration: 0.8, ease: "easeOut", delay: index * 0.15 },
+                    x: { type: 'spring', stiffness: 300, damping: 30 }
+                  }}
                   className="relative flex items-center"
                 >
                   <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-[0_0_10px_hsl(var(--accent)/0.45)] left-1/2 -translate-x-1/2"></div>
