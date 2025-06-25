@@ -68,6 +68,7 @@ export function SkillsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [xOffsets, setXOffsets] = useState<number[]>([]);
   const [dnaPath, setDnaPath] = useState("M 48 0");
+  const [dnaPath2, setDnaPath2] = useState("M 48 0");
   const [isAnimating, setIsAnimating] = useState(false);
 
   const generateDnaPath = (height: number) => {
@@ -77,6 +78,18 @@ export function SkillsSection() {
     const centerX = svgWidth / 2;
     for (let y = 1; y <= height; y++) {
       const x = centerX + Math.sin(y * frequency) * amplitude;
+      path += ` L ${x.toFixed(2)} ${y}`;
+    }
+    return path;
+  };
+
+  const generateDnaPath2 = (height: number) => {
+    if (height <= 0) return "M 48 0";
+    let path = "M 48 0";
+    const svgWidth = 96; // corresponding to w-24
+    const centerX = svgWidth / 2;
+    for (let y = 1; y <= height; y++) {
+      const x = centerX - Math.sin(y * frequency) * amplitude;
       path += ` L ${x.toFixed(2)} ${y}`;
     }
     return path;
@@ -101,6 +114,7 @@ export function SkillsSection() {
     
     const containerHeight = containerRef.current.scrollHeight;
     setDnaPath(generateDnaPath(containerHeight));
+    setDnaPath2(generateDnaPath2(containerHeight));
   }, []);
 
   // Effect for handling resize and initial calculation
@@ -178,7 +192,13 @@ export function SkillsSection() {
               d={dnaPath}
               stroke="url(#dna-gradient)"
               strokeWidth="2"
-              transition={{ duration: isAnimating ? 0 : 0.2, ease: "linear" }}
+              transition={{ duration: 0, ease: "linear" }}
+            />
+            <motion.path
+              d={dnaPath2}
+              stroke="url(#dna-gradient)"
+              strokeWidth="2"
+              transition={{ duration: 0, ease: "linear" }}
             />
           </svg>
 
@@ -196,7 +216,7 @@ export function SkillsSection() {
                   viewport={{ once: true, amount: 0.5 }}
                   transition={{
                     opacity: { duration: 0.8, ease: "easeOut", delay: index * 0.15 },
-                    x: { duration: isAnimating ? 0 : 0.5, ease: 'easeOut' }
+                    x: { duration: 0, ease: 'linear' }
                   }}
                   className="relative flex items-center"
                 >
