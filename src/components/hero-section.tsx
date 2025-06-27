@@ -169,15 +169,12 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-          className="relative w-40 h-48 mb-16 group"
+          className="relative w-40 h-52 mb-16 group"
         >
+          {/* The container that creates the capsule shape and border */}
           <div
               className={cn(
-                  'relative h-full w-full rounded-full overflow-hidden',
-                  mounted &&
-                  (resolvedTheme === 'dark'
-                      ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]'
-                      : 'light:animate-electric-glow-box')
+                  'relative h-full w-full rounded-full overflow-hidden'
               )}
           >
               {/* Top part of the frame */}
@@ -192,7 +189,7 @@ export function HeroSection() {
                       src="/jagdish.png"
                       alt="JAGDISH ODEDARA"
                       fill
-                      className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05] pt-2"
+                      className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05] pt-4"
                       priority
                       data-ai-hint="profile picture"
                   />
