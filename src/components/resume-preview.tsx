@@ -18,7 +18,7 @@ const Section = ({ children }: { children: React.ReactNode }) => (
 
 export const ResumePreview = () => {
   return (
-    <div className="bg-white text-gray-800 p-10 font-sans w-full max-w-4xl mx-auto shadow-2xl" id="resume-content">
+    <div id="resume-content" className="bg-white text-gray-800 p-10 font-sans shadow-2xl w-[50rem] aspect-[210/297]">
       {/* Header */}
       <header className="text-center mb-10">
         <h1 className="text-6xl font-extrabold text-gray-900 tracking-tight">JAGDISH ODEDARA</h1>
