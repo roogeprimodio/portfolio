@@ -171,9 +171,11 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
           className="relative w-40 h-52 mb-16 group"
         >
-          <div className="absolute top-0 left-0 w-full h-[30%] bg-primary rounded-t-full" />
-          <div className="absolute bottom-0 left-0 w-full h-[70%] bg-accent rounded-b-full" />
+          {/* The background frame parts, now a single glowing color */}
+          <div className="absolute top-0 left-0 w-full h-[30%] bg-primary rounded-t-full drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
+          <div className="absolute bottom-0 left-0 w-full h-[70%] bg-primary rounded-b-full drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
           
+          {/* The clipping container for the image */}
           <div className="absolute bottom-0 left-0 w-full h-[70%] rounded-b-full overflow-hidden z-10">
             <div className="relative w-full h-[143%]">
               <Image
