@@ -107,13 +107,13 @@ export function HeroSection() {
               <div className="h-full w-full rounded-full bg-background" />
           </div>
 
-          {/* Image that overflows */}
+          {/* Image inside frame */}
           <div className="relative z-10 h-full w-full">
             <Image
                 src="/jagdish.png"
                 alt="JAGDISH ODEDARA"
                 fill
-                className="object-contain scale-[1.2] translate-y-2 object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.3] group-hover:translate-y-1"
+                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
                 priority
                 data-ai-hint="profile picture"
               />
