@@ -2,7 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from '@/components/theme-provider';
-import { Cinzel, Raleway, Source_Code_Pro, Playfair_Display, Lato } from 'next/font/google';
+import { Cinzel, Raleway, Source_Code_Pro, Cormorant_Garamond, Montserrat } from 'next/font/google';
 import { cn } from '@/lib/utils';
 
 const fontBodyDark = Raleway({
@@ -17,15 +17,16 @@ const fontHeadlineDark = Cinzel({
   variable: '--font-headline-dark',
 });
 
-const fontBodyLight = Lato({
+const fontBodyLight = Montserrat({
   subsets: ['latin'],
   weight: ['400', '700'],
   display: 'swap',
   variable: '--font-body-light',
 });
 
-const fontHeadlineLight = Playfair_Display({
+const fontHeadlineLight = Cormorant_Garamond({
   subsets: ['latin'],
+  weight: ['400', '700'],
   display: 'swap',
   variable: '--font-headline-light',
 });
