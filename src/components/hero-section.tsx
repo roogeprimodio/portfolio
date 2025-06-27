@@ -171,45 +171,22 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
           className="relative w-40 h-52 mb-16 group"
         >
-          {/* Top part of the frame (sits behind). z-index is implicitly 0. */}
           <div className="absolute top-0 left-0 w-full h-[30%] bg-primary rounded-t-full" />
-
-          {/* Bottom part of the frame (sits behind). z-index is implicitly 0. */}
           <div className="absolute bottom-0 left-0 w-full h-[70%] bg-accent rounded-b-full" />
-
-          {/* 
-            This is the key container for the pop-out effect.
-            1. It's positioned at the bottom and takes up 70% of the height.
-            2. It has 'overflow-hidden', which will clip anything inside that goes below its bottom edge.
-            3. It has 'rounded-b-full' to match the frame shape.
-            4. It has a higher z-index to ensure its content (the image) appears above the frame parts.
-          */}
+          
           <div className="absolute bottom-0 left-0 w-full h-[70%] rounded-b-full overflow-hidden z-10">
-            {/*
-              This inner relative container is made TALLER than its parent clipping container.
-              By setting its height to be the inverse of the parent's percentage (100% / 70% ≈ 143%),
-              it becomes the full height of the original capsule.
-            */}
             <div className="relative w-full h-[143%]">
-              {/*
-                The Image uses 'fill' to take up the full space of its tall parent container.
-                'object-contain' maintains aspect ratio, and 'object-bottom' aligns it to the
-                bottom of this tall container. Because the tall container's bottom is aligned
-                with the clipping container's bottom, the image is perfectly contained at the
-                bottom, while its top extends up and out, creating the pop-out effect.
-              */}
               <Image
                 src="/jagdish.png"
                 alt="JAGDISH ODEDARA"
                 fill
-                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
+                className="object-cover object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
                 priority
                 data-ai-hint="profile picture"
               />
             </div>
           </div>
 
-          {/* Floating Icons need a high z-index to be on top of everything. */}
           {socialIcons.map((social, index) => (
             <motion.a
               key={index}
