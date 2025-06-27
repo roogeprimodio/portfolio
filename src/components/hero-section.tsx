@@ -171,22 +171,19 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
           className="relative w-40 h-52 mb-16 group"
         >
-          {/* The background frame parts, now a hollow border */}
-          <div className="absolute top-0 left-0 w-full h-[30%] border-4 border-primary rounded-t-full drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
-          <div className="absolute bottom-0 left-0 w-full h-[70%] border-4 border-primary rounded-b-full drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
+          {/* Single, seamless frame */}
+          <div className="absolute inset-0 border-4 border-primary rounded-full drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
           
-          {/* The clipping container for the image */}
-          <div className="absolute bottom-0 left-0 w-full h-[70%] rounded-b-full overflow-hidden z-10">
-            <div className="relative w-full h-[143%]">
-              <Image
-                src="/jagdish.png"
-                alt="JAGDISH ODEDARA"
-                fill
-                className="object-cover object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
-                priority
-                data-ai-hint="profile picture"
-              />
-            </div>
+          {/* The container for the image */}
+          <div className="relative w-full h-full rounded-full overflow-hidden">
+            <Image
+              src="/jagdish.png"
+              alt="JAGDISH ODEDARA"
+              fill
+              className="object-cover object-center drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
+              priority
+              data-ai-hint="profile picture"
+            />
           </div>
 
           {socialIcons.map((social, index) => (
