@@ -1,4 +1,3 @@
-
 "use client";
 
 import { UserCircle, Archive, Dna, Send, FileText, Menu } from "lucide-react";
@@ -6,7 +5,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "./ui/sheet";
 import { Button } from "./ui/button";
 
 const sections = [
@@ -151,6 +150,12 @@ export function SideNav() {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[250px] bg-card/80 backdrop-blur-lg">
+            <SheetHeader className="sr-only">
+              <SheetTitle>Navigation Menu</SheetTitle>
+              <SheetDescription>
+                A list of links to navigate to different sections of the portfolio.
+              </SheetDescription>
+            </SheetHeader>
              <ul className="flex flex-col items-center gap-4 pt-16">
                 {sections.map((section) => (
                   <li key={section.id}>
