@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "./ui/sheet";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
 
 const sections = [
@@ -26,7 +26,7 @@ const LogoIcon = () => (
 
 export function SideNav() {
   const [activeSection, setActiveSection] = useState("home");
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   // This effect handles highlighting the active section in the nav
   useEffect(() => {
@@ -65,7 +65,7 @@ export function SideNav() {
   // This function handles the smooth scroll to the selected section
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    setIsSheetOpen(false); // Close mobile sheet on click
+    setIsPopoverOpen(false); // Close mobile popover on click
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({
@@ -143,37 +143,43 @@ export function SideNav() {
         transition={{ duration: 0.5, delay: 3.5 }}
         className="md:hidden fixed top-4 right-4 z-50"
       >
-        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-          <SheetTrigger asChild>
+        <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+          <PopoverTrigger asChild>
             <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full bg-card/50 backdrop-blur-md border border-accent/20 text-accent">
               <Menu className="h-6 w-6" />
             </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[250px] bg-card/80 backdrop-blur-lg">
-            <SheetHeader className="sr-only">
-              <SheetTitle>Navigation Menu</SheetTitle>
-              <SheetDescription>
-                A list of links to navigate to different sections of the portfolio.
-              </SheetDescription>
-            </SheetHeader>
-             <ul className="flex flex-col items-center gap-4 pt-16">
+          </PopoverTrigger>
+          <PopoverContent side="bottom" align="end" className="w-auto p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
+            <ul className="flex flex-col items-center gap-2">
+                <li>
+                  <div className="h-8 w-8 flex items-center justify-center cursor-default" title="JAGDISH ODEDARA">
+                      <LogoIcon />
+                  </div>
+                </li>
+                <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
                 {sections.map((section) => (
-                  <li key={section.id}>
-                    <a href={`#${section.id}`} onClick={(e) => handleScroll(e, section.id)}
-                      className={cn(
-                        "flex items-center gap-4 text-lg font-code transition-colors",
-                        activeSection === section.id ? "text-primary" : "text-muted-foreground hover:text-primary"
-                      )}
+                    <li key={section.id}>
+                    <a
+                        href={`#${section.id}`}
+                        onClick={(e) => handleScroll(e, section.id)}
+                        className={cn(
+                            "group relative flex cursor-pointer items-center justify-center h-8 w-8 rounded-full transition-colors",
+                            activeSection === section.id ? "bg-accent" : "hover:bg-accent/50"
+                        )}
+                        aria-label={section.label}
                     >
-                      <section.icon className="h-5 w-5" />
-                      {section.label}
+                        <section.icon className={cn(
+                            "h-5 w-5 transition-colors duration-300",
+                            activeSection === section.id ? "text-accent-foreground" : "text-accent"
+                        )} />
                     </a>
-                  </li>
+                    </li>
                 ))}
-                <li className="absolute bottom-8"><ThemeToggle /></li>
-              </ul>
-          </SheetContent>
-        </Sheet>
+                <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
+                <li><ThemeToggle /></li>
+            </ul>
+          </PopoverContent>
+        </Popover>
       </motion.div>
     </>
   );
