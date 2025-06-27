@@ -173,7 +173,7 @@ export function HeroSection() {
         >
           {/* This is the clipping container for the frame and image */}
           <div className="relative h-full w-full rounded-full overflow-hidden">
-            {/* The frame itself */}
+            {/* The frame itself - a gradient that acts as the border */}
             <div
               className={cn(
                 'absolute inset-0',
@@ -183,9 +183,9 @@ export function HeroSection() {
                     ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]'
                     : 'light:animate-electric-glow-box')
               )}
-            >
-              <div className="h-full w-full rounded-full bg-background/50" />
-            </div>
+            />
+            {/* This creates the transparent middle, making the above div a border. m-1 makes a 4px thick border. */}
+            <div className="absolute inset-0 m-1 rounded-full bg-background" />
 
             {/* Image inside frame */}
             <div className="relative z-10 h-full w-full">
@@ -193,7 +193,7 @@ export function HeroSection() {
                 src="/jagdish.png"
                 alt="JAGDISH ODEDARA"
                 fill
-                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05] p-1"
+                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05] p-2"
                 priority
                 data-ai-hint="profile picture"
               />
