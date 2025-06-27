@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
+import { ResumeModal } from "./resume-modal";
 
 
 const sections = [
@@ -125,9 +126,11 @@ export function SideNav() {
       >
         <ul className="flex flex-col items-center gap-2 p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
           <li>
-            <Button variant="ghost" size="icon" className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-pointer" title="JAGDISH ODEDARA">
-                <LogoIcon className="h-6 w-6 text-primary" />
-            </Button>
+            <ResumeModal>
+              <Button variant="ghost" size="icon" className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-pointer" title="Preview & Download Resume">
+                  <LogoIcon className="h-6 w-6 text-primary" />
+              </Button>
+            </ResumeModal>
           </li>
           <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
           {navContent}
@@ -152,11 +155,13 @@ export function SideNav() {
           <PopoverContent side="bottom" align="end" className="w-auto p-2 rounded-xl border border-accent/20 bg-card/50 backdrop-blur-md">
              <ul className="flex flex-col items-center gap-2">
                 <li>
-                  <Button variant="ghost" size="icon" className="group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-full transition-colors hover:bg-accent" title="JAGDISH ODEDARA">
-                    <LogoIcon className={cn(
-                        "h-6 w-6 text-primary transition-colors duration-300 group-hover:text-accent-foreground"
-                    )} />
-                  </Button>
+                  <ResumeModal>
+                    <Button variant="ghost" size="icon" className="group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-full transition-colors hover:bg-accent" title="Preview & Download Resume">
+                      <LogoIcon className={cn(
+                          "h-6 w-6 text-primary transition-colors duration-300 group-hover:text-accent-foreground"
+                      )} />
+                    </Button>
+                  </ResumeModal>
                 </li>
                 <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
                 {sections.map((section) => (
