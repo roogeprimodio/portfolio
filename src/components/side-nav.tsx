@@ -1,3 +1,4 @@
+
 "use client";
 
 import { UserCircle, Archive, Dna, Send, FileText, Menu } from "lucide-react";
@@ -151,13 +152,13 @@ export function SideNav() {
             </Button>
           </PopoverTrigger>
           <PopoverContent side="bottom" align="end" className="w-auto p-2 rounded-xl border border-accent/20 bg-card/50 backdrop-blur-md">
-            <ul className="flex items-center gap-2">
+             <ul className="flex flex-col items-center gap-2">
                 <li>
-                  <div className="h-8 w-8 flex items-center justify-center cursor-default" title="JAGDISH ODEDARA">
-                      <LogoIcon />
-                  </div>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" aria-label="Home Logo">
+                    <LogoIcon />
+                  </Button>
                 </li>
-                <li className="h-6"><div className="h-full w-px bg-accent/20"></div></li>
+                <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
                 {sections.map((section) => (
                     <li key={section.id}>
                     <a
@@ -176,7 +177,7 @@ export function SideNav() {
                     </a>
                     </li>
                 ))}
-                <li className="h-6"><div className="h-full w-px bg-accent/20"></div></li>
+                <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
                 <li><ThemeToggle /></li>
             </ul>
           </PopoverContent>
