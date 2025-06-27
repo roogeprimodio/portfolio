@@ -91,7 +91,7 @@ export function ProjectsSection() {
   return (
     <section id="projects" className="flex flex-col items-center justify-center p-4 py-24 overflow-hidden">
       <div className="text-center space-y-2 mb-12 px-4">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
           Hibernation Vault
         </h2>
         <p className="text-accent font-code">A collection of cryo-preserved projects.</p>

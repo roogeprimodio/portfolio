@@ -26,7 +26,7 @@ export function AboutSection() {
   return (
     <section id="about" className="flex flex-col items-center justify-center p-4 md:py-24 overflow-hidden">
       <div className="text-center space-y-2 mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
           Personal Datastream
         </h2>
         <p className="text-accent font-code">My background and experience.</p>
@@ -42,8 +42,8 @@ export function AboutSection() {
         >
           <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent [text-shadow:0_0_8px_hsl(var(--accent)/0.5)]">
-                <BrainCircuit className="h-8 w-8 drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
+              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)] light:animate-electric-glow-accent">
+                <BrainCircuit className="h-8 w-8 dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
                 <span>Self-Summary</span>
               </CardTitle>
             </CardHeader>
@@ -62,8 +62,8 @@ export function AboutSection() {
         >
           <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent [text-shadow:0_0_8px_hsl(var(--accent)/0.5)]">
-                <MapPin className="h-8 w-8 drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
+              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)] light:animate-electric-glow-accent">
+                <MapPin className="h-8 w-8 dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
                 <span>Location & Contact</span>
               </CardTitle>
             </CardHeader>
@@ -82,8 +82,8 @@ export function AboutSection() {
 
         {/* Experience */}
         <div>
-          <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
-            <Briefcase className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
+          <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+            <Briefcase className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
             <span>Experience Log</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
@@ -114,8 +114,8 @@ export function AboutSection() {
 
         {/* Education */}
         <div>
-           <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
-            <GraduationCap className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
+           <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+            <GraduationCap className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
             <span>Education Archive</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
@@ -146,8 +146,8 @@ export function AboutSection() {
         
         {/* Certifications */}
         <div>
-          <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
-            <Award className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
+          <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+            <Award className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
             <span>Accolades & Certifications</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
@@ -187,8 +187,8 @@ export function AboutSection() {
         <div className="grid md:grid-cols-2 gap-12 pt-6">
             {/* Programming Languages */}
             <div>
-                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
-                    <Code className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
+                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+                    <Code className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
                     <span>Programming Languages</span>
                 </h3>
                 <div className="space-y-4">
@@ -210,8 +210,8 @@ export function AboutSection() {
 
             {/* Spoken Languages */}
             <div>
-                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
-                    <Languages className="h-8 w-8 text-accent drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" />
+                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+                    <Languages className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
                     <span>Spoken Languages</span>
                 </h3>
                 <div className="space-y-4">

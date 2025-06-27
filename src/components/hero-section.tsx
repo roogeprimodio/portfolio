@@ -76,7 +76,7 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           className="relative w-44 h-64 mb-16 group"
         >
-          <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary bg-primary/10 shadow-[0_0_20px_hsl(var(--primary)/0.6)]">
+          <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary bg-primary/10 dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)] light:animate-electric-glow-box">
             <Image
               src="/jagdish.png"
               alt="JAGDISH ODEDARA"
@@ -120,8 +120,8 @@ export function HeroSection() {
           ))}
         </motion.div>
         
-        <AnimatedText text="JAGDISH ODEDARA" el="h1" className="font-headline text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]" />
-        <AnimatedText text="Digital Craftsman & Code Poet" el="p" className="mt-4 font-code text-lg md:text-xl text-accent [text-shadow:0_0_8px_hsl(var(--accent)/0.5)]" />
+        <AnimatedText text="JAGDISH ODEDARA" el="h1" className="font-headline text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow" />
+        <AnimatedText text="Digital Craftsman & Code Poet" el="p" className="mt-4 font-code text-lg md:text-xl text-accent dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)] light:animate-electric-glow-accent" />
 
         <motion.div
             initial={{ opacity: 0, y: 20 }}
