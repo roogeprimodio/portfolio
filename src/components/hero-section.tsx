@@ -73,13 +73,13 @@ const RedditIcon = (props: React.ComponentProps<"svg">) => (
 )
 
 const socialIcons = [
-  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", pos: "top-[-2.5rem] left-4" },
+  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", pos: "top-[-2.5rem] left-16" },
   { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter", pos: "top-8 right-[-3rem]" },
-  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", pos: "top-28 left-[-3.5rem]" },
-  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", pos: "bottom-28 right-[-3.5rem]" },
+  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", pos: "top-32 left-[-4rem]" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", pos: "top-32 right-[-4rem]" },
   { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit", pos: "bottom-[-2.5rem] left-16" },
-  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", pos: "bottom-16 left-[-4.5rem]" },
-  { Icon: Phone, href: "tel:9773075648", name: "Call", pos: "bottom-[-2.5rem] right-4" },
+  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", pos: "bottom-8 left-[-4.5rem]" },
+  { Icon: Phone, href: "tel:9773075648", name: "Call", pos: "bottom-[-2.5rem] right-16" },
 ];
 
 
@@ -96,7 +96,7 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative w-44 h-44 mb-16 group"
+          className="relative w-44 h-56 mb-16 group"
         >
           <div className={cn(
               "relative w-full h-full [clip-path:polygon(50%_0%,_100%_50%,_50%_100%,_0%_50%)] bg-primary",
