@@ -96,27 +96,30 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative w-40 h-64 mb-16 group" // Long capsule
+          className="relative w-40 h-64 mb-16 group" // Container for capsule and icons
         >
-          {/* The frame itself */}
-          <div className={cn(
-              "absolute inset-0 rounded-full p-1",
-              "[background-image:linear-gradient(to_bottom,hsl(var(--primary)/0.8)_30%,hsl(var(--accent)/0.8)_30%)]",
-              mounted && (resolvedTheme === 'dark' ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow-box')
-          )}>
-              <div className="h-full w-full rounded-full bg-background" />
-          </div>
+          {/* This is the clipping container for the frame and image */}
+          <div className="relative h-full w-full rounded-full overflow-hidden">
+            {/* The frame itself */}
+            <div className={cn(
+                "absolute inset-0 p-1",
+                "[background-image:linear-gradient(to_bottom,hsl(var(--primary)/0.8)_30%,hsl(var(--accent)/0.8)_30%)]",
+                mounted && (resolvedTheme === 'dark' ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow-box')
+            )}>
+                <div className="h-full w-full rounded-full bg-background" />
+            </div>
 
-          {/* Image inside frame */}
-          <div className="relative z-10 h-full w-full">
-            <Image
-                src="/jagdish.png"
-                alt="JAGDISH ODEDARA"
-                fill
-                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
-                priority
-                data-ai-hint="profile picture"
-              />
+            {/* Image inside frame */}
+            <div className="relative z-10 h-full w-full">
+              <Image
+                  src="/jagdish.png"
+                  alt="JAGDISH ODEDARA"
+                  fill
+                  className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
+                  priority
+                  data-ai-hint="profile picture"
+                />
+            </div>
           </div>
           
            {/* Floating Icons */}
