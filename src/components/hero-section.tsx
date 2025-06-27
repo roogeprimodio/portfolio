@@ -171,29 +171,24 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
           className="relative w-40 h-64 mb-16 group" // Container for capsule and icons
         >
-          {/* This is the clipping container for the frame and image */}
-          <div className="relative h-full w-full rounded-full overflow-hidden">
-            {/* The frame itself - a gradient that acts as the border */}
-            <div
-              className={cn(
-                'absolute inset-0',
-                '[background-image:linear-gradient(to_bottom,hsl(var(--primary)/0.8)_30%,hsl(var(--accent)/0.8)_70%)]',
-                mounted &&
-                  (resolvedTheme === 'dark'
-                    ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]'
-                    : 'light:animate-electric-glow-box')
-              )}
-            />
-            {/* This creates the transparent middle, making the above div a border. m-1 makes a 4px thick border. */}
-            <div className="absolute inset-0 m-1 rounded-full bg-background" />
-
-            {/* Image inside frame */}
-            <div className="relative z-10 h-full w-full">
+          {/* This is the clipping container which also provides the gradient for the border */}
+          <div
+            className={cn(
+              'relative h-full w-full rounded-full p-1 overflow-hidden', // p-1 controls border thickness
+              '[background-image:linear-gradient(to_bottom,hsl(var(--primary)/0.8)_30%,hsl(var(--accent)/0.8)_70%)]',
+              mounted &&
+                (resolvedTheme === 'dark'
+                  ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]'
+                  : 'light:animate-electric-glow-box')
+            )}
+          >
+            {/* This inner container has the page's background color and holds the image */}
+            <div className="relative h-full w-full bg-background rounded-full overflow-hidden">
               <Image
                 src="/jagdish.png"
                 alt="JAGDISH ODEDARA"
                 fill
-                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05] p-2"
+                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
                 priority
                 data-ai-hint="profile picture"
               />
