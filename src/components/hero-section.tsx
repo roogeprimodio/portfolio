@@ -169,7 +169,7 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-          className="relative w-40 h-56 mb-16 group" // Container for capsule and icons
+          className="relative w-40 h-48 mb-16 group"
         >
           <div
               className={cn(
