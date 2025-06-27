@@ -20,6 +20,10 @@ import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 
 const AnimatedText = ({ text, el: Wrapper = "p", className }: { text: string, el?: keyof JSX.IntrinsicElements, className?: string }) => {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   const words = text.split(" ");
 
   const sentence = {
@@ -37,6 +41,14 @@ const AnimatedText = ({ text, el: Wrapper = "p", className }: { text: string, el
     hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
     visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { type: "spring", damping: 12, stiffness: 200 } },
   };
+
+  if (!mounted) {
+    return (
+      <Wrapper className={cn(className, "opacity-0")}>
+        {text}
+      </Wrapper>
+    )
+  }
 
   return (
     <Wrapper className={className}>
@@ -58,13 +70,13 @@ const RedditIcon = (props: React.ComponentProps<"svg">) => (
 )
 
 const socialIcons = [
-  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram" },
-  { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter" },
-  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub" },
-  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn" },
-  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit" },
-  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram" },
-  { Icon: Phone, href: "tel:9773075648", name: "Call" },
+  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", pos: "top-0 left-8" },
+  { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter", pos: "top-12 right-0" },
+  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", pos: "top-28 -left-4" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", pos: "bottom-10 -right-4" },
+  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit", pos: "bottom-0 left-10" },
+  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", pos: "bottom-16 -left-8" },
+  { Icon: Phone, href: "tel:9773075648", name: "Call", pos: "bottom-0 right-8" },
 ];
 
 
@@ -81,7 +93,7 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative w-44 h-44 mb-8 group"
+          className="relative w-44 h-44 mb-16 group"
         >
           <div className={cn(
             "relative w-full h-full rounded-full overflow-hidden border-4 border-primary bg-primary/10",
@@ -96,6 +108,23 @@ export function HeroSection() {
               data-ai-hint="profile picture"
             />
           </div>
+           {/* Floating Icons */}
+          {socialIcons.map((social, index) => (
+            <motion.a
+              key={index}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.name}
+              className={`absolute ${social.pos} p-2 rounded-full bg-card/60 text-accent backdrop-blur-sm border border-accent/20 hover:bg-accent hover:text-accent-foreground transition-colors z-10`}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1.8 + index * 0.1, ease: "easeOut" }}
+              whileHover={{ scale: 1.2, z: 10 }}
+            >
+              <social.Icon className="h-4 w-4" />
+            </motion.a>
+          ))}
         </motion.div>
         
         <AnimatedText 
@@ -114,30 +143,6 @@ export function HeroSection() {
             mounted && (resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'light:animate-electric-glow-accent')
           )} 
         />
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.8, staggerChildren: 0.1 }}
-          className="flex flex-wrap justify-center gap-4 mt-8"
-        >
-            {socialIcons.map((social, index) => (
-            <motion.a
-              key={index}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.name}
-              className="p-3 rounded-full bg-card/60 text-accent backdrop-blur-sm border border-accent/20 hover:bg-accent hover:text-accent-foreground transition-colors z-10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.8 + index * 0.1, ease: "easeOut" }}
-              whileHover={{ scale: 1.15, y: -2 }}
-            >
-              <social.Icon className="h-5 w-5" />
-            </motion.a>
-          ))}
-        </motion.div>
 
         <motion.div
             initial={{ opacity: 0, y: 20 }}
