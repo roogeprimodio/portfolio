@@ -176,24 +176,24 @@ export function HeroSection() {
             {/* The frame itself */}
             <div
               className={cn(
-                'absolute inset-0 p-1',
-                '[background-image:linear-gradient(to_bottom,hsl(var(--primary)/0.8)_30%,hsl(var(--accent)/0.8)_30%)]',
+                'absolute inset-0',
+                '[background-image:linear-gradient(to_bottom,hsl(var(--primary)/0.8)_30%,hsl(var(--accent)/0.8)_70%)]',
                 mounted &&
                   (resolvedTheme === 'dark'
                     ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]'
                     : 'light:animate-electric-glow-box')
               )}
             >
-              <div className="h-full w-full rounded-full bg-background" />
+              <div className="h-full w-full rounded-full bg-background/50" />
             </div>
 
             {/* Image inside frame */}
-            <div className="relative z-10 h-full w-full pb-1">
+            <div className="relative z-10 h-full w-full">
               <Image
                 src="/jagdish.png"
                 alt="JAGDISH ODEDARA"
                 fill
-                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
+                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05] p-1"
                 priority
                 data-ai-hint="profile picture"
               />
