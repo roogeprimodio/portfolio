@@ -171,28 +171,32 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
           className="relative w-40 h-64 mb-16 group" // Container for capsule and icons
         >
-          {/* This is the clipping container which also provides the gradient for the border */}
           <div
-            className={cn(
-              'relative h-full w-full rounded-full p-[4px] overflow-hidden', // Thick border
-              '[background-image:linear-gradient(to_bottom,hsl(var(--primary)/0.8)_30%,hsl(var(--accent)/0.8)_70%)]',
-              mounted &&
-                (resolvedTheme === 'dark'
-                  ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]'
-                  : 'light:animate-electric-glow-box')
-            )}
+              className={cn(
+                  'relative h-full w-full rounded-full overflow-hidden',
+                  mounted &&
+                  (resolvedTheme === 'dark'
+                      ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]'
+                      : 'light:animate-electric-glow-box')
+              )}
           >
-            {/* This inner container has the page's background color and holds the image */}
-            <div className="relative h-full w-full bg-background rounded-full overflow-hidden">
-              <Image
-                src="/jagdish.png"
-                alt="JAGDISH ODEDARA"
-                fill
-                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
-                priority
-                data-ai-hint="profile picture"
-              />
-            </div>
+              {/* Top part of the frame */}
+              <div className="absolute top-0 left-0 w-full h-[30%] bg-primary" />
+              
+              {/* Bottom part of the frame */}
+              <div className="absolute bottom-0 left-0 w-full h-[70%] bg-accent" />
+
+              {/* Image container, which is slightly smaller to create the border effect */}
+              <div className="absolute inset-[4px] rounded-full bg-background overflow-hidden">
+                  <Image
+                      src="/jagdish.png"
+                      alt="JAGDISH ODEDARA"
+                      fill
+                      className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
+                      priority
+                      data-ai-hint="profile picture"
+                  />
+              </div>
           </div>
 
           {/* Floating Icons */}
