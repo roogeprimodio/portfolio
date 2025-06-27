@@ -1,4 +1,3 @@
-
 "use client";
 
 import { UserCircle, Archive, Dna, Send, FileText, Menu } from "lucide-react";
@@ -8,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "./ui/sheet";
 
 
 const sections = [
@@ -153,12 +151,6 @@ export function SideNav() {
             </Button>
           </PopoverTrigger>
           <PopoverContent side="bottom" align="end" className="w-auto p-2 rounded-xl border border-accent/20 bg-card/50 backdrop-blur-md">
-            <SheetHeader className="sr-only">
-              <SheetTitle>Mobile Navigation</SheetTitle>
-              <SheetDescription>
-                A list of links to navigate the portfolio sections.
-              </SheetDescription>
-            </SheetHeader>
             <ul className="flex items-center gap-2">
                 <li>
                   <div className="h-8 w-8 flex items-center justify-center cursor-default" title="JAGDISH ODEDARA">
