@@ -73,13 +73,13 @@ const RedditIcon = (props: React.ComponentProps<"svg">) => (
 )
 
 const socialIcons = [
-  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", pos: "top-[-2.5rem] left-16" },
-  { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter", pos: "top-8 right-[-3rem]" },
-  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", pos: "top-32 left-[-4rem]" },
-  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", pos: "top-32 right-[-4rem]" },
-  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit", pos: "bottom-[-2.5rem] left-16" },
-  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", pos: "bottom-8 left-[-4.5rem]" },
-  { Icon: Phone, href: "tel:9773075648", name: "Call", pos: "bottom-[-2.5rem] right-16" },
+  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", pos: "top-[-2.5rem] left-1/2 -translate-x-1/2" },
+  { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter", pos: "top-4 left-[-4.5rem]" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", pos: "top-4 right-[-4.5rem]" },
+  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", pos: "top-1/2 -translate-y-1/2 left-[-5.5rem]" },
+  { Icon: Phone, href: "tel:9773075648", name: "Call", pos: "top-1/2 -translate-y-1/2 right-[-5.5rem]" },
+  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", pos: "bottom-4 left-[-4.5rem]" },
+  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit", pos: "bottom-4 right-[-4.5rem]" },
 ];
 
 
@@ -96,23 +96,29 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative w-44 h-56 mb-16 group"
+          className="relative w-40 h-64 mb-16 group" // Long capsule
         >
+          {/* The frame itself */}
           <div className={cn(
-              "relative w-full h-full [clip-path:polygon(50%_0%,_100%_50%,_50%_100%,_0%_50%)] bg-primary",
+              "absolute inset-0 rounded-full p-1",
+              "[background-image:linear-gradient(to_bottom,hsl(var(--primary)/0.8)_30%,hsl(var(--accent)/0.8)_30%)]",
               mounted && (resolvedTheme === 'dark' ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow-box')
           )}>
-              <div className="absolute inset-[3px] [clip-path:polygon(50%_0%,_100%_50%,_50%_100%,_0%_50%)] bg-primary/10">
-                  <Image
-                    src="/jagdish.png"
-                    alt="JAGDISH ODEDARA"
-                    fill
-                    className="object-contain scale-105 drop-shadow-xl transition-transform duration-500 group-hover:scale-110"
-                    priority
-                    data-ai-hint="profile picture"
-                  />
-              </div>
+              <div className="h-full w-full rounded-full bg-background" />
           </div>
+
+          {/* Image that overflows */}
+          <div className="relative z-10 h-full w-full">
+            <Image
+                src="/jagdish.png"
+                alt="JAGDISH ODEDARA"
+                fill
+                className="object-contain scale-[1.2] translate-y-2 object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.3] group-hover:translate-y-1"
+                priority
+                data-ai-hint="profile picture"
+              />
+          </div>
+          
            {/* Floating Icons */}
           {socialIcons.map((social, index) => (
             <motion.a
@@ -121,11 +127,11 @@ export function HeroSection() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.name}
-              className={`absolute ${social.pos} p-2 rounded-full bg-card/60 text-accent backdrop-blur-sm border border-accent/20 hover:bg-accent hover:text-accent-foreground transition-colors z-10`}
+              className={`absolute ${social.pos} p-2 rounded-full bg-card/60 text-accent backdrop-blur-sm border border-accent/20 hover:bg-accent hover:text-accent-foreground transition-colors z-20`}
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 1.8 + index * 0.1, ease: "easeOut" }}
-              whileHover={{ scale: 1.2, z: 10 }}
+              whileHover={{ scale: 1.2, z: 20 }}
             >
               <social.Icon className="h-4 w-4" />
             </motion.a>
