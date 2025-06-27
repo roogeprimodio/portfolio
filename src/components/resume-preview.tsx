@@ -11,11 +11,11 @@ const SectionTitle = ({ children, icon: Icon }: { children: React.ReactNode, ico
 );
 
 const Section = ({ children }: { children: React.ReactNode }) => (
-    <section className="border-t border-gray-200 pt-2">{children}</section>
+    <section className="border-t border-gray-200 pt-1.5">{children}</section>
 );
 
 const PageBreak = () => (
-    <div className="relative text-center my-4 h-px bg-gray-200">
+    <div className="relative text-center my-2 h-px bg-gray-200">
         <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-2 text-xs text-gray-400 font-mono">Page Break</span>
     </div>
 );
@@ -53,7 +53,7 @@ export const ResumePreview = () => {
         <p className="text-center text-xs text-gray-700 leading-relaxed max-w-3xl mx-auto">{aboutData.summary}</p>
       </section>
 
-      <main className="space-y-3">
+      <main className="space-y-2">
         {/* Experience */}
         <Section>
           <SectionTitle icon={Briefcase}>Experience</SectionTitle>
