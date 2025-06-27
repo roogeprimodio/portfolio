@@ -7,62 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Github, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
+import type { ProjectType } from "@/lib/portfolio-data";
+import { projects } from "@/lib/portfolio-data";
 
-const projects = [
-  {
-    title: "PG Hub – Owner & User Apps",
-    description: "Flutter-based PG accommodation management system for owners and tenants.",
-    tags: ["Flutter", "Firebase", "Google Maps"],
-    liveUrl: "https://beeeshive.netlify.app/login",
-    githubUrl: "https://github.com/roogeprimodio/Pg-hub.git",
-  },
-  {
-    title: "DIOS Forge – AI Project Report Generator",
-    description: "AI-powered report generator using OpenRouter API.",
-    tags: ["React.js", "Node.js", "AI"],
-    liveUrl: "https://reportforge.netlify.app/",
-    githubUrl: "https://github.com/roogeprimodio/diosforge.git",
-  },
-  {
-    title: "Pabble Battle – Web Game",
-    description: "Casual web game with reflex-based mechanics.",
-    tags: ["JavaScript", "HTML5 Canvas", "Game"],
-    liveUrl: "https://pabblebattle.netlify.app/",
-    githubUrl: "https://github.com/roogeprimodio/pabble-battle.git",
-  },
-  {
-    title: "Gesture Controlled Mouse",
-    description: "Python app to control cursor using hand gestures.",
-    tags: ["Python", "OpenCV", "MediaPipe"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/roogeprimodio/hand-gesture-controlled-mouse.git",
-  },
-  {
-    title: "QR Wizard – QR Code Tool",
-    description: "Scan and create QR codes for web and mobile use.",
-    tags: ["JavaScript", "Flutter", "Utility"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/buddhhu/QR-Wizard.git",
-  },
-  {
-    title: "Madhuli – Business Showcase Website",
-    description: "Personal business portfolio built for a family member.",
-    tags: ["React", "Expo", "Firebase"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/roogeprimodio/madhuli.git",
-  },
-    {
-    title: "Rollex International – Business Website",
-    description: "PHP-based website for a local mobile brand.",
-    tags: ["PHP", "MySQL", "Website"],
-    liveUrl: "#",
-    githubUrl: "#",
-  },
-];
-
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
+const ProjectCard = ({ project, index }: { project: ProjectType; index: number }) => {
   const avatarUrl = `https://api.dicebear.com/8.x/bottts-neutral/svg?seed=${encodeURIComponent(project.title)}`;
   
   return (
@@ -115,10 +65,22 @@ const swipePower = (offset: number, velocity: number) => {
 };
 
 export function ProjectsSection() {
+    const allTags = useMemo(() => ['All', ...new Set(projects.flatMap(p => p.tags))], []);
+    const [activeTag, setActiveTag] = useState('All');
+    const [filteredProjects, setFilteredProjects] = useState(projects);
     const [activeIndex, setActiveIndex] = useState(0);
 
+    useEffect(() => {
+        if (activeTag === 'All') {
+            setFilteredProjects(projects);
+        } else {
+            setFilteredProjects(projects.filter(p => p.tags.includes(activeTag)));
+        }
+        setActiveIndex(0);
+    }, [activeTag]);
+
     const paginate = (newDirection: number) => {
-      setActiveIndex((prevIndex) => (prevIndex + newDirection + projects.length) % projects.length);
+      setActiveIndex((prevIndex) => (prevIndex + newDirection + filteredProjects.length) % filteredProjects.length);
     };
 
     const cardWidth = 288; // w-72
@@ -135,10 +97,29 @@ export function ProjectsSection() {
         <p className="text-accent font-code">A collection of cryo-preserved projects.</p>
       </div>
       
+       {/* Filter Buttons */}
+      <div className="flex flex-wrap justify-center gap-2 mb-12 px-4">
+          {allTags.map(tag => (
+              <Button
+                  key={tag}
+                  variant={activeTag === tag ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setActiveTag(tag)}
+                  className={cn(
+                    "font-code transition-all duration-200",
+                    activeTag === tag ? 'bg-accent text-accent-foreground' : 'bg-card/50 border-accent/30 text-accent'
+                  )}
+              >
+                  {tag}
+              </Button>
+          ))}
+      </div>
+
       <div className="relative w-full flex flex-col items-center">
         <div className="relative w-full h-[680px] flex items-center justify-center">
           {/* Carousel Track */}
           <motion.div
+            key={activeTag}
             className="absolute flex items-center"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
@@ -157,7 +138,7 @@ export function ProjectsSection() {
             }}
             transition={{ type: "spring", stiffness: 400, damping: 60 }}
           >
-            {projects.map((project, index) => (
+            {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.title}
                 className="flex-shrink-0 w-72 md:w-80 h-[640px]"
@@ -190,7 +171,7 @@ export function ProjectsSection() {
                       "--card-gap": `${mdCardGap}px`,
                     }}
                 ></div>
-                <ProjectCard project={project} index={index} />
+                <ProjectCard project={project} index={projects.indexOf(project)} />
               </motion.div>
             ))}
           </motion.div>
@@ -198,10 +179,10 @@ export function ProjectsSection() {
 
         {/* Navigation Buttons */}
         <div className="flex items-center gap-8 mt-8">
-            <Button onClick={() => paginate(-1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground z-20">
+            <Button onClick={() => paginate(-1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground z-20" disabled={filteredProjects.length <= 1}>
                 <ChevronLeft className="h-6 w-6" />
             </Button>
-            <Button onClick={() => paginate(1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground z-20">
+            <Button onClick={() => paginate(1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground z-20" disabled={filteredProjects.length <= 1}>
                 <ChevronRight className="h-6 w-6" />
             </Button>
         </div>

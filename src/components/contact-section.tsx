@@ -72,6 +72,13 @@ export function ContactSection() {
         <div className="absolute -inset-4 bg-accent/10 rounded-xl blur-2xl animate-glitch-subtle group-hover:bg-accent/20 transition-all duration-500"></div>
         <Card className="relative bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
           <CardContent className="p-8">
+            <div className="flex items-center justify-center gap-2 mb-6">
+              <div className="relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              </div>
+              <span className="text-sm text-green-400 font-code">Currently available for new projects</span>
+            </div>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField control={form.control} name="name" render={({ field }) => (

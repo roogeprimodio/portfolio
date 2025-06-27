@@ -4,43 +4,8 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code, Brain, Handshake, Languages, BarChart2, HardHat } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-
-const skillData = [
-  // Strand 1: Technical & Analytical
-  {
-    title: "Technical Skills",
-    icon: Code,
-    skills: ["JavaScript", "Java", "Python", "React.js", "Next.js", "Flutter", "Node.js", "Express.js", "HTML5", "CSS3", "Tailwind CSS", "Firebase", "REST APIs", "SSR", "JWT Auth"],
-  },
-  {
-    title: "Analytical & Data Skills",
-    icon: BarChart2,
-    skills: ["MySQL", "MongoDB", "SQLite", "Data Structures & Algorithms", "JSON", "API Handling"],
-  },
-  {
-    title: "Tools & Platforms",
-    icon: HardHat,
-    skills: ["Git", "GitHub", "AWS", "Vercel", "Netlify", "Figma", "Adobe Illustrator", "Premiere Pro", "Postman", "VS Code"],
-  },
-  // Strand 2: Professional & Soft
-  {
-    title: "Professional Skills",
-    icon: Handshake,
-    skills: ["Agile Methodologies", "Scrum", "Team Collaboration", "Project Planning", "Technical Documentation"],
-  },
-  {
-    title: "Soft Skills",
-    icon: Brain,
-    skills: ["Time Management", "Creative Thinking", "Problem-Solving", "Adaptability"],
-  },
-  {
-    title: "Language Skills",
-    icon: Languages,
-    skills: ["English: Proficient", "Hindi: Native", "Gujarati: Native"],
-  }
-];
+import { skillData } from "@/lib/portfolio-data";
 
 const wovenSkills: (typeof skillData[0] & { side: 'left' | 'right' })[] = [];
 const midPoint = Math.ceil(skillData.length / 2);

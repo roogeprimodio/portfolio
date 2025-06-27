@@ -4,64 +4,7 @@
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Code, MapPin, Mail, ArrowUpRight } from "lucide-react";
-
-const aboutData = {
-  summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
-  contactInfo: {
-    address: "India, Gujarat, Porbandar 360576",
-    email: "jagdishodedara47@gmail.com",
-  },
-  experience: [
-    {
-      company: "Preppers Infotect Pvt Ltd",
-      role: "Graphic Designer and Video Editor",
-      duration: "2024 – 2025",
-      description: "Created compelling graphic designs and edited high-impact videos for digital campaigns, branding materials, and corporate communication. Collaborated closely with marketing and development teams to maintain visual consistency and deliver engaging multimedia content."
-    }
-  ],
-  education: [
-    {
-      institution: "K.J. Institute of Engineering & Technology, Savli",
-      degree: "Bachelor’s Degree (4-Year Course)",
-      duration: "2021 – 2025",
-      description: "Pursuing undergraduate engineering studies with emphasis on practical learning, design, and development."
-    },
-    {
-      institution: "Shree Swaminarayan Gurukul Vidhyalaya, Junagadh",
-      degree: "Secondary & Higher Secondary Education",
-      duration: "8th to 12th Grade",
-      description: "Completed foundational and senior secondary schooling with a focus on discipline and values-driven learning."
-    }
-  ],
-  certifications: [
-    {
-      name: "Problem Solving (Intermediate)",
-      issuer: "HackerRank",
-      year: "2025",
-      url: "https://www.hackerrank.com/certificates/aba7c97fd4ea",
-    },
-    {
-      name: "Python (Basic)",
-      issuer: "HackerRank",
-      year: "2025",
-      url: "https://www.hackerrank.com/certificates/6544ad97d607",
-    },
-  ],
-  programmingLanguages: [
-    { name: "JavaScript" },
-    { name: "Python" },
-    { name: "Java" },
-    { name: "React.js" },
-    { name: "Next.js" },
-    { name: "Flutter" },
-    { name: "Node.js" },
-  ],
-  spokenLanguages: [
-    { name: "English", proficiency: "Proficient" },
-    { name: "Hindi", proficiency: "Native" },
-    { name: "Gujarati", proficiency: "Native" },
-  ],
-}
+import { aboutData } from "@/lib/portfolio-data";
 
 const cardVariants = {
   hidden: { opacity: 0, x: -50 },

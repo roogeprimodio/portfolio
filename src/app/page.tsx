@@ -3,14 +3,25 @@
 
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
 
 import { HeroSection } from "@/components/hero-section";
-import { AboutSection } from "@/components/about-section";
-import { ProjectsSection } from "@/components/projects-section";
-import { SkillsSection } from "@/components/skills-section";
-import { ContactSection } from "@/components/contact-section";
 import { SideNav } from "@/components/side-nav";
 import { OpeningAnimation } from '@/components/opening-animation';
+
+const AboutSection = dynamic(() => import('@/components/about-section').then(mod => mod.AboutSection), {
+  loading: () => <section className="min-h-screen" />,
+});
+const ProjectsSection = dynamic(() => import('@/components/projects-section').then(mod => mod.ProjectsSection), {
+  loading: () => <section className="min-h-screen" />,
+});
+const SkillsSection = dynamic(() => import('@/components/skills-section').then(mod => mod.SkillsSection), {
+  loading: () => <section className="min-h-screen" />,
+});
+const ContactSection = dynamic(() => import('@/components/contact-section').then(mod => mod.ContactSection), {
+  loading: () => <section className="min-h-screen" />,
+});
+
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
