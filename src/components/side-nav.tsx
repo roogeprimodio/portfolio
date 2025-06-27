@@ -35,36 +35,35 @@ export function SideNav() {
     const mainElement = document.querySelector('main');
     if (!mainElement) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+    const handleScroll = () => {
+      const scrollPosition = mainElement.scrollTop;
+      const offset = mainElement.clientHeight / 2;
+      let currentSectionId = '';
+
+      for (const section of sections) {
+          const element = document.getElementById(section.id);
+          // element.offsetTop gives the distance of the element's top border
+          // relative to the top of the offsetParent node.
+          if (element && element.offsetTop <= scrollPosition + offset) {
+              currentSectionId = section.id;
+          } else {
+            // break the loop once we've passed the current section
+            break;
           }
-        });
-      },
-      {
-        root: mainElement,
-        rootMargin: "-50% 0px -50% 0px", // Trigger when section is at vertical center
-        threshold: 0,
       }
-    );
+      setActiveSection(currentSectionId || 'home');
+    };
 
-    const sectionElements = sections.map(s => document.getElementById(s.id)).filter(Boolean);
-
-    sectionElements.forEach((el) => {
-      if(el) observer.observe(el);
-    });
+    mainElement.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Call on mount to set initial state
 
     return () => {
-      sectionElements.forEach((el) => {
-        if(el) observer.unobserve(el);
-      });
+      mainElement.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   // This function handles the smooth scroll to the selected section
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     setIsPopoverOpen(false); // Close mobile popover on click
     const element = document.getElementById(id);
@@ -83,7 +82,7 @@ export function SideNav() {
         <li key={section.id}>
           <motion.a 
             href={`#${section.id}`} 
-            onClick={(e) => handleScroll(e, section.id)}
+            onClick={(e) => handleScrollTo(e, section.id)}
             animate={{ x: activeSection === section.id ? 4 : 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="group relative flex cursor-pointer items-center justify-center h-8 w-8 md:h-10 md:w-10"
@@ -126,9 +125,11 @@ export function SideNav() {
       >
         <ul className="flex flex-col items-center gap-2 p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
           <li>
-            <div className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-default" title="JAGDISH ODEDARA">
+            <Button asChild variant="ghost" size="icon" className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-pointer" title="JAGDISH ODEDARA">
+              <a href="#home" onClick={(e) => handleScrollTo(e, 'home')}>
                 <LogoIcon className="h-6 w-6 text-primary" />
-            </div>
+              </a>
+            </Button>
           </li>
           <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
           {navContent}
@@ -155,16 +156,16 @@ export function SideNav() {
                 <li>
                   <a
                     href="#home"
-                    onClick={(e) => handleScroll(e, 'home')}
+                    onClick={(e) => handleScrollTo(e, 'home')}
                     className={cn(
-                        "group relative flex cursor-pointer items-center justify-center h-8 w-8 rounded-full transition-colors hover:bg-accent",
-                        activeSection === 'home' && "bg-accent"
+                        "group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-full transition-colors hover:bg-accent",
+                         activeSection === 'home' && 'bg-accent'
                     )}
                     aria-label="Home"
                   >
                     <LogoIcon className={cn(
-                        "h-6 w-6 transition-colors duration-300",
-                        activeSection === 'home' ? "text-accent-foreground" : "text-primary group-hover:text-accent-foreground"
+                        "h-6 w-6 transition-colors duration-300 group-hover:text-accent-foreground",
+                        activeSection === 'home' ? "text-accent-foreground" : "text-primary"
                     )} />
                   </a>
                 </li>
@@ -173,16 +174,16 @@ export function SideNav() {
                     <li key={section.id}>
                     <a
                         href={`#${section.id}`}
-                        onClick={(e) => handleScroll(e, section.id)}
+                        onClick={(e) => handleScrollTo(e, section.id)}
                         className={cn(
-                            "group relative flex cursor-pointer items-center justify-center h-8 w-8 rounded-full transition-colors hover:bg-accent",
+                            "group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-full transition-colors hover:bg-accent",
                             activeSection === section.id && "bg-accent"
                         )}
                         aria-label={section.label}
                     >
                         <section.icon className={cn(
-                            "h-5 w-5 transition-colors duration-300",
-                            activeSection === section.id ? "text-accent-foreground" : "text-accent group-hover:text-accent-foreground"
+                            "h-5 w-5 transition-colors duration-300 group-hover:text-accent-foreground",
+                            activeSection === section.id ? "text-accent-foreground" : "text-accent"
                         )} />
                     </a>
                     </li>
