@@ -165,14 +165,14 @@ export function SideNav() {
                         href={`#${section.id}`}
                         onClick={(e) => handleScroll(e, section.id)}
                         className={cn(
-                            "group relative flex cursor-pointer items-center justify-center h-8 w-8 rounded-full transition-colors",
-                            activeSection === section.id ? "bg-accent" : "hover:bg-accent/50"
+                            "group relative flex cursor-pointer items-center justify-center h-8 w-8 rounded-full transition-colors hover:bg-accent/50",
+                            { "bg-accent": activeSection === section.id }
                         )}
                         aria-label={section.label}
                     >
                         <section.icon className={cn(
-                            "h-5 w-5 transition-colors duration-300",
-                            activeSection === section.id ? "text-accent-foreground" : "text-accent"
+                            "h-5 w-5 transition-colors duration-300 text-accent group-hover:text-accent-foreground",
+                             { "text-accent-foreground": activeSection === section.id }
                         )} />
                     </a>
                     </li>
