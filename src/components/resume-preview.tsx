@@ -53,11 +53,11 @@ export const ResumePreview = () => {
         <p className="text-center text-xs text-gray-700 leading-relaxed max-w-3xl mx-auto">{aboutData.summary}</p>
       </section>
 
-      <main className="space-y-2">
+      <main className="space-y-1.5">
         {/* Experience */}
         <Section>
           <SectionTitle icon={Briefcase}>Experience</SectionTitle>
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             {aboutData.experience.map((exp, index) => (
               <div key={index} className="pl-5 relative break-inside-avoid">
                 <div className="absolute left-0 top-1 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
@@ -75,7 +75,7 @@ export const ResumePreview = () => {
         {/* Education */}
         <Section>
           <SectionTitle icon={GraduationCap}>Education</SectionTitle>
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             {aboutData.education.map((edu, index) => (
               <div key={index} className="pl-5 relative break-inside-avoid">
                  <div className="absolute left-0 top-1 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
@@ -94,7 +94,7 @@ export const ResumePreview = () => {
         {/* Projects */}
         <Section>
           <SectionTitle icon={Lightbulb}>Projects</SectionTitle>
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             {projects.slice(0, 3).map((proj, index) => (
                <div key={index} className="pl-5 relative break-inside-avoid">
                   <div className="absolute left-0 top-1 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
@@ -118,7 +118,7 @@ export const ResumePreview = () => {
         {/* Skills */}
         <Section>
           <SectionTitle icon={Wrench}>Skills</SectionTitle>
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             {skillData.map((category) => (
                <div key={category.title} className="flex items-start break-inside-avoid">
                   <h3 className="w-1/4 font-semibold text-gray-700 text-xs pr-2 text-right flex items-center justify-end gap-1.5"><category.icon className="w-3 h-3"/>{category.title}</h3>
