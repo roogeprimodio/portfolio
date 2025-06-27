@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 // Reusable component for a page container to keep styles consistent
 const Page = ({ children, className }: { children: React.ReactNode, className?: string }) => (
   <div className={cn(
-    "bg-white text-gray-800 p-6 sm:p-8 font-sans shadow-2xl w-full max-w-[50rem]",
+    "bg-white text-gray-800 p-10 font-sans shadow-2xl w-full max-w-2xl",
     className
   )}>
     {children}
