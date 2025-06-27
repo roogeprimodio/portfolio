@@ -12,7 +12,7 @@ const SectionTitle = ({ children, icon: Icon }: { children: React.ReactNode, ico
 );
 
 const Section = ({ children }: { children: React.ReactNode }) => (
-    <section className="border-t border-gray-200 pt-1.5">{children}</section>
+    <div className="border-t border-gray-200 pt-1.5">{children}</div>
 );
 
 const PageBreak = () => (
@@ -50,11 +50,11 @@ export const ResumePreview = () => {
       </header>
 
       {/* Summary */}
-      <section className="my-2">
-        <p className="text-center text-xs text-gray-700 leading-normal max-w-3xl mx-auto">{aboutData.summary}</p>
-      </section>
+      <div className="my-2">
+        <p className="text-center text-xs text-gray-700 leading-snug max-w-3xl mx-auto">{aboutData.summary}</p>
+      </div>
 
-      <main className="space-y-1.5">
+      <main className="space-y-1">
         {/* Experience */}
         <Section>
           <SectionTitle icon={Briefcase}>Experience</SectionTitle>
@@ -67,7 +67,7 @@ export const ResumePreview = () => {
                   <p className="text-[10px] text-gray-500 font-mono">{exp.duration}</p>
                 </div>
                 <p className="text-xs font-medium text-blue-600">{exp.company}</p>
-                <p className="text-xs text-gray-700 leading-normal">{exp.description}</p>
+                <p className="text-xs text-gray-700 leading-snug">{exp.description}</p>
               </div>
             ))}
           </div>
@@ -107,8 +107,8 @@ export const ResumePreview = () => {
                         </a>
                       }
                   </div>
-                  <p className="text-xs text-gray-700 leading-normal">{proj.description}</p>
-                  <div className="flex flex-wrap gap-1">
+                  <p className="text-xs text-gray-700 leading-snug">{proj.description}</p>
+                  <div className="flex flex-wrap gap-1 mt-0.5">
                       {proj.tags.map(tag => <span key={tag} className="text-[9px] bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded-full">{tag}</span>)}
                   </div>
                </div>
@@ -136,7 +136,7 @@ export const ResumePreview = () => {
         {/* Certifications */}
         <Section>
           <SectionTitle icon={Star}>Certifications</SectionTitle>
-          <div className="space-y-1">
+          <div className="space-y-0.5">
             {aboutData.certifications.map((cert, index) => (
               <div key={index} className="flex justify-between items-baseline pl-5">
                 <div>
