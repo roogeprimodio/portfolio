@@ -171,30 +171,25 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
           className="relative w-40 h-52 mb-16 group"
         >
-          {/* The container that creates the capsule shape and border */}
-          <div
-              className={cn(
-                  'relative h-full w-full rounded-full overflow-hidden'
-              )}
-          >
+          {/* Frame Container - Sits behind the image. Height is 95% of the parent. */}
+          <div className="absolute inset-x-0 bottom-0 h-[95%] w-full">
+            <div className="relative h-full w-full overflow-hidden rounded-full">
               {/* Top part of the frame */}
-              <div className="absolute top-0 left-0 w-full h-[30%] bg-primary" />
-              
+              <div className="absolute top-0 left-0 h-[30%] w-full bg-primary" />
               {/* Bottom part of the frame */}
-              <div className="absolute bottom-0 left-0 w-full h-[70%] bg-accent" />
-
-              {/* Image container, which is slightly smaller to create the border effect */}
-              <div className="absolute inset-[4px] rounded-full bg-background overflow-hidden">
-                  <Image
-                      src="/jagdish.png"
-                      alt="JAGDISH ODEDARA"
-                      fill
-                      className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05] pt-4"
-                      priority
-                      data-ai-hint="profile picture"
-                  />
-              </div>
+              <div className="absolute bottom-0 left-0 h-[70%] w-full bg-accent" />
+            </div>
           </div>
+
+          {/* Image - Sits on top of the frame and fills the parent container */}
+          <Image
+            src="/jagdish.png"
+            alt="JAGDISH ODEDARA"
+            fill
+            className="z-10 object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
+            priority
+            data-ai-hint="profile picture"
+          />
 
           {/* Floating Icons */}
           {socialIcons.map((social, index) => (
