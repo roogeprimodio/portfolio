@@ -51,7 +51,10 @@ const AnimatedText = ({ text, el: Wrapper = "p", className }: { text: string, el
   }
 
   return (
-    <Wrapper className={className}>
+    <Wrapper className={cn(
+      className,
+      mounted && (resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline')
+    )}>
       <motion.span variants={sentence} initial="hidden" animate="visible" aria-label={text}>
         {words.map((word, index) => (
           <motion.span key={word + "-" + index} variants={wordVariant} className="inline-block" aria-hidden="true">
@@ -70,13 +73,13 @@ const RedditIcon = (props: React.ComponentProps<"svg">) => (
 )
 
 const socialIcons = [
-  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", pos: "top-0 left-8" },
-  { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter", pos: "top-12 right-0" },
-  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", pos: "top-28 -left-4" },
-  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", pos: "bottom-10 -right-4" },
-  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit", pos: "bottom-0 left-10" },
-  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", pos: "bottom-16 -left-8" },
-  { Icon: Phone, href: "tel:9773075648", name: "Call", pos: "bottom-0 right-8" },
+  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", pos: "top-[-2rem] left-4" },
+  { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter", pos: "top-8 right-[-2.5rem]" },
+  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", pos: "top-24 left-[-3rem]" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", pos: "bottom-20 right-[-3rem]" },
+  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit", pos: "bottom-[-2rem] left-8" },
+  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", pos: "bottom-12 left-[-4rem]" },
+  { Icon: Phone, href: "tel:9773075648", name: "Call", pos: "bottom-[-2rem] right-4" },
 ];
 
 
@@ -130,10 +133,7 @@ export function HeroSection() {
         <AnimatedText 
           text="JAGDISH ODEDARA" 
           el="h1" 
-          className={cn(
-            "text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase",
-            mounted && (resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline')
-          )} 
+          className="text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase"
         />
         <AnimatedText 
           text="Digital Craftsman & Code Poet" 
