@@ -1,3 +1,4 @@
+
 "use client";
 
 import { UserCircle, Archive, Dna, Send, FileText, Menu } from "lucide-react";
@@ -7,6 +8,8 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "./ui/sheet";
+
 
 const sections = [
   { id: "home", icon: UserCircle, label: "Home" },
@@ -149,14 +152,20 @@ export function SideNav() {
               <Menu className="h-6 w-6" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent side="bottom" align="end" className="w-auto p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
-            <ul className="flex flex-col items-center gap-2">
+          <PopoverContent side="bottom" align="end" className="w-auto p-2 rounded-xl border border-accent/20 bg-card/50 backdrop-blur-md">
+            <SheetHeader className="sr-only">
+              <SheetTitle>Mobile Navigation</SheetTitle>
+              <SheetDescription>
+                A list of links to navigate the portfolio sections.
+              </SheetDescription>
+            </SheetHeader>
+            <ul className="flex items-center gap-2">
                 <li>
                   <div className="h-8 w-8 flex items-center justify-center cursor-default" title="JAGDISH ODEDARA">
                       <LogoIcon />
                   </div>
                 </li>
-                <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
+                <li className="h-6"><div className="h-full w-px bg-accent/20"></div></li>
                 {sections.map((section) => (
                     <li key={section.id}>
                     <a
@@ -175,7 +184,7 @@ export function SideNav() {
                     </a>
                     </li>
                 ))}
-                <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
+                <li className="h-6"><div className="h-full w-px bg-accent/20"></div></li>
                 <li><ThemeToggle /></li>
             </ul>
           </PopoverContent>
