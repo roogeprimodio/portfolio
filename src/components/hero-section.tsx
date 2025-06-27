@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
 const AnimatedText = ({ text, el: Wrapper = "p", className }: { text: string, el?: keyof JSX.IntrinsicElements, className?: string }) => {
   const words = text.split(" ");
@@ -66,6 +68,8 @@ const socialIcons = [
 
 
 export function HeroSection() {
+  const { resolvedTheme } = useTheme();
+
   return (
     <section id="home" className="relative h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
       
@@ -120,15 +124,36 @@ export function HeroSection() {
           ))}
         </motion.div>
         
-        <AnimatedText text="JAGDISH ODEDARA" el="h1" className="font-headline text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow" />
-        <AnimatedText text="Digital Craftsman & Code Poet" el="p" className="mt-4 font-code text-lg md:text-xl text-accent dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)] light:animate-electric-glow-accent" />
+        <AnimatedText 
+          text="JAGDISH ODEDARA" 
+          el="h1" 
+          className={cn(
+            "text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase",
+            resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+          )} 
+        />
+        <AnimatedText 
+          text="Digital Craftsman & Code Poet" 
+          el="p" 
+          className={cn(
+            "mt-4 font-code text-lg md:text-xl text-accent",
+            resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'light:animate-electric-glow-accent'
+          )} 
+        />
 
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 2.5 }}
         >
-          <Button asChild size="lg" className="mt-12 group bg-accent/10 text-accent border border-accent hover:bg-accent hover:text-accent-foreground hover:shadow-lg hover:shadow-accent/40 transition-all duration-300 font-headline tracking-widest">
+          <Button 
+            asChild 
+            size="lg" 
+            className={cn(
+              "mt-12 group bg-accent/10 text-accent border border-accent hover:bg-accent hover:text-accent-foreground hover:shadow-lg hover:shadow-accent/40 transition-all duration-300 tracking-widest",
+              resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline'
+            )}
+          >
             <Link href="#about">
               VIEW DATASTREAM
               <Code className="ml-2 h-5 w-5 group-hover:animate-glitch"/>

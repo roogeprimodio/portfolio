@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { skillData } from "@/lib/portfolio-data";
+import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
 const wovenSkills: (typeof skillData[0] & { side: 'left' | 'right' })[] = [];
 const midPoint = Math.ceil(skillData.length / 2);
@@ -22,6 +24,7 @@ type RungPoint = { y: number; x1: number; x2: number; };
 export function SkillsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationFrameId = useRef<number | null>(null);
+  const { resolvedTheme } = useTheme();
 
   const [dnaPath, setDnaPath] = useState("M 48 0");
   const [dnaPath2, setDnaPath2] = useState("M 48 0");
@@ -125,7 +128,12 @@ export function SkillsSection() {
   return (
     <section id="skills" className="flex flex-col items-center justify-center p-4 py-24 min-h-screen overflow-hidden">
       <div className="text-center space-y-2 mb-12 z-10 relative">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+        <h2 
+          className={cn(
+            "text-4xl md:text-5xl font-bold tracking-widest uppercase animate-glitch-subtle",
+            resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow'
+          )}
+        >
           Skills DNA
         </h2>
         <p className="text-accent font-code">The building blocks of my craft.</p>
@@ -180,7 +188,12 @@ export function SkillsSection() {
                       <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50 inline-block w-full">
                         <AccordionTrigger onClick={handleAccordionToggle} className="p-0 hover:no-underline [&>svg]:hidden w-full">
                           <CardHeader className="w-full">
-                            <CardTitle className={`flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'} dark:[text-shadow:0_0_6px_hsl(var(--primary)/0.6)] light:animate-electric-glow`}>
+                            <CardTitle 
+                              className={cn(
+                                `flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'}`,
+                                resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_6px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow'
+                              )}
+                            >
                               {isLeft && <span>{category.title}</span>}
                               <category.icon className="h-6 w-6 text-accent dark:drop-shadow-[0_0_4px_hsl(var(--accent)/0.7)] light:animate-electric-glow-icon" />
                               {!isLeft && <span>{category.title}</span>}

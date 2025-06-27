@@ -15,6 +15,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -26,6 +28,7 @@ export function ContactSection() {
   const [isPending, startTransition] = useTransition();
   const [isGlitching, setIsGlitching] = useState(false);
   const { toast } = useToast();
+  const { resolvedTheme } = useTheme();
   
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
@@ -56,7 +59,12 @@ export function ContactSection() {
   return (
     <section id="contact" className="flex flex-col items-center justify-center p-4 overflow-hidden">
       <div className="text-center space-y-2 mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+        <h2 
+          className={cn(
+            "text-4xl md:text-5xl font-bold tracking-widest uppercase animate-glitch-subtle",
+            resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow'
+          )}
+        >
           Establish Link
         </h2>
         <p className="text-accent font-code">Send a transmission.</p>
@@ -102,7 +110,15 @@ export function ContactSection() {
                     <FormMessage />
                   </FormItem>
                 )} />
-                <Button type="submit" disabled={isPending} className={`w-full group bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-lg hover:shadow-accent/30 transition-all duration-300 font-headline tracking-widest text-lg ${isGlitching ? 'animate-glitch' : ''}`}>
+                <Button 
+                  type="submit" 
+                  disabled={isPending} 
+                  className={cn(
+                    'w-full group bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-lg hover:shadow-accent/30 transition-all duration-300 tracking-widest text-lg',
+                    isGlitching ? 'animate-glitch' : '',
+                    resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline'
+                  )}
+                >
                   {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'TRANSMIT'}
                 </Button>
               </form>

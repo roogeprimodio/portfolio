@@ -4,6 +4,8 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
+import { useTheme } from 'next-themes';
+import { cn } from '@/lib/utils';
 
 import { HeroSection } from "@/components/hero-section";
 import { SideNav } from "@/components/side-nav";
@@ -25,6 +27,7 @@ const ContactSection = dynamic(() => import('@/components/contact-section').then
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,7 +44,12 @@ export default function Home() {
         {isLoading && <OpeningAnimation />}
       </AnimatePresence>
       
-      <div className="relative">
+      <div 
+        className={cn(
+          "relative",
+          resolvedTheme === 'dark' ? 'font-body-dark' : 'font-body'
+        )}
+      >
         <div className="absolute inset-0 -z-20 h-full w-full bg-background bg-[radial-gradient(hsl(var(--accent)/0.05)_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-transparent to-background"></div>
         

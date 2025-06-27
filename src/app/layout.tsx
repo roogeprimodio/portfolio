@@ -2,18 +2,32 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from '@/components/theme-provider';
-import { Cinzel, Raleway, Source_Code_Pro } from 'next/font/google';
+import { Cinzel, Raleway, Source_Code_Pro, Playfair_Display, Lato } from 'next/font/google';
+import { cn } from '@/lib/utils';
 
-const fontBody = Raleway({
+const fontBodyDark = Raleway({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-body',
+  variable: '--font-body-dark',
 });
 
-const fontHeadline = Cinzel({
+const fontHeadlineDark = Cinzel({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-headline',
+  variable: '--font-headline-dark',
+});
+
+const fontBodyLight = Lato({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+  variable: '--font-body-light',
+});
+
+const fontHeadlineLight = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-headline-light',
 });
 
 const fontCode = Source_Code_Pro({
@@ -38,14 +52,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${fontBody.variable} ${fontHeadline.variable} ${fontCode.variable}`} suppressHydrationWarning>
+    <html 
+      lang="en" 
+      className={cn(
+        fontCode.variable,
+        fontBodyDark.variable,
+        fontHeadlineDark.variable,
+        fontBodyLight.variable,
+        fontHeadlineLight.variable
+      )} 
+      suppressHydrationWarning
+    >
       <head />
-      <body className="font-body antialiased">
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          disableTransitionOnChange={false} // Enable for view transitions
         >
           {children}
           <Toaster />

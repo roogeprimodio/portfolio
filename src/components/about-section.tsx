@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Code, MapPin, Mail, ArrowUpRight } from "lucide-react";
 import { aboutData } from "@/lib/portfolio-data";
+import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
 const cardVariants = {
   hidden: { opacity: 0, x: -50 },
@@ -22,11 +24,17 @@ const cardVariants = {
 export function AboutSection() {
   const timelineItemsCount = aboutData.experience.length + aboutData.education.length;
   const certItemsCount = aboutData.certifications.length;
+  const { resolvedTheme } = useTheme();
 
   return (
     <section id="about" className="flex flex-col items-center justify-center p-4 md:py-24 overflow-hidden">
       <div className="text-center space-y-2 mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+        <h2 
+           className={cn(
+            "text-4xl md:text-5xl font-bold tracking-widest uppercase animate-glitch-subtle",
+            resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow'
+          )}
+        >
           Personal Datastream
         </h2>
         <p className="text-accent font-code">My background and experience.</p>
@@ -42,7 +50,12 @@ export function AboutSection() {
         >
           <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)] light:animate-electric-glow-accent">
+              <CardTitle 
+                className={cn(
+                  "flex items-center gap-4 text-2xl text-accent",
+                  resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'font-headline light:animate-electric-glow-accent'
+                )}
+              >
                 <BrainCircuit className="h-8 w-8 dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
                 <span>Self-Summary</span>
               </CardTitle>
@@ -62,7 +75,12 @@ export function AboutSection() {
         >
           <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-4 font-headline text-2xl text-accent dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)] light:animate-electric-glow-accent">
+              <CardTitle 
+                className={cn(
+                  "flex items-center gap-4 text-2xl text-accent",
+                  resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'font-headline light:animate-electric-glow-accent'
+                )}
+              >
                 <MapPin className="h-8 w-8 dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
                 <span>Location & Contact</span>
               </CardTitle>
@@ -82,7 +100,12 @@ export function AboutSection() {
 
         {/* Experience */}
         <div>
-          <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+          <h3 
+             className={cn(
+              "flex items-center gap-4 text-3xl text-primary mb-6",
+              resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+            )}
+          >
             <Briefcase className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
             <span>Experience Log</span>
           </h3>
@@ -114,7 +137,12 @@ export function AboutSection() {
 
         {/* Education */}
         <div>
-           <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+           <h3 
+              className={cn(
+                "flex items-center gap-4 text-3xl text-primary mb-6",
+                resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+              )}
+            >
             <GraduationCap className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
             <span>Education Archive</span>
           </h3>
@@ -146,7 +174,12 @@ export function AboutSection() {
         
         {/* Certifications */}
         <div>
-          <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+          <h3 
+            className={cn(
+              "flex items-center gap-4 text-3xl text-primary mb-6",
+              resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+            )}
+          >
             <Award className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
             <span>Accolades & Certifications</span>
           </h3>
@@ -187,7 +220,12 @@ export function AboutSection() {
         <div className="grid md:grid-cols-2 gap-12 pt-6">
             {/* Programming Languages */}
             <div>
-                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+                <h3 
+                  className={cn(
+                    "flex items-center gap-4 text-3xl text-primary mb-6",
+                    resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+                  )}
+                >
                     <Code className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
                     <span>Programming Languages</span>
                 </h3>
@@ -210,7 +248,12 @@ export function AboutSection() {
 
             {/* Spoken Languages */}
             <div>
-                <h3 className="flex items-center gap-4 text-3xl font-headline text-primary mb-6 dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+                <h3 
+                  className={cn(
+                    "flex items-center gap-4 text-3xl text-primary mb-6",
+                    resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+                  )}
+                >
                     <Languages className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
                     <span>Spoken Languages</span>
                 </h3>

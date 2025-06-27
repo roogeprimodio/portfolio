@@ -31,6 +31,7 @@ export function ThemeToggle() {
     })
 
     transition.ready.then(() => {
+      const duration = 800; // Slower transition duration in ms
       document.documentElement.animate(
         {
           clipPath: [
@@ -39,7 +40,7 @@ export function ThemeToggle() {
           ],
         },
         {
-          duration: 500,
+          duration,
           easing: "ease-in-out",
           pseudoElement: "::view-transition-new(root)",
         }

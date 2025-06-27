@@ -11,9 +11,11 @@ import { useState, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import type { ProjectType } from "@/lib/portfolio-data";
 import { projects } from "@/lib/portfolio-data";
+import { useTheme } from "next-themes";
 
 const ProjectCard = ({ project, index }: { project: ProjectType; index: number }) => {
   const avatarUrl = `https://api.dicebear.com/8.x/bottts-neutral/svg?seed=${encodeURIComponent(project.title)}`;
+  const { resolvedTheme } = useTheme();
   
   return (
     <div className="group relative w-full h-full rounded-3xl border border-accent/20 bg-card/50 backdrop-blur-sm p-6 flex flex-col shadow-lg">
@@ -30,7 +32,14 @@ const ProjectCard = ({ project, index }: { project: ProjectType; index: number }
         </div>
       </div>
 
-      <h3 className="font-headline text-2xl font-bold text-primary text-center">{project.title}</h3>
+      <h3 
+        className={cn(
+          "text-2xl font-bold text-primary text-center",
+          resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline'
+        )}
+      >
+        {project.title}
+      </h3>
       
       <div className="flex flex-wrap gap-2 justify-center mt-3">
         {project.tags.map((tag) => (
@@ -69,6 +78,7 @@ export function ProjectsSection() {
     const [activeTag, setActiveTag] = useState('All');
     const [filteredProjects, setFilteredProjects] = useState(projects);
     const [activeIndex, setActiveIndex] = useState(0);
+    const { resolvedTheme } = useTheme();
 
     useEffect(() => {
         if (activeTag === 'All') {
@@ -91,7 +101,12 @@ export function ProjectsSection() {
   return (
     <section id="projects" className="flex flex-col items-center justify-center p-4 py-24 overflow-hidden">
       <div className="text-center space-y-2 mb-12 px-4">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)] light:animate-electric-glow">
+        <h2 
+          className={cn(
+            "text-4xl md:text-5xl font-bold tracking-widest uppercase animate-glitch-subtle",
+            resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow'
+          )}
+        >
           Hibernation Vault
         </h2>
         <p className="text-accent font-code">A collection of cryo-preserved projects.</p>
