@@ -171,25 +171,34 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
           className="relative w-40 h-52 mb-16 group"
         >
-          {/* Frame Container - Sits behind the image. Height is 95% of the parent. */}
-          <div className="absolute inset-x-0 bottom-0 h-[95%] w-full">
-            <div className="relative h-full w-full overflow-hidden rounded-full">
-              {/* Top part of the frame */}
-              <div className="absolute top-0 left-0 h-[30%] w-full bg-primary" />
-              {/* Bottom part of the frame */}
-              <div className="absolute bottom-0 left-0 h-[70%] w-full bg-accent" />
+          {/* Top part of the frame (sits behind) */}
+          <div className="absolute top-0 left-0 w-full h-[30%] bg-primary rounded-t-full z-0" />
+
+          {/* Bottom part of the frame (sits behind) */}
+          <div className="absolute bottom-0 left-0 w-full h-[70%] bg-accent rounded-b-full z-0" />
+
+          {/* 
+            Image container that clips the image at the bottom.
+            It's positioned at the bottom and covers 70% of the height.
+            'overflow-hidden' ensures the image doesn't spill out from the bottom.
+          */}
+          <div className="absolute bottom-0 left-0 w-full h-[70%] rounded-b-full overflow-hidden z-10">
+            {/* 
+              This inner container is made taller than its parent to allow the image 
+              to be full-sized while being aligned to the bottom.
+              Height is 100% / 0.7 = ~143% to counteract the parent's 70% height.
+            */}
+            <div className="relative w-full h-[143%]">
+              <Image
+                src="/jagdish.png"
+                alt="JAGDISH ODEDARA"
+                fill
+                className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
+                priority
+                data-ai-hint="profile picture"
+              />
             </div>
           </div>
-
-          {/* Image - Sits on top of the frame and fills the parent container */}
-          <Image
-            src="/jagdish.png"
-            alt="JAGDISH ODEDARA"
-            fill
-            className="z-10 object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
-            priority
-            data-ai-hint="profile picture"
-          />
 
           {/* Floating Icons */}
           {socialIcons.map((social, index) => (
@@ -207,7 +216,7 @@ export function HeroSection() {
                 delay: 1.8 + index * 0.1,
                 ease: 'easeOut',
               }}
-              whileHover={{ scale: 1.2, z: 20 }}
+              whileHover={{ scale: 1.2, z: 30 }}
             >
               <social.Icon className="h-4 w-4" />
             </motion.a>
