@@ -73,13 +73,13 @@ const RedditIcon = (props: React.ComponentProps<"svg">) => (
 )
 
 const socialIcons = [
-  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", pos: "top-[-2rem] left-4" },
-  { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter", pos: "top-8 right-[-2.5rem]" },
-  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", pos: "top-24 left-[-3rem]" },
-  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", pos: "bottom-20 right-[-3rem]" },
-  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit", pos: "bottom-[-2rem] left-8" },
-  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", pos: "bottom-12 left-[-4rem]" },
-  { Icon: Phone, href: "tel:9773075648", name: "Call", pos: "bottom-[-2rem] right-4" },
+  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", pos: "top-[-2.5rem] left-4" },
+  { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter", pos: "top-8 right-[-3rem]" },
+  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", pos: "top-28 left-[-3.5rem]" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", pos: "bottom-28 right-[-3.5rem]" },
+  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit", pos: "bottom-[-2.5rem] left-16" },
+  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", pos: "bottom-16 left-[-4.5rem]" },
+  { Icon: Phone, href: "tel:9773075648", name: "Call", pos: "bottom-[-2.5rem] right-4" },
 ];
 
 
@@ -99,17 +99,19 @@ export function HeroSection() {
           className="relative w-44 h-44 mb-16 group"
         >
           <div className={cn(
-            "relative w-full h-full rounded-full overflow-hidden border-4 border-primary bg-primary/10",
-            mounted && (resolvedTheme === 'dark' ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow-box')
+              "relative w-full h-full [clip-path:polygon(50%_0%,_100%_50%,_50%_100%,_0%_50%)] bg-primary",
+              mounted && (resolvedTheme === 'dark' ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow-box')
           )}>
-            <Image
-              src="/jagdish.png"
-              alt="JAGDISH ODEDARA"
-              fill
-              className="object-contain scale-105 drop-shadow-xl transition-transform duration-500 group-hover:scale-110"
-              priority
-              data-ai-hint="profile picture"
-            />
+              <div className="absolute inset-[3px] [clip-path:polygon(50%_0%,_100%_50%,_50%_100%,_0%_50%)] bg-primary/10">
+                  <Image
+                    src="/jagdish.png"
+                    alt="JAGDISH ODEDARA"
+                    fill
+                    className="object-contain scale-105 drop-shadow-xl transition-transform duration-500 group-hover:scale-110"
+                    priority
+                    data-ai-hint="profile picture"
+                  />
+              </div>
           </div>
            {/* Floating Icons */}
           {socialIcons.map((social, index) => (
