@@ -58,13 +58,13 @@ const RedditIcon = (props: React.ComponentProps<"svg">) => (
 )
 
 const socialIcons = [
-  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram", position: { top: "10%", left: "-25%" } },
-  { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter", position: { top: "-10%", right: "0%" } },
-  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub", position: { top: "40%", right: "-35%" } },
-  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn", position: { top: "85%", right: "-20%" } },
-  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit", position: { bottom: "-10%", right: "10%" } },
-  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram", position: { bottom: "20%", left: "-25%" } },
-  { Icon: Phone, href: "tel:9773075648", name: "Call", position: { bottom: "-15%", left: "35%" } },
+  { Icon: Instagram, href: "https://www.instagram.com/jagadish_.odedra/", name: "Instagram" },
+  { Icon: Twitter, href: "https://twitter.com/jagdishodedara0", name: "Twitter" },
+  { Icon: Github, href: "https://github.com/roogeprimodio", name: "GitHub" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/jagdish-odedara-4703532a8/", name: "LinkedIn" },
+  { Icon: RedditIcon, href: "https://www.reddit.com/", name: "Reddit" },
+  { Icon: Send, href: "https://t.me/R00ge", name: "Telegram" },
+  { Icon: Phone, href: "tel:9773075648", name: "Call" },
 ];
 
 
@@ -81,7 +81,7 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="relative w-44 h-64 mb-16 group"
+          className="relative w-44 h-44 mb-8 group"
         >
           <div className={cn(
             "relative w-full h-full rounded-full overflow-hidden border-4 border-primary bg-primary/10",
@@ -96,38 +96,6 @@ export function HeroSection() {
               data-ai-hint="profile picture"
             />
           </div>
-
-          {socialIcons.map((social, index) => (
-            <motion.a
-              key={index}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.name}
-              className="absolute p-2 rounded-full bg-card/60 text-accent backdrop-blur-sm border border-accent/20 hover:bg-accent hover:text-accent-foreground transition-colors z-10"
-              style={social.position}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                y: [0, -6, 0],
-              }}
-              transition={{
-                opacity: { delay: 2.5 + index * 0.15, duration: 0.4 },
-                scale: { delay: 2.5 + index * 0.15, duration: 0.4 },
-                y: {
-                  delay: 2.5,
-                  duration: 1.5 + index * 0.3,
-                  repeat: Infinity,
-                  repeatType: "mirror",
-                  ease: "easeInOut",
-                },
-              }}
-              whileHover={{ scale: 1.2, y: 0 }}
-            >
-              <social.Icon className="h-4 w-4" />
-            </motion.a>
-          ))}
         </motion.div>
         
         <AnimatedText 
@@ -135,7 +103,7 @@ export function HeroSection() {
           el="h1" 
           className={cn(
             "text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase",
-            mounted && (resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow')
+            mounted && (resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline')
           )} 
         />
         <AnimatedText 
@@ -146,6 +114,30 @@ export function HeroSection() {
             mounted && (resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'light:animate-electric-glow-accent')
           )} 
         />
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.8, staggerChildren: 0.1 }}
+          className="flex flex-wrap justify-center gap-4 mt-8"
+        >
+            {socialIcons.map((social, index) => (
+            <motion.a
+              key={index}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.name}
+              className="p-3 rounded-full bg-card/60 text-accent backdrop-blur-sm border border-accent/20 hover:bg-accent hover:text-accent-foreground transition-colors z-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.8 + index * 0.1, ease: "easeOut" }}
+              whileHover={{ scale: 1.15, y: -2 }}
+            >
+              <social.Icon className="h-5 w-5" />
+            </motion.a>
+          ))}
+        </motion.div>
 
         <motion.div
             initial={{ opacity: 0, y: 20 }}

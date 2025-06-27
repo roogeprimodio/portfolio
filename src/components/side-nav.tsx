@@ -125,10 +125,8 @@ export function SideNav() {
       >
         <ul className="flex flex-col items-center gap-2 p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
           <li>
-            <Button asChild variant="ghost" size="icon" className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-pointer" title="JAGDISH ODEDARA">
-              <a href="#home" onClick={(e) => handleScrollTo(e, 'home')}>
+            <Button variant="ghost" size="icon" className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-pointer" title="JAGDISH ODEDARA">
                 <LogoIcon className="h-6 w-6 text-primary" />
-              </a>
             </Button>
           </li>
           <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
@@ -154,23 +152,14 @@ export function SideNav() {
           <PopoverContent side="bottom" align="end" className="w-auto p-2 rounded-xl border border-accent/20 bg-card/50 backdrop-blur-md">
              <ul className="flex flex-col items-center gap-2">
                 <li>
-                  <a
-                    href="#home"
-                    onClick={(e) => handleScrollTo(e, 'home')}
-                    className={cn(
-                        "group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-full transition-colors hover:bg-accent",
-                         activeSection === 'home' && 'bg-accent'
-                    )}
-                    aria-label="Home"
-                  >
+                  <Button variant="ghost" size="icon" className="group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-full transition-colors hover:bg-accent" title="JAGDISH ODEDARA">
                     <LogoIcon className={cn(
-                        "h-6 w-6 transition-colors duration-300 group-hover:text-accent-foreground",
-                        activeSection === 'home' ? "text-accent-foreground" : "text-primary"
+                        "h-6 w-6 text-primary transition-colors duration-300 group-hover:text-accent-foreground"
                     )} />
-                  </a>
+                  </Button>
                 </li>
                 <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
-                {sections.filter(s => s.id !== 'home').map((section) => (
+                {sections.map((section) => (
                     <li key={section.id}>
                     <a
                         href={`#${section.id}`}
