@@ -192,7 +192,7 @@ export function HeroSection() {
                       src="/jagdish.png"
                       alt="JAGDISH ODEDARA"
                       fill
-                      className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
+                      className="object-contain object-bottom drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05] pt-2"
                       priority
                       data-ai-hint="profile picture"
                   />
