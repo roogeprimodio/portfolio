@@ -174,13 +174,13 @@ export function HeroSection() {
           {/* Single, seamless frame */}
           <div className="absolute inset-0 border-4 border-primary rounded-full drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
           
-          {/* The container for the image */}
-          <div className="relative w-full h-full rounded-full overflow-hidden">
+          {/* The container for the image, padded to sit inside the border */}
+          <div className="relative w-full h-full rounded-full overflow-hidden p-1">
             <Image
               src="/jagdish.png"
               alt="JAGDISH ODEDARA"
               fill
-              className="object-cover object-center drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
+              className="object-cover object-center rounded-full drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05]"
               priority
               data-ai-hint="profile picture"
             />
