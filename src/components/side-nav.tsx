@@ -18,8 +18,8 @@ const sections = [
   { id: "contact", icon: Send, label: "Establish Link" },
 ];
 
-const LogoIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 100 100" className="text-primary">
+const LogoIcon = ({ className }: { className?: string }) => (
+    <svg width="24" height="24" viewBox="0 0 100 100" className={className}>
         <path d="M 10 50 Q 50 10 90 50" stroke="currentColor" strokeWidth="10" fill="none" strokeLinecap="round" />
         <path d="M 10 50 Q 50 90 90 50" stroke="currentColor" strokeWidth="10" fill="none" strokeLinecap="round" />
         <circle cx="50" cy="50" r="15" fill="currentColor" />
@@ -37,17 +37,16 @@ export function SideNav() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleSections = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        
-        if (visibleSections.length > 0) {
-          setActiveSection(visibleSections[0].target.id);
-        }
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
       },
-      { 
+      {
         root: mainElement,
-        threshold: 0.4, // A section is considered "visible" if 40% of it is in the viewport.
+        rootMargin: "-50% 0px -50% 0px", // Trigger when section is at vertical center
+        threshold: 0,
       }
     );
 
@@ -77,7 +76,7 @@ export function SideNav() {
       history.pushState(null, '', `#${id}`);
     }
   };
-
+  
   const navContent = (
     <>
       {sections.map((section) => (
@@ -128,7 +127,7 @@ export function SideNav() {
         <ul className="flex flex-col items-center gap-2 p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
           <li>
             <div className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-default" title="JAGDISH ODEDARA">
-                <LogoIcon />
+                <LogoIcon className="h-6 w-6 text-primary" />
             </div>
           </li>
           <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
@@ -154,25 +153,36 @@ export function SideNav() {
           <PopoverContent side="bottom" align="end" className="w-auto p-2 rounded-xl border border-accent/20 bg-card/50 backdrop-blur-md">
              <ul className="flex flex-col items-center gap-2">
                 <li>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" aria-label="Home Logo">
-                    <LogoIcon />
-                  </Button>
+                  <a
+                    href="#home"
+                    onClick={(e) => handleScroll(e, 'home')}
+                    className={cn(
+                        "group relative flex cursor-pointer items-center justify-center h-8 w-8 rounded-full transition-colors hover:bg-accent",
+                        activeSection === 'home' && "bg-accent"
+                    )}
+                    aria-label="Home"
+                  >
+                    <LogoIcon className={cn(
+                        "h-6 w-6 transition-colors duration-300",
+                        activeSection === 'home' ? "text-accent-foreground" : "text-primary group-hover:text-accent-foreground"
+                    )} />
+                  </a>
                 </li>
                 <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
-                {sections.map((section) => (
+                {sections.filter(s => s.id !== 'home').map((section) => (
                     <li key={section.id}>
                     <a
                         href={`#${section.id}`}
                         onClick={(e) => handleScroll(e, section.id)}
                         className={cn(
-                            "group relative flex cursor-pointer items-center justify-center h-8 w-8 rounded-full transition-colors hover:bg-accent/50",
-                            { "bg-accent": activeSection === section.id }
+                            "group relative flex cursor-pointer items-center justify-center h-8 w-8 rounded-full transition-colors hover:bg-accent",
+                            activeSection === section.id && "bg-accent"
                         )}
                         aria-label={section.label}
                     >
                         <section.icon className={cn(
-                            "h-5 w-5 transition-colors duration-300 text-accent group-hover:text-accent-foreground",
-                             { "text-accent-foreground": activeSection === section.id }
+                            "h-5 w-5 transition-colors duration-300",
+                            activeSection === section.id ? "text-accent-foreground" : "text-accent group-hover:text-accent-foreground"
                         )} />
                     </a>
                     </li>
