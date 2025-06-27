@@ -7,6 +7,7 @@ import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Code, MapPin,
 import { aboutData } from "@/lib/portfolio-data";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from 'react';
 
 const cardVariants = {
   hidden: { opacity: 0, x: -50 },
@@ -25,6 +26,8 @@ export function AboutSection() {
   const timelineItemsCount = aboutData.experience.length + aboutData.education.length;
   const certItemsCount = aboutData.certifications.length;
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   return (
     <section id="about" className="flex flex-col items-center justify-center p-4 md:py-24 overflow-hidden">
@@ -32,7 +35,7 @@ export function AboutSection() {
         <h2 
            className={cn(
             "text-4xl md:text-5xl font-bold tracking-widest uppercase animate-glitch-subtle",
-            resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow'
+            mounted && (resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow')
           )}
         >
           Personal Datastream
@@ -53,10 +56,10 @@ export function AboutSection() {
               <CardTitle 
                 className={cn(
                   "flex items-center gap-4 text-2xl text-accent",
-                  resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'font-headline light:animate-electric-glow-accent'
+                  mounted && (resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'font-headline light:animate-electric-glow-accent')
                 )}
               >
-                <BrainCircuit className="h-8 w-8 dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
+                <BrainCircuit className={cn("h-8 w-8", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" : "light:animate-electric-glow-icon"))} />
                 <span>Self-Summary</span>
               </CardTitle>
             </CardHeader>
@@ -78,10 +81,10 @@ export function AboutSection() {
               <CardTitle 
                 className={cn(
                   "flex items-center gap-4 text-2xl text-accent",
-                  resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'font-headline light:animate-electric-glow-accent'
+                  mounted && (resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'font-headline light:animate-electric-glow-accent')
                 )}
               >
-                <MapPin className="h-8 w-8 dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
+                <MapPin className={cn("h-8 w-8", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" : "light:animate-electric-glow-icon"))} />
                 <span>Location & Contact</span>
               </CardTitle>
             </CardHeader>
@@ -103,10 +106,10 @@ export function AboutSection() {
           <h3 
              className={cn(
               "flex items-center gap-4 text-3xl text-primary mb-6",
-              resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+              mounted && (resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow')
             )}
           >
-            <Briefcase className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
+            <Briefcase className={cn("h-8 w-8 text-accent", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" : "light:animate-electric-glow-icon"))} />
             <span>Experience Log</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
@@ -140,10 +143,10 @@ export function AboutSection() {
            <h3 
               className={cn(
                 "flex items-center gap-4 text-3xl text-primary mb-6",
-                resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+                mounted && (resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow')
               )}
             >
-            <GraduationCap className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
+            <GraduationCap className={cn("h-8 w-8 text-accent", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" : "light:animate-electric-glow-icon"))} />
             <span>Education Archive</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
@@ -177,10 +180,10 @@ export function AboutSection() {
           <h3 
             className={cn(
               "flex items-center gap-4 text-3xl text-primary mb-6",
-              resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+              mounted && (resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow')
             )}
           >
-            <Award className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
+            <Award className={cn("h-8 w-8 text-accent", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" : "light:animate-electric-glow-icon"))} />
             <span>Accolades & Certifications</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
@@ -223,10 +226,10 @@ export function AboutSection() {
                 <h3 
                   className={cn(
                     "flex items-center gap-4 text-3xl text-primary mb-6",
-                    resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+                    mounted && (resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow')
                   )}
                 >
-                    <Code className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
+                    <Code className={cn("h-8 w-8 text-accent", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" : "light:animate-electric-glow-icon"))} />
                     <span>Programming Languages</span>
                 </h3>
                 <div className="space-y-4">
@@ -251,10 +254,10 @@ export function AboutSection() {
                 <h3 
                   className={cn(
                     "flex items-center gap-4 text-3xl text-primary mb-6",
-                    resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+                    mounted && (resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow')
                   )}
                 >
-                    <Languages className="h-8 w-8 text-accent dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)] light:animate-electric-glow-icon" />
+                    <Languages className={cn("h-8 w-8 text-accent", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_5px_hsl(var(--accent)/0.6)]" : "light:animate-electric-glow-icon"))} />
                     <span>Spoken Languages</span>
                 </h3>
                 <div className="space-y-4">

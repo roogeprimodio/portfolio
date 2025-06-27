@@ -25,6 +25,8 @@ export function SkillsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationFrameId = useRef<number | null>(null);
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   const [dnaPath, setDnaPath] = useState("M 48 0");
   const [dnaPath2, setDnaPath2] = useState("M 48 0");
@@ -131,7 +133,7 @@ export function SkillsSection() {
         <h2 
           className={cn(
             "text-4xl md:text-5xl font-bold tracking-widest uppercase animate-glitch-subtle",
-            resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow'
+            mounted && (resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow')
           )}
         >
           Skills DNA
@@ -191,11 +193,11 @@ export function SkillsSection() {
                             <CardTitle 
                               className={cn(
                                 `flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'}`,
-                                resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_6px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow'
+                                mounted && (resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_6px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow')
                               )}
                             >
                               {isLeft && <span>{category.title}</span>}
-                              <category.icon className="h-6 w-6 text-accent dark:drop-shadow-[0_0_4px_hsl(var(--accent)/0.7)] light:animate-electric-glow-icon" />
+                              <category.icon className={cn("h-6 w-6 text-accent", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_4px_hsl(var(--accent)/0.7)]" : "light:animate-electric-glow-icon"))} />
                               {!isLeft && <span>{category.title}</span>}
                             </CardTitle>
                           </CardHeader>

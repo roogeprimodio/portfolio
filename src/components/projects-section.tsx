@@ -16,6 +16,8 @@ import { useTheme } from "next-themes";
 const ProjectCard = ({ project, index }: { project: ProjectType; index: number }) => {
   const avatarUrl = `https://api.dicebear.com/8.x/bottts-neutral/svg?seed=${encodeURIComponent(project.title)}`;
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
   
   return (
     <div className="group relative w-full h-full rounded-3xl border border-accent/20 bg-card/50 backdrop-blur-sm p-6 flex flex-col shadow-lg">
@@ -35,7 +37,7 @@ const ProjectCard = ({ project, index }: { project: ProjectType; index: number }
       <h3 
         className={cn(
           "text-2xl font-bold text-primary text-center",
-          resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline'
+          mounted && (resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline')
         )}
       >
         {project.title}
@@ -79,6 +81,8 @@ export function ProjectsSection() {
     const [filteredProjects, setFilteredProjects] = useState(projects);
     const [activeIndex, setActiveIndex] = useState(0);
     const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => { setMounted(true); }, []);
 
     useEffect(() => {
         if (activeTag === 'All') {
@@ -104,7 +108,7 @@ export function ProjectsSection() {
         <h2 
           className={cn(
             "text-4xl md:text-5xl font-bold tracking-widest uppercase animate-glitch-subtle",
-            resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow'
+            mounted && (resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow')
           )}
         >
           Hibernation Vault

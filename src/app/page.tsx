@@ -28,10 +28,10 @@ const ContactSection = dynamic(() => import('@/components/contact-section').then
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const { resolvedTheme } = useTheme();
-  const [isClient, setIsClient] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    setMounted(true);
   }, []);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function Home() {
       <div 
         className={cn(
           "relative",
-          isClient && (resolvedTheme === 'dark' ? 'font-body-dark' : 'font-body')
+          mounted && (resolvedTheme === 'dark' ? 'font-body-dark' : 'font-body')
         )}
       >
         <div className="absolute inset-0 -z-20 h-full w-full bg-background bg-[radial-gradient(hsl(var(--accent)/0.05)_1px,transparent_1px)] [background-size:16px_16px]"></div>

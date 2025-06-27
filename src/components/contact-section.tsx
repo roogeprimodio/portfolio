@@ -4,7 +4,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useTransition, useState } from "react";
+import { useTransition, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { sendContactMessageAction } from "@/app/actions";
 
@@ -29,6 +29,8 @@ export function ContactSection() {
   const [isGlitching, setIsGlitching] = useState(false);
   const { toast } = useToast();
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
   
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
@@ -62,7 +64,7 @@ export function ContactSection() {
         <h2 
           className={cn(
             "text-4xl md:text-5xl font-bold tracking-widest uppercase animate-glitch-subtle",
-            resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow'
+            mounted && (resolvedTheme === 'dark' ? 'font-headline-dark text-primary dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline text-primary light:animate-electric-glow')
           )}
         >
           Establish Link
@@ -116,7 +118,7 @@ export function ContactSection() {
                   className={cn(
                     'w-full group bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-lg hover:shadow-accent/30 transition-all duration-300 tracking-widest text-lg',
                     isGlitching ? 'animate-glitch' : '',
-                    resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline'
+                    mounted && (resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline')
                   )}
                 >
                   {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'TRANSMIT'}

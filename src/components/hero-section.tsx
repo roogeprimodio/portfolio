@@ -17,6 +17,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 const AnimatedText = ({ text, el: Wrapper = "p", className }: { text: string, el?: keyof JSX.IntrinsicElements, className?: string }) => {
   const words = text.split(" ");
@@ -69,6 +70,8 @@ const socialIcons = [
 
 export function HeroSection() {
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true) }, []);
 
   return (
     <section id="home" className="relative h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
@@ -80,7 +83,10 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           className="relative w-44 h-64 mb-16 group"
         >
-          <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary bg-primary/10 dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)] light:animate-electric-glow-box">
+          <div className={cn(
+            "relative w-full h-full rounded-full overflow-hidden border-4 border-primary bg-primary/10",
+            mounted && (resolvedTheme === 'dark' ? 'dark:shadow-[0_0_20px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow-box')
+          )}>
             <Image
               src="/jagdish.png"
               alt="JAGDISH ODEDARA"
@@ -129,7 +135,7 @@ export function HeroSection() {
           el="h1" 
           className={cn(
             "text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase",
-            resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow'
+            mounted && (resolvedTheme === 'dark' ? 'font-headline-dark dark:[text-shadow:0_0_8px_hsl(var(--primary)/0.5)]' : 'font-headline light:animate-electric-glow')
           )} 
         />
         <AnimatedText 
@@ -137,7 +143,7 @@ export function HeroSection() {
           el="p" 
           className={cn(
             "mt-4 font-code text-lg md:text-xl text-accent",
-            resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'light:animate-electric-glow-accent'
+            mounted && (resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]' : 'light:animate-electric-glow-accent')
           )} 
         />
 
@@ -151,7 +157,7 @@ export function HeroSection() {
             size="lg" 
             className={cn(
               "mt-12 group bg-accent/10 text-accent border border-accent hover:bg-accent hover:text-accent-foreground hover:shadow-lg hover:shadow-accent/40 transition-all duration-300 tracking-widest",
-              resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline'
+              mounted && (resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline')
             )}
           >
             <Link href="#about">
