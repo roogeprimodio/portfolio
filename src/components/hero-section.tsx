@@ -174,7 +174,7 @@ export function HeroSection() {
           {/* This is the clipping container which also provides the gradient for the border */}
           <div
             className={cn(
-              'relative h-full w-full rounded-full p-1 overflow-hidden', // p-1 controls border thickness
+              'relative h-full w-full rounded-full p-[4px] overflow-hidden', // Thick border
               '[background-image:linear-gradient(to_bottom,hsl(var(--primary)/0.8)_30%,hsl(var(--accent)/0.8)_70%)]',
               mounted &&
                 (resolvedTheme === 'dark'
