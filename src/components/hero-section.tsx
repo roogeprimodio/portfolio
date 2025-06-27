@@ -171,11 +171,14 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
           className="relative w-40 h-52 mb-16 group"
         >
-          {/* Single, seamless frame */}
-          <div className="absolute inset-0 border-4 border-primary rounded-full drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
-          
-          {/* The container for the image, padded to sit inside the border */}
-          <div className="relative w-full h-full rounded-full overflow-hidden p-1">
+          {/* Layer 1: The Glow for the entire capsule shape */}
+          <div className="absolute inset-0 rounded-full drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)] z-0" />
+
+          {/* Layer 2: Top half of the border (BEHIND the image) */}
+          <div className="absolute top-0 left-0 w-full h-1/2 border-t-4 border-l-4 border-r-4 border-primary rounded-t-full z-10" />
+
+          {/* Layer 3: The Image */}
+          <div className="relative w-full h-full p-1 z-20">
             <Image
               src="/jagdish.png"
               alt="JAGDISH ODEDARA"
@@ -186,6 +189,9 @@ export function HeroSection() {
             />
           </div>
 
+          {/* Layer 4: Bottom half of the border (IN FRONT of the image) */}
+          <div className="absolute bottom-0 left-0 w-full h-1/2 border-b-4 border-l-4 border-r-4 border-primary rounded-b-full z-30 pointer-events-none" />
+
           {socialIcons.map((social, index) => (
             <motion.a
               key={index}
@@ -193,7 +199,7 @@ export function HeroSection() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.name}
-              className={`absolute ${social.pos} p-2 rounded-full bg-card/60 text-accent backdrop-blur-sm border border-accent/20 hover:bg-accent hover:text-accent-foreground transition-colors z-30`}
+              className={`absolute ${social.pos} p-2 rounded-full bg-card/60 text-accent backdrop-blur-sm border border-accent/20 hover:bg-accent hover:text-accent-foreground transition-colors z-40`}
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{
@@ -201,7 +207,7 @@ export function HeroSection() {
                 delay: 1.8 + index * 0.1,
                 ease: 'easeOut',
               }}
-              whileHover={{ scale: 1.2, z: 40 }}
+              whileHover={{ scale: 1.2, z: 50 }}
             >
               <social.Icon className="h-4 w-4" />
             </motion.a>
