@@ -12,7 +12,7 @@ const SectionTitle = ({ children, icon: Icon }: { children: React.ReactNode, ico
 );
 
 const Section = ({ children }: { children: React.ReactNode }) => (
-    <section className="border-t-2 border-gray-100 pt-5">{children}</section>
+    <section className="border-t-2 border-gray-100 pt-4">{children}</section>
 );
 
 
@@ -20,10 +20,10 @@ export const ResumePreview = () => {
   return (
     <div id="resume-content" className="bg-white text-gray-800 p-10 font-sans shadow-2xl w-[50rem]">
       {/* Header */}
-      <header className="text-center mb-8">
+      <header className="text-center mb-6">
         <h1 className="text-6xl font-extrabold text-gray-900 tracking-tight">JAGDISH ODEDARA</h1>
         <p className="text-2xl text-blue-600 font-semibold mt-2">Digital Craftsman & Code Poet</p>
-        <div className="mt-5 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-base text-gray-600">
+        <div className="mt-4 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-base text-gray-600">
           <a href={`mailto:${aboutData.contactInfo.email}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors">
             <Mail className="w-4 h-4" /> {aboutData.contactInfo.email}
           </a>
@@ -45,17 +45,17 @@ export const ResumePreview = () => {
       </header>
 
       {/* Summary */}
-      <section className="mb-5">
+      <section className="mb-4">
         <p className="text-center text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">{aboutData.summary}</p>
       </section>
 
-      <main className="space-y-5">
+      <main className="space-y-4">
         {/* Experience */}
         <Section>
           <SectionTitle icon={Briefcase}>Experience</SectionTitle>
-          <div className="space-y-5">
+          <div className="space-y-4">
             {aboutData.experience.map((exp, index) => (
-              <div key={index} className="pl-8 relative">
+              <div key={index} className="pl-8 relative break-inside-avoid">
                 <div className="absolute left-0 top-1 h-3 w-3 rounded-full bg-blue-600 border-2 border-white"></div>
                 <div className="absolute left-[5px] top-4 h-full w-px bg-gray-200"></div>
                 <div className="flex justify-between items-baseline">
@@ -72,9 +72,9 @@ export const ResumePreview = () => {
         {/* Projects */}
         <Section>
           <SectionTitle icon={Lightbulb}>Projects</SectionTitle>
-          <div className="space-y-5">
+          <div className="space-y-4">
             {projects.slice(0, 3).map((proj, index) => (
-               <div key={index} className="pl-8 relative">
+               <div key={index} className="pl-8 relative break-inside-avoid">
                   <div className="absolute left-0 top-1 h-3 w-3 rounded-full bg-blue-600 border-2 border-white"></div>
                   <div className="absolute left-[5px] top-4 h-full w-px bg-gray-200"></div>
                   <div className="flex justify-between items-baseline">
@@ -97,9 +97,9 @@ export const ResumePreview = () => {
         {/* Education */}
         <Section>
           <SectionTitle icon={GraduationCap}>Education</SectionTitle>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {aboutData.education.map((edu, index) => (
-              <div key={index} className="pl-8 relative">
+              <div key={index} className="pl-8 relative break-inside-avoid">
                 <div className="absolute left-0 top-1 h-3 w-3 rounded-full bg-blue-600 border-2 border-white"></div>
                 <div className="absolute left-[5px] top-4 h-full w-px bg-gray-200"></div>
                 <h3 className="text-xl font-semibold text-gray-900">{edu.degree}</h3>
@@ -115,10 +115,10 @@ export const ResumePreview = () => {
         {/* Skills */}
         <Section>
           <SectionTitle icon={Wrench}>Skills</SectionTitle>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {skillData.map((category) => (
-               <div key={category.title} className="flex items-start">
-                  <h3 className="w-1/4 font-semibold text-gray-700 text-base pr-4 text-right flex items-center justify-end gap-2"><category.icon className="w-5 h-5"/>{category.title}</h3>
+               <div key={category.title} className="flex items-start break-inside-avoid">
+                  <h3 className="w-1/4 font-semibold text-gray-700 text-base pr-4 text-right flex items-center justify-end gap-2 pt-1"><category.icon className="w-5 h-5"/>{category.title}</h3>
                   <div className="w-3/4 flex flex-wrap gap-2">
                     {category.skills.map((skill) => (
                        <span key={skill} className="text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full">{skill}</span>
@@ -132,9 +132,9 @@ export const ResumePreview = () => {
         {/* Certifications */}
         <Section>
           <SectionTitle icon={Star}>Certifications</SectionTitle>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {aboutData.certifications.map((cert, index) => (
-              <div key={index} className="flex justify-between items-baseline pl-8">
+              <div key={index} className="flex justify-between items-baseline pl-8 break-inside-avoid">
                 <div>
                   <a href={cert.url} target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-blue-600 hover:underline">{cert.name}</a>
                   <p className="text-base text-gray-700">{cert.issuer}</p>
