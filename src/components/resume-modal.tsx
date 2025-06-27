@@ -30,29 +30,39 @@ export function ResumeModal({ children }: { children: React.ReactNode }) {
     html2canvas(input, {
       scale: 2.5,
       useCORS: true,
-      backgroundColor: '#ffffff'
+      backgroundColor: '#ffffff',
+      windowWidth: input.scrollWidth,
+      windowHeight: input.scrollHeight,
     }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      
-      const pdf = new jsPDF('p', 'pt', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+            orientation: 'p',
+            unit: 'pt',
+            format: 'a4',
+        });
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
 
-      const canvasWidth = canvas.width;
-      const canvasHeight = canvas.height;
-      const ratio = canvasWidth / canvasHeight;
-      
-      let imgWidth = pdfWidth;
-      let imgHeight = pdfWidth / ratio;
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+        
+        const ratio = canvasWidth / canvasHeight;
+        const imgWidth = pdfWidth;
+        const imgHeight = imgWidth / ratio;
 
-      if (imgHeight > pdfHeight) {
-        imgHeight = pdfHeight;
-        imgWidth = pdfHeight * ratio;
-      }
+        let heightLeft = imgHeight;
+        let position = 0;
 
-      const xOffset = (pdfWidth - imgWidth) / 2;
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
+        heightLeft -= pdfHeight;
+
+        while (heightLeft > 0) {
+            position -= pdfHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
+            heightLeft -= pdfHeight;
+        }
       
-      pdf.addImage(imgData, 'PNG', xOffset, 0, imgWidth, imgHeight);
       pdf.save('JAGDISH_ODEDARA_Resume.pdf');
       setIsDownloading(false);
     }).catch(err => {
@@ -134,17 +144,15 @@ export function ResumeModal({ children }: { children: React.ReactNode }) {
   const fitContent = useCallback(() => {
     if (!containerRef.current || !contentRef.current) return;
     const containerWidth = containerRef.current.offsetWidth;
-    const containerHeight = containerRef.current.offsetHeight;
     const contentWidth = contentRef.current.offsetWidth;
-    const contentHeight = contentRef.current.offsetHeight;
 
-    if (contentWidth === 0 || contentHeight === 0) return;
+    if (contentWidth === 0) return;
 
+    // Fit to width
     const scaleX = containerWidth / contentWidth;
-    const scaleY = containerHeight / contentHeight;
+    const initialScale = Math.min(scaleX, 1) * 0.95;
     
-    const initialScale = Math.min(scaleX, scaleY) * 0.9;
-    setScale(initialScale > 1 ? 1 : initialScale);
+    setScale(initialScale);
     setPosition({x: 0, y: 0});
   }, []);
 
@@ -168,7 +176,7 @@ export function ResumeModal({ children }: { children: React.ReactNode }) {
         </DialogHeader>
         <div
           ref={containerRef}
-          className="flex-grow overflow-hidden bg-gray-200 flex justify-center items-center relative touch-none"
+          className="flex-grow overflow-auto bg-gray-200 flex justify-center relative touch-none py-8"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
@@ -179,7 +187,7 @@ export function ResumeModal({ children }: { children: React.ReactNode }) {
         >
           <div
             ref={contentRef}
-            className={cn("origin-center", isDragging ? "" : "transition-transform duration-200 ease-out")}
+            className={cn("origin-top-left", isDragging ? "" : "transition-transform duration-200 ease-out")}
             style={{ 
                 transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
                 cursor: isDragging ? 'grabbing' : 'grab'

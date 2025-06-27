@@ -3,7 +3,7 @@ import { aboutData, projects, skillData } from '@/lib/portfolio-data';
 import { Mail, MapPin, Linkedin, Github, Phone, Link as LinkIcon, Briefcase, GraduationCap, Lightbulb, Wrench, Star } from "lucide-react";
 
 const SectionTitle = ({ children, icon: Icon }: { children: React.ReactNode, icon: React.ElementType }) => (
-    <div className="flex items-center gap-3 mb-4">
+    <div className="flex items-center gap-3 mb-3">
       <Icon className="w-6 h-6 text-blue-600" />
       <h2 className="text-2xl font-bold text-gray-800 uppercase tracking-wider">
         {children}
@@ -12,18 +12,18 @@ const SectionTitle = ({ children, icon: Icon }: { children: React.ReactNode, ico
 );
 
 const Section = ({ children }: { children: React.ReactNode }) => (
-    <section className="border-t-2 border-gray-100 pt-6">{children}</section>
+    <section className="border-t-2 border-gray-100 pt-5">{children}</section>
 );
 
 
 export const ResumePreview = () => {
   return (
-    <div id="resume-content" className="bg-white text-gray-800 p-10 font-sans shadow-2xl w-[50rem] aspect-[210/297]">
+    <div id="resume-content" className="bg-white text-gray-800 p-10 font-sans shadow-2xl w-[50rem]">
       {/* Header */}
-      <header className="text-center mb-10">
+      <header className="text-center mb-8">
         <h1 className="text-6xl font-extrabold text-gray-900 tracking-tight">JAGDISH ODEDARA</h1>
         <p className="text-2xl text-blue-600 font-semibold mt-2">Digital Craftsman & Code Poet</p>
-        <div className="mt-6 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-base text-gray-600">
+        <div className="mt-5 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-base text-gray-600">
           <a href={`mailto:${aboutData.contactInfo.email}`} className="flex items-center gap-2 hover:text-blue-600 transition-colors">
             <Mail className="w-4 h-4" /> {aboutData.contactInfo.email}
           </a>
@@ -45,15 +45,15 @@ export const ResumePreview = () => {
       </header>
 
       {/* Summary */}
-      <section className="mb-6">
+      <section className="mb-5">
         <p className="text-center text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">{aboutData.summary}</p>
       </section>
 
-      <main className="space-y-6">
+      <main className="space-y-5">
         {/* Experience */}
         <Section>
           <SectionTitle icon={Briefcase}>Experience</SectionTitle>
-          <div className="space-y-6">
+          <div className="space-y-5">
             {aboutData.experience.map((exp, index) => (
               <div key={index} className="pl-8 relative">
                 <div className="absolute left-0 top-1 h-3 w-3 rounded-full bg-blue-600 border-2 border-white"></div>
@@ -72,7 +72,7 @@ export const ResumePreview = () => {
         {/* Projects */}
         <Section>
           <SectionTitle icon={Lightbulb}>Projects</SectionTitle>
-          <div className="space-y-6">
+          <div className="space-y-5">
             {projects.slice(0, 3).map((proj, index) => (
                <div key={index} className="pl-8 relative">
                   <div className="absolute left-0 top-1 h-3 w-3 rounded-full bg-blue-600 border-2 border-white"></div>
@@ -97,7 +97,7 @@ export const ResumePreview = () => {
         {/* Education */}
         <Section>
           <SectionTitle icon={GraduationCap}>Education</SectionTitle>
-          <div className="space-y-5">
+          <div className="space-y-4">
             {aboutData.education.map((edu, index) => (
               <div key={index} className="pl-8 relative">
                 <div className="absolute left-0 top-1 h-3 w-3 rounded-full bg-blue-600 border-2 border-white"></div>
@@ -115,7 +115,7 @@ export const ResumePreview = () => {
         {/* Skills */}
         <Section>
           <SectionTitle icon={Wrench}>Skills</SectionTitle>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {skillData.map((category) => (
                <div key={category.title} className="flex items-start">
                   <h3 className="w-1/4 font-semibold text-gray-700 text-base pr-4 text-right flex items-center justify-end gap-2"><category.icon className="w-5 h-5"/>{category.title}</h3>
