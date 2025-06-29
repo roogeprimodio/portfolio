@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 // Reusable component for a page container to keep styles consistent
 const Page = ({ children, className }: { children: React.ReactNode, className?: string }) => (
   <div className={cn(
-    "bg-white text-gray-800 p-10 font-sans shadow-2xl w-full max-w-2xl",
+    "bg-white text-gray-800 p-8 font-sans shadow-2xl w-full max-w-xl",
     className
   )}>
     {children}
@@ -66,7 +66,7 @@ export const ResumePreview = () => {
           {/* Experience */}
           <Section>
             <SectionTitle icon={Briefcase}>Experience</SectionTitle>
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {aboutData.experience.map((exp, index) => (
                 <div key={index} className="pl-5 relative">
                   <div className="absolute left-0 top-1.5 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
@@ -89,7 +89,7 @@ export const ResumePreview = () => {
             {/* Education */}
             <Section>
               <SectionTitle icon={GraduationCap}>Education</SectionTitle>
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 {aboutData.education.map((edu, index) => (
                   <div key={index} className="pl-5 relative">
                     <div className="absolute left-0 top-1.5 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
@@ -106,7 +106,7 @@ export const ResumePreview = () => {
             {/* Projects */}
             <Section>
               <SectionTitle icon={Lightbulb}>Projects</SectionTitle>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {projects.slice(0, 4).map((proj, index) => (
                   <div key={index} className="pl-5 relative">
                       <div className="absolute left-0 top-1.5 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
