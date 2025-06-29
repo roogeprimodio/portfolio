@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 // Reusable component for a page container to keep styles consistent
 const Page = ({ children, className }: { children: React.ReactNode, className?: string }) => (
   <div className={cn(
-    "bg-white text-gray-800 p-8 font-sans shadow-2xl w-full max-w-xl",
+    "bg-white text-gray-800 p-8 font-sans shadow-2xl w-full max-w-3xl",
     className
   )}>
     {children}
@@ -80,29 +80,29 @@ export const ResumePreview = () => {
               ))}
             </div>
           </Section>
+
+          {/* Education */}
+          <Section>
+            <SectionTitle icon={GraduationCap}>Education</SectionTitle>
+            <div className="space-y-2">
+              {aboutData.education.map((edu, index) => (
+                <div key={index} className="pl-5 relative">
+                  <div className="absolute left-0 top-1.5 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
+                  <div className="flex justify-between items-baseline">
+                    <h3 className="text-sm font-semibold text-gray-900">{edu.degree}</h3>
+                    <p className="text-[10px] text-gray-500 font-mono">{edu.duration}</p>
+                  </div>
+                  <p className="text-xs font-medium text-blue-600 mt-0.5">{edu.institution}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
         </main>
       </Page>
       
       {/* Page 2 */}
       <Page>
          <main className="space-y-2">
-            {/* Education */}
-            <Section>
-              <SectionTitle icon={GraduationCap}>Education</SectionTitle>
-              <div className="space-y-2">
-                {aboutData.education.map((edu, index) => (
-                  <div key={index} className="pl-5 relative">
-                    <div className="absolute left-0 top-1.5 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
-                    <div className="flex justify-between items-baseline">
-                      <h3 className="text-sm font-semibold text-gray-900">{edu.degree}</h3>
-                      <p className="text-[10px] text-gray-500 font-mono">{edu.duration}</p>
-                    </div>
-                    <p className="text-xs font-medium text-blue-600 mt-0.5">{edu.institution}</p>
-                  </div>
-                ))}
-              </div>
-            </Section>
-
             {/* Projects */}
             <Section>
               <SectionTitle icon={Lightbulb}>Projects</SectionTitle>
