@@ -156,7 +156,7 @@ export function HeroSection() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    mounted;
+    setMounted(true);
   }, []);
 
   return (
