@@ -44,7 +44,7 @@ export function AboutSection() {
       `TITLE:${personalInfo.jobTitle}`,
       `EMAIL;TYPE=INTERNET:${about.contactInfo.email}`,
       `TEL;TYPE=CELL:+91${about.contactInfo.phone}`,
-      `ADR;TYPE=HOME:;;;${city};${state};${pin};${country}`,
+      `ADR;TYPE=HOME:;;${city};${state};${pin};${country}`,
       `URL:${personalInfo.url}`,
       'END:VCARD'
     ].join('\n');
@@ -316,3 +316,5 @@ export function AboutSection() {
     </section>
   )
 }
+
+    
