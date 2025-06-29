@@ -48,6 +48,9 @@ export const metadata: Metadata = {
   icons: {
     icon: eyeIconDataUri,
   },
+  verification: {
+    google: "zFm9XI6LPoXU1xmmALCKwSWJZKJ-xe1Ed1KupSwRwAM",
+  },
 };
 
 export default function RootLayout({
