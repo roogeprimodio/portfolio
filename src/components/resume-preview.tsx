@@ -1,6 +1,7 @@
-
 import { aboutData, projects, skillData } from '@/lib/portfolio-data';
-import { Mail, MapPin, Linkedin, Github, Phone, Link as LinkIcon, Briefcase, GraduationCap, Lightbulb, Wrench, Star } from "lucide-react";
+import { FaBriefcase, FaGraduationCap, FaLightbulb, FaWrench, FaStar, FaLink } from 'react-icons/fa';
+import { IoMail, IoLocationSharp, IoLogoLinkedin, IoLogoGithub, IoCall } from 'react-icons/io5';
+
 
 // Reusable component for a major section with a title and a dividing line
 const SectionTitle = ({ children, icon: Icon }: { children: React.ReactNode, icon: React.ElementType }) => (
@@ -24,7 +25,7 @@ const ProjectEntry = ({ project }: { project: typeof projects[0] }) => (
             <h3 className="text-base font-semibold text-gray-900">{project.title}</h3>
             {project.liveUrl !== '#' &&
               <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-700 hover:underline flex items-center gap-1 shrink-0 ml-4">
-                Live Demo <LinkIcon className="w-3 h-3" />
+                Live Demo <FaLink className="w-3 h-3" />
               </a>
             }
         </div>
@@ -37,7 +38,7 @@ const ProjectEntry = ({ project }: { project: typeof projects[0] }) => (
 
 // A wrapper for each visual page to enforce A4 aspect ratio and styling
 const Page = ({ children }: { children: React.ReactNode }) => (
-    <div className="bg-white shadow-lg w-[50rem] h-[70.7rem] max-w-full mb-8">
+    <div className="bg-white shadow-lg w-[50rem] min-h-[70.7rem] max-w-full mb-8">
       <div className="p-12 h-full">
         {children}
       </div>
@@ -55,21 +56,21 @@ export const ResumePreview = () => {
                 <p className="text-md text-blue-700 font-semibold mt-1">Digital Craftsman & Code Poet</p>
                 <div className="mt-4 flex justify-center items-center flex-wrap gap-x-5 gap-y-1 text-xs text-gray-600">
                     <a href={`mailto:${aboutData.contactInfo.email}`} className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-                    <Mail className="w-3.5 h-3.5" /> {aboutData.contactInfo.email}
+                    <IoMail className="w-3.5 h-3.5" /> {aboutData.contactInfo.email}
                     </a>
                     <a href="tel:9773075648" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-                    <Phone className="w-3.5 h-3.5" /> +91 9773075648
+                    <IoCall className="w-3.5 h-3.5" /> +91 9773075648
                     </a>
                     <a href="https://www.linkedin.com/in/jagdish-odedara-4703532a8/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-                    <Linkedin className="w-3.5 h-3.5" /> /in/jagdish-odedara
+                    <IoLogoLinkedin className="w-3.5 h-3.5" /> /in/jagdish-odedara
                     </a>
                     <a href="https://github.com/roogeprimodio" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-                    <Github className="w-3.5 h-3.5" /> /roogeprimodio
+                    <IoLogoGithub className="w-3.5 h-3.5" /> /roogeprimodio
                     </a>
                 </div>
                 <div className="mt-2 flex justify-center items-center">
                     <p className="flex items-center gap-1.5 text-xs text-gray-600">
-                    <MapPin className="w-3.5 h-3.5" /> {aboutData.contactInfo.address}
+                    <IoLocationSharp className="w-3.5 h-3.5" /> {aboutData.contactInfo.address}
                     </p>
                 </div>
             </header>
@@ -81,7 +82,7 @@ export const ResumePreview = () => {
 
             {/* Experience */}
             <Section>
-                <SectionTitle icon={Briefcase}>Experience</SectionTitle>
+                <SectionTitle icon={FaBriefcase}>Experience</SectionTitle>
                 <div className="space-y-4">
                     {aboutData.experience.map((exp, index) => (
                     <div key={index}>
@@ -98,7 +99,7 @@ export const ResumePreview = () => {
             
             {/* Education */}
             <Section>
-                <SectionTitle icon={GraduationCap}>Education</SectionTitle>
+                <SectionTitle icon={FaGraduationCap}>Education</SectionTitle>
                 <div className="space-y-4">
                     {aboutData.education.map((edu, index) => (
                     <div key={index}>
@@ -115,7 +116,7 @@ export const ResumePreview = () => {
 
              {/* Certifications */}
             <Section>
-                <SectionTitle icon={Star}>Certifications</SectionTitle>
+                <SectionTitle icon={FaStar}>Certifications</SectionTitle>
                 <div className="space-y-3">
                 {aboutData.certifications.map((cert, index) => (
                     <div key={index} className="flex justify-between items-center">
@@ -134,7 +135,7 @@ export const ResumePreview = () => {
         <Page>
              {/* Projects */}
              <Section className="mt-0 pt-0 border-none">
-                <SectionTitle icon={Lightbulb}>Projects</SectionTitle>
+                <SectionTitle icon={FaLightbulb}>Projects</SectionTitle>
                 <div className="space-y-3">
                     {projects.map((proj, index) => (
                         <ProjectEntry key={index} project={proj} />
@@ -147,14 +148,17 @@ export const ResumePreview = () => {
         <Page>
              {/* Skills */}
             <Section className="mt-0 pt-0 border-none">
-                <SectionTitle icon={Wrench}>Technical Skills</SectionTitle>
+                <SectionTitle icon={FaWrench}>Technical Skills</SectionTitle>
                 <div className="space-y-4 text-sm">
                 {skillData.map((category) => (
                     <div key={category.title} className="flex items-start">
                         <h3 className="w-1/4 font-semibold text-gray-700 pr-4 text-right shrink-0">{category.title}</h3>
                         <div className="w-3/4 flex flex-wrap gap-x-2 gap-y-1.5">
                         {category.skills.map((skill) => (
-                            <span key={skill} className="text-xs bg-blue-50 text-blue-800 px-2 py-1 rounded-full font-medium">{skill}</span>
+                            <span key={skill.name} className="flex items-center gap-1.5 text-xs bg-blue-50 text-blue-800 px-2 py-1 rounded-full font-medium">
+                                {skill.icon && <skill.icon className="h-3 w-3" />}
+                                <span>{skill.name}</span>
+                            </span>
                         ))}
                         </div>
                     </div>

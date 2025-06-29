@@ -1,5 +1,11 @@
 import type { ElementType } from "react";
-import { FaCode, FaChartBar, FaTools, FaHandshake, FaBrain, FaLanguage } from 'react-icons/fa';
+import { FaCode, FaChartBar, FaTools, FaHandshake, FaBrain, FaLanguage, FaPython, FaJava, FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaGitAlt, FaAws } from 'react-icons/fa';
+import { SiJavascript, SiNextdotjs, SiFlutter, SiExpress, SiTailwindcss, SiFirebase, SiJsonwebtokens, SiMongodb, SiSqlite, SiFigma, SiAdobeillustrator, SiAdobepremierepro, SiPostman, SiVercel, SiNetlify } from 'react-icons/si';
+import { GrMysql } from 'react-icons/gr';
+import { AiOutlineApi } from 'react-icons/ai';
+import { VscVscode } from 'react-icons/vsc';
+import { GoGitBranch } from 'react-icons/go';
+import { IoLogoGithub } from "react-icons/io5";
 
 // Types
 export interface AboutDataType {
@@ -38,10 +44,15 @@ export interface ProjectType {
   githubUrl: string;
 }
 
+export interface SkillType {
+  name: string;
+  icon?: ElementType;
+}
+
 export interface SkillCategoryType {
     title: string;
     icon: ElementType;
-    skills: string[];
+    skills: SkillType[];
 }
 
 
@@ -161,32 +172,81 @@ export const skillData: SkillCategoryType[] = [
   {
     title: "Technical Skills",
     icon: FaCode,
-    skills: ["JavaScript", "Java", "Python", "React.js", "Next.js", "Flutter", "Node.js", "Express.js", "HTML5", "CSS3", "Tailwind CSS", "Firebase", "REST APIs", "SSR", "JWT Auth"],
+    skills: [
+      { name: "JavaScript", icon: SiJavascript },
+      { name: "Java", icon: FaJava },
+      { name: "Python", icon: FaPython },
+      { name: "React.js", icon: FaReact },
+      { name: "Next.js", icon: SiNextdotjs },
+      { name: "Flutter", icon: SiFlutter },
+      { name: "Node.js", icon: FaNodeJs },
+      { name: "Express.js", icon: SiExpress },
+      { name: "HTML5", icon: FaHtml5 },
+      { name: "CSS3", icon: FaCss3Alt },
+      { name: "Tailwind CSS", icon: SiTailwindcss },
+      { name: "Firebase", icon: SiFirebase },
+      { name: "REST APIs", icon: AiOutlineApi },
+      { name: "SSR" },
+      { name: "JWT Auth", icon: SiJsonwebtokens },
+    ],
   },
   {
     title: "Analytical & Data Skills",
     icon: FaChartBar,
-    skills: ["MySQL", "MongoDB", "SQLite", "Data Structures & Algorithms", "JSON", "API Handling"],
+    skills: [
+        { name: "MySQL", icon: GrMysql },
+        { name: "MongoDB", icon: SiMongodb },
+        { name: "SQLite", icon: SiSqlite },
+        { name: "Data Structures & Algorithms", icon: GoGitBranch },
+        { name: "JSON" },
+        { name: "API Handling", icon: AiOutlineApi },
+    ],
   },
   {
     title: "Tools & Platforms",
     icon: FaTools,
-    skills: ["Git", "GitHub", "AWS", "Vercel", "Netlify", "Figma", "Adobe Illustrator", "Premiere Pro", "Postman", "VS Code"],
+    skills: [
+        { name: "Git", icon: FaGitAlt },
+        { name: "GitHub", icon: IoLogoGithub },
+        { name: "AWS", icon: FaAws },
+        { name: "Vercel", icon: SiVercel },
+        { name: "Netlify", icon: SiNetlify },
+        { name: "Figma", icon: SiFigma },
+        { name: "Adobe Illustrator", icon: SiAdobeillustrator },
+        { name: "Premiere Pro", icon: SiAdobepremierepro },
+        { name: "Postman", icon: SiPostman },
+        { name: "VS Code", icon: VscVscode },
+    ],
   },
   // Strand 2: Professional & Soft
   {
     title: "Professional Skills",
     icon: FaHandshake,
-    skills: ["Agile Methodologies", "Scrum", "Team Collaboration", "Project Planning", "Technical Documentation"],
+    skills: [
+      { name: "Agile Methodologies" },
+      { name: "Scrum" },
+      { name: "Team Collaboration" },
+      { name: "Project Planning" },
+      { name: "Technical Documentation" },
+    ],
   },
   {
     title: "Soft Skills",
     icon: FaBrain,
-    skills: ["Time Management", "Creative Thinking", "Problem-Solving", "Adaptability"],
+    skills: [
+      { name: "Time Management" },
+      { name: "Creative Thinking" },
+      { name: "Problem-Solving" },
+      { name: "Adaptability" },
+    ],
   },
   {
     title: "Language Skills",
     icon: FaLanguage,
-    skills: ["English: Proficient", "Hindi: Native", "Gujarati: Native"],
+    skills: [
+      { name: "English: Proficient" },
+      { name: "Hindi: Native" },
+      { name: "Gujarati: Native" },
+    ],
   }
 ];
