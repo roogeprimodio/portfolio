@@ -60,7 +60,7 @@ export interface SkillCategoryType {
 export const aboutData: AboutDataType = {
   summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
   contactInfo: {
-    address: "India, Gujarat, Porbandar 360576",
+    address: "Porbandar, Gujarat - 360576, India",
     email: "jagdishodedara47@gmail.com",
   },
   experience: [
