@@ -50,6 +50,8 @@ export const metadata: Metadata = {
   creator: portfolioData.personalInfo.name,
   icons: {
     icon: eyeIconDataUri,
+    apple: eyeIconDataUri,
+    shortcut: eyeIconDataUri,
   },
   verification: {
     google: "zFm9XI6LPoXU1xmmALCKwSWJZKJ-xe1Ed1KupSwRwAM",
