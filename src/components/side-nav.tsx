@@ -80,35 +80,33 @@ export function SideNav() {
   const navContent = (
     <>
       {sections.map((section) => (
-        <li key={section.id}>
-          <motion.a 
-            href={`#${section.id}`} 
+        <li key={section.id} className="relative">
+          <a
+            href={`#${section.id}`}
             onClick={(e) => handleScrollTo(e, section.id)}
-            animate={{ x: activeSection === section.id ? 4 : 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="group relative flex cursor-pointer items-center justify-center h-8 w-8 md:h-10 md:w-10"
-            aria-label={`Scroll to ${section.label}`}
+            className={cn(
+              "group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-lg",
+              "transition-colors duration-200 hover:bg-accent/50"
+            )}
+            aria-label={section.label}
           >
-            <span className={cn(
-                "absolute h-full w-full rounded-full bg-accent transition-all duration-300",
-                activeSection === section.id ? "scale-100 opacity-100" : "scale-0 opacity-0"
-            )}></span>
+            {activeSection === section.id && (
+              <motion.span
+                layoutId="active-nav-indicator"
+                className="absolute inset-0 z-10 rounded-lg bg-accent shadow-[0_0_10px_hsl(var(--accent)/0.5)]"
+                initial={false}
+                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+              />
+            )}
+            <section.icon className={cn(
+              "relative z-20 h-5 w-5 transition-colors duration-200",
+              activeSection === section.id ? "text-accent-foreground" : "text-accent group-hover:text-primary"
+            )} />
             
-            <motion.div
-              animate={{ scale: activeSection === section.id ? 1.25 : 1 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative z-10"
-            >
-              <section.icon className={cn(
-                  "relative z-10 h-4 w-4 md:h-5 md:w-5 transition-colors duration-300 group-hover:text-accent-foreground",
-                  activeSection === section.id ? "text-accent-foreground" : "text-accent"
-              )} />
-            </motion.div>
-
-            <div className="absolute left-full ml-4 px-3 py-1 rounded-md bg-card border border-accent/20 text-accent font-code text-sm whitespace-nowrap opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all pointer-events-none">
+            <div className="absolute left-full ml-4 px-3 py-1.5 rounded-md bg-card border border-accent/20 text-accent font-code text-sm whitespace-nowrap opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all pointer-events-none z-30">
               {section.label}
             </div>
-          </motion.a>
+          </a>
         </li>
       ))}
     </>
@@ -124,12 +122,12 @@ export function SideNav() {
         transition={{ duration: 0.5, delay: 3.5 }}
         className="hidden md:flex fixed top-1/2 -translate-y-1/2 left-2 md:left-4 z-50"
       >
-        <ul className="flex flex-col items-center gap-2 p-1.5 rounded-full border border-accent/20 bg-card/50 backdrop-blur-md">
+        <ul className="relative flex flex-col items-center gap-2 p-2 rounded-xl border border-accent/20 bg-card/50 backdrop-blur-md">
           <li>
             <ResumeModal>
-              <Button variant="ghost" size="icon" className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center cursor-pointer" title="Preview & Download Resume">
+               <div className="group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-lg transition-colors duration-200 hover:bg-accent/50" title="Preview & Download Resume">
                   <LogoIcon className="h-6 w-6 text-primary" />
-              </Button>
+               </div>
             </ResumeModal>
           </li>
           <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
@@ -156,11 +154,11 @@ export function SideNav() {
              <ul className="flex flex-col items-center gap-2">
                 <li>
                   <ResumeModal>
-                    <Button variant="ghost" size="icon" className="group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-full transition-colors hover:bg-accent" title="Preview & Download Resume">
+                    <div className="group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-lg transition-colors hover:bg-accent" title="Preview & Download Resume">
                       <LogoIcon className={cn(
                           "h-6 w-6 text-primary transition-colors duration-300 group-hover:text-accent-foreground"
                       )} />
-                    </Button>
+                    </div>
                   </ResumeModal>
                 </li>
                 <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
@@ -170,7 +168,7 @@ export function SideNav() {
                         href={`#${section.id}`}
                         onClick={(e) => handleScrollTo(e, section.id)}
                         className={cn(
-                            "group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-full transition-colors hover:bg-accent",
+                            "group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-lg transition-colors hover:bg-accent",
                             activeSection === section.id && "bg-accent"
                         )}
                         aria-label={section.label}
