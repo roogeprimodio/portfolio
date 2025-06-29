@@ -1,4 +1,3 @@
-
 import { aboutData, projects, skillData } from '@/lib/portfolio-data';
 import { FaBriefcase, FaGraduationCap, FaLightbulb, FaWrench, FaStar, FaLink } from 'react-icons/fa';
 import { IoMail, IoLocationSharp, IoLogoLinkedin, IoLogoGithub, IoCall } from 'react-icons/io5';
@@ -25,8 +24,8 @@ const ProjectEntry = ({ project }: { project: typeof projects[0] }) => (
         <div className="grid grid-cols-4 items-center">
             <h3 className="col-span-3 text-base font-semibold text-gray-900">{project.title}</h3>
             {project.liveUrl !== '#' &&
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-700 hover:underline flex items-center gap-1 shrink-0 ml-4 justify-self-end">
-                Live Demo <FaLink className="w-3 h-3" />
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-700 hover:underline shrink-0 ml-4 justify-self-end">
+                <span className="align-middle">Live Demo</span> <FaLink className="inline-block align-middle w-3 h-3 ml-1" />
               </a>
             }
         </div>
@@ -55,25 +54,30 @@ export const ResumePreview = () => {
                 <p className="text-md text-blue-700 font-semibold mt-1">Digital Craftsman & Code Poet</p>
                 <div className="mt-4 space-y-1 text-xs text-gray-600">
                     <div className="flex justify-center items-center flex-wrap gap-x-5 gap-y-1">
-                        <a href={`mailto:${aboutData.contactInfo.email}`} className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-                            <IoMail className="w-3.5 h-3.5" /> {aboutData.contactInfo.email}
+                        <a href={`mailto:${aboutData.contactInfo.email}`} className="hover:text-blue-700 transition-colors">
+                            <IoMail className="inline-block align-middle w-3.5 h-3.5 mr-1.5" />
+                            <span className="inline-block align-middle">{aboutData.contactInfo.email}</span>
                         </a>
-                        <a href="tel:9773075648" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-                            <IoCall className="w-3.5 h-3.5" /> +91 9773075648
+                        <a href="tel:9773075648" className="hover:text-blue-700 transition-colors">
+                            <IoCall className="inline-block align-middle w-3.5 h-3.5 mr-1.5" />
+                            <span className="inline-block align-middle">+91 9773075648</span>
                         </a>
                     </div>
                      <div className="flex justify-center items-center flex-wrap gap-x-5 gap-y-1">
-                        <a href="https://www.linkedin.com/in/jagdish-odedara-4703532a8/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-                            <IoLogoLinkedin className="w-3.5 h-3.5" /> /in/jagdish-odedara
+                        <a href="https://www.linkedin.com/in/jagdish-odedara-4703532a8/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 transition-colors">
+                            <IoLogoLinkedin className="inline-block align-middle w-3.5 h-3.5 mr-1.5" />
+                            <span className="inline-block align-middle">/in/jagdish-odedara</span>
                         </a>
-                        <a href="https://github.com/roogeprimodio" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-                            <IoLogoGithub className="w-3.5 h-3.5" /> /roogeprimodio
+                        <a href="https://github.com/roogeprimodio" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 transition-colors">
+                            <IoLogoGithub className="inline-block align-middle w-3.5 h-3.5 mr-1.5" />
+                            <span className="inline-block align-middle">/roogeprimodio</span>
                         </a>
                     </div>
                 </div>
                 <div className="mt-2 flex justify-center items-center">
-                    <p className="flex items-center gap-1.5 text-xs text-gray-600">
-                    <IoLocationSharp className="w-3.5 h-3.5" /> {aboutData.contactInfo.address}
+                    <p className="text-xs text-gray-600">
+                        <IoLocationSharp className="inline-block align-middle w-3.5 h-3.5 mr-1.5" />
+                        <span className="inline-block align-middle">{aboutData.contactInfo.address}</span>
                     </p>
                 </div>
             </header>
@@ -158,9 +162,9 @@ export const ResumePreview = () => {
                         <h3 className="text-base font-semibold text-gray-700 mb-2">{category.title}</h3>
                         <div className="flex flex-wrap gap-x-2 gap-y-1.5">
                         {category.skills.map((skill) => (
-                            <span key={skill.name} className="inline-flex items-center gap-1.5 text-xs bg-blue-50 text-blue-800 px-2 py-1 rounded-full font-medium">
-                                {skill.icon && <skill.icon className="h-3 w-3 shrink-0" />}
-                                <span className="leading-none">{skill.name}</span>
+                             <span key={skill.name} className="bg-blue-50 text-blue-800 px-2 py-1 rounded-full font-medium text-xs">
+                                {skill.icon && <skill.icon className="inline-block align-middle h-3 w-3 mr-1" />}
+                                <span className="inline-block align-middle">{skill.name}</span>
                             </span>
                         ))}
                         </div>
