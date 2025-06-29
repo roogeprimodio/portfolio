@@ -85,7 +85,6 @@ const personalInfo: PersonalInfoType = {
     tagline: "A full-stack developer specializing in creating beautiful and performant web applications.",
     profileImage: "/jagdish.png",
     url: "https://your-portfolio-url.com", // IMPORTANT: Replace with your actual domain name
-    alternateNames: ["Jagadish Odedra", "Jagdish", "Odedara"],
     keywords: [
       "Jagdish Odedara",
       "Jagadish Odedra",
@@ -98,21 +97,22 @@ const personalInfo: PersonalInfoType = {
       "Web Developer",
       "Graphic Designer"
     ],
+    alternateNames: ["Jagadish Odedra", "Jagdish", "Odedara"],
 };
 
 const socialLinks: SocialLinkType[] = [
-    { name: 'Instagram', href: 'https://www.instagram.com/jagadish_.odedra/', Icon: Instagram, pos: 'top-[-2.5rem] left-1/2 -translate-x-1/2' },
-    { name: 'Twitter', href: 'https://twitter.com/jagdishodedara0', Icon: Twitter, pos: 'top-4 left-[-4.5rem]' },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/jagdish-odedara-4703532a8/', Icon: Linkedin, pos: 'top-4 right-[-4.5rem]' },
-    { name: 'GitHub', href: 'https://github.com/roogeprimodio', Icon: Github, pos: 'top-1/2 -translate-y-1/2 left-[-5.5rem]' },
-    { name: 'Call', href: 'tel:9773075648', Icon: Phone, pos: 'top-1/2 -translate-y-1/2 right-[-5.5rem]' },
-    { name: 'Telegram', href: 'https://t.me/R00ge', Icon: Send, pos: 'bottom-4 left-[-4.5rem]' },
+    { name: 'Instagram', href: 'https://www.instagram.com/jagadish_.odedra/', Icon: Instagram, pos: 'top-[-2.5rem] left-1/2 -translate-x-1/2' }, // Top-center
+    { name: 'Twitter', href: 'https://twitter.com/jagdishodedara0', Icon: Twitter, pos: 'top-4 left-[-4.5rem]' }, // Top-left
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/jagdish-odedara-4703532a8/', Icon: Linkedin, pos: 'top-4 right-[-4.5rem]' }, // Top-right
+    { name: 'GitHub', href: 'https://github.com/roogeprimodio', Icon: Github, pos: 'top-1/2 -translate-y-1/2 left-[-5.5rem]' }, // Middle-left
+    { name: 'Telegram', href: 'https://t.me/R00ge', Icon: Send, pos: 'bottom-4 left-[-4.5rem]' }, // Bottom-left
+    { name: 'Call', href: 'tel:9773075648', Icon: Phone, pos: 'bottom-4 right-[-4.5rem]' }, // Bottom-right
 ];
 
 const aboutData: AboutDataType = {
   summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
   contactInfo: {
-    address: "India, Gujarat, Porbandar 360576",
+    address: "India, Gujarat, Porbandar, 360576",
     email: "jagdishodedara47@gmail.com",
     phone: "9773075648"
   },
