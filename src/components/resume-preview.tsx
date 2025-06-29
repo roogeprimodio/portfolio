@@ -19,7 +19,7 @@ const Section = ({ children, className }: { children: React.ReactNode; className
 
 // Component for a single project entry
 const ProjectEntry = ({ project }: { project: typeof projects[0] }) => (
-    <div className="pl-2">
+    <div className="mb-3">
         <div className="flex justify-between items-center">
             <h3 className="text-base font-semibold text-gray-900">{project.title}</h3>
             {project.liveUrl !== '#' &&
@@ -35,118 +35,133 @@ const ProjectEntry = ({ project }: { project: typeof projects[0] }) => (
     </div>
 );
 
+// A wrapper for each visual page to enforce A4 aspect ratio and styling
+const Page = ({ children }: { children: React.ReactNode }) => (
+    <div className="bg-white shadow-lg w-[50rem] h-[70.7rem] max-w-full mb-8">
+      <div className="p-12 h-full">
+        {children}
+      </div>
+    </div>
+);
 
 export const ResumePreview = () => {
   return (
-    <div id="resume-content" className="w-[50rem] max-w-full bg-white shadow-lg">
-      <div className="p-12">
-        {/* Header */}
-        <header className="text-center mb-6">
-          <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">JAGDISH ODEDARA</h1>
-          <p className="text-md text-blue-700 font-semibold mt-1">Digital Craftsman & Code Poet</p>
-          <div className="mt-4 flex justify-center items-center flex-wrap gap-x-5 gap-y-1 text-xs text-gray-600">
-            <a href={`mailto:${aboutData.contactInfo.email}`} className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-              <Mail className="w-3.5 h-3.5" /> {aboutData.contactInfo.email}
-            </a>
-            <a href="tel:9773075648" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-              <Phone className="w-3.5 h-3.5" /> +91 9773075648
-            </a>
-              <a href="https://www.linkedin.com/in/jagdish-odedara-4703532a8/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-              <Linkedin className="w-3.5 h-3.5" /> /in/jagdish-odedara
-            </a>
-            <a href="https://github.com/roogeprimodio" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
-              <Github className="w-3.5 h-3.5" /> /roogeprimodio
-            </a>
-          </div>
-            <div className="mt-2 flex justify-center items-center">
-            <p className="flex items-center gap-1.5 text-xs text-gray-600">
-              <MapPin className="w-3.5 h-3.5" /> {aboutData.contactInfo.address}
-            </p>
-          </div>
-        </header>
-
-        {/* Summary */}
-        <div className="my-4">
-          <p className="text-center text-sm text-gray-700 leading-relaxed max-w-3xl mx-auto">{aboutData.summary}</p>
-        </div>
-
-        {/* Experience */}
-        <Section>
-            <SectionTitle icon={Briefcase}>Experience</SectionTitle>
-            <div className="space-y-4">
-              {aboutData.experience.map((exp, index) => (
-                <div key={index} className="pl-2">
-                  <div className="flex justify-between items-baseline">
-                    <h3 className="text-base font-semibold text-gray-900">{exp.role}</h3>
-                    <p className="text-xs text-gray-500 font-mono">{exp.duration}</p>
-                  </div>
-                  <p className="text-sm font-medium text-blue-700 mt-0.5">{exp.company}</p>
-                  <p className="text-sm text-gray-700 leading-relaxed mt-1">{exp.description}</p>
+    <div id="resume-content" className="w-full bg-transparent flex flex-col items-center">
+        {/* Page 1 */}
+        <Page>
+            {/* Header */}
+            <header className="text-center mb-6">
+                <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">JAGDISH ODEDARA</h1>
+                <p className="text-md text-blue-700 font-semibold mt-1">Digital Craftsman & Code Poet</p>
+                <div className="mt-4 flex justify-center items-center flex-wrap gap-x-5 gap-y-1 text-xs text-gray-600">
+                    <a href={`mailto:${aboutData.contactInfo.email}`} className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
+                    <Mail className="w-3.5 h-3.5" /> {aboutData.contactInfo.email}
+                    </a>
+                    <a href="tel:9773075648" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
+                    <Phone className="w-3.5 h-3.5" /> +91 9773075648
+                    </a>
+                    <a href="https://www.linkedin.com/in/jagdish-odedara-4703532a8/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
+                    <Linkedin className="w-3.5 h-3.5" /> /in/jagdish-odedara
+                    </a>
+                    <a href="https://github.com/roogeprimodio" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-blue-700 transition-colors">
+                    <Github className="w-3.5 h-3.5" /> /roogeprimodio
+                    </a>
                 </div>
-              ))}
-            </div>
-        </Section>
-        
-        {/* Education */}
-        <Section>
-            <SectionTitle icon={GraduationCap}>Education</SectionTitle>
-            <div className="space-y-4">
-              {aboutData.education.map((edu, index) => (
-                <div key={index} className="pl-2">
-                  <div className="flex justify-between items-baseline">
-                    <h3 className="text-base font-semibold text-gray-900">{edu.degree}</h3>
-                    <p className="text-xs text-gray-500 font-mono">{edu.duration}</p>
-                  </div>
-                  <p className="text-sm font-medium text-blue-700 mt-0.5">{edu.institution}</p>
-                    <p className="text-sm text-gray-700 leading-relaxed mt-1">{edu.description}</p>
+                <div className="mt-2 flex justify-center items-center">
+                    <p className="flex items-center gap-1.5 text-xs text-gray-600">
+                    <MapPin className="w-3.5 h-3.5" /> {aboutData.contactInfo.address}
+                    </p>
                 </div>
-              ))}
-            </div>
-        </Section>
+            </header>
 
-        {/* Projects */}
-        <Section>
-            <SectionTitle icon={Lightbulb}>Projects</SectionTitle>
-            <div className="space-y-4">
-              {projects.map((proj, index) => (
-                <ProjectEntry key={index} project={proj} />
-              ))}
+            {/* Summary */}
+            <div className="my-4">
+                <p className="text-center text-sm text-gray-700 leading-relaxed max-w-3xl mx-auto">{aboutData.summary}</p>
             </div>
-        </Section>
 
-        {/* Skills */}
-        <Section>
-            <SectionTitle icon={Wrench}>Technical Skills</SectionTitle>
-            <div className="space-y-4 text-sm">
-              {skillData.map((category) => (
-                <div key={category.title} className="flex items-start">
-                    <h3 className="w-1/4 font-semibold text-gray-700 pr-4 text-right shrink-0">{category.title}</h3>
-                    <div className="w-3/4 flex flex-wrap gap-x-2 gap-y-1.5">
-                      {category.skills.map((skill) => (
-                        <span key={skill} className="text-xs bg-blue-50 text-blue-800 px-2 py-1 rounded-full font-medium">{skill}</span>
-                      ))}
+            {/* Experience */}
+            <Section>
+                <SectionTitle icon={Briefcase}>Experience</SectionTitle>
+                <div className="space-y-4">
+                    {aboutData.experience.map((exp, index) => (
+                    <div key={index}>
+                        <div className="flex justify-between items-baseline">
+                        <h3 className="text-base font-semibold text-gray-900">{exp.role}</h3>
+                        <p className="text-xs text-gray-500 font-mono">{exp.duration}</p>
+                        </div>
+                        <p className="text-sm font-medium text-blue-700 mt-0.5">{exp.company}</p>
+                        <p className="text-sm text-gray-700 leading-relaxed mt-1">{exp.description}</p>
                     </div>
+                    ))}
                 </div>
-              ))}
-            </div>
-        </Section>
+            </Section>
+            
+            {/* Education */}
+            <Section>
+                <SectionTitle icon={GraduationCap}>Education</SectionTitle>
+                <div className="space-y-4">
+                    {aboutData.education.map((edu, index) => (
+                    <div key={index}>
+                        <div className="flex justify-between items-baseline">
+                        <h3 className="text-base font-semibold text-gray-900">{edu.degree}</h3>
+                        <p className="text-xs text-gray-500 font-mono">{edu.duration}</p>
+                        </div>
+                        <p className="text-sm font-medium text-blue-700 mt-0.5">{edu.institution}</p>
+                        <p className="text-sm text-gray-700 leading-relaxed mt-1">{edu.description}</p>
+                    </div>
+                    ))}
+                </div>
+            </Section>
 
-        {/* Certifications */}
-        <Section>
-            <SectionTitle icon={Star}>Certifications</SectionTitle>
-            <div className="space-y-3">
-              {aboutData.certifications.map((cert, index) => (
-                <div key={index} className="flex justify-between items-center pl-2">
-                  <div>
-                    <a href={cert.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue-700 hover:underline">{cert.name}</a>
-                    <p className="text-xs text-gray-600 mt-0.5">{cert.issuer}</p>
-                  </div>
-                  <p className="text-xs text-gray-500 font-mono">{cert.year}</p>
+             {/* Certifications */}
+            <Section>
+                <SectionTitle icon={Star}>Certifications</SectionTitle>
+                <div className="space-y-3">
+                {aboutData.certifications.map((cert, index) => (
+                    <div key={index} className="flex justify-between items-center">
+                    <div>
+                        <a href={cert.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue-700 hover:underline">{cert.name}</a>
+                        <p className="text-xs text-gray-600 mt-0.5">{cert.issuer}</p>
+                    </div>
+                    <p className="text-xs text-gray-500 font-mono">{cert.year}</p>
+                    </div>
+                ))}
                 </div>
-              ))}
-            </div>
-        </Section>
-      </div>
+            </Section>
+        </Page>
+
+        {/* Page 2 */}
+        <Page>
+             {/* Projects */}
+             <Section className="mt-0 pt-0 border-none">
+                <SectionTitle icon={Lightbulb}>Projects</SectionTitle>
+                <div className="space-y-3">
+                    {projects.map((proj, index) => (
+                        <ProjectEntry key={index} project={proj} />
+                    ))}
+                </div>
+            </Section>
+        </Page>
+        
+        {/* Page 3 */}
+        <Page>
+             {/* Skills */}
+            <Section className="mt-0 pt-0 border-none">
+                <SectionTitle icon={Wrench}>Technical Skills</SectionTitle>
+                <div className="space-y-4 text-sm">
+                {skillData.map((category) => (
+                    <div key={category.title} className="flex items-start">
+                        <h3 className="w-1/4 font-semibold text-gray-700 pr-4 text-right shrink-0">{category.title}</h3>
+                        <div className="w-3/4 flex flex-wrap gap-x-2 gap-y-1.5">
+                        {category.skills.map((skill) => (
+                            <span key={skill} className="text-xs bg-blue-50 text-blue-800 px-2 py-1 rounded-full font-medium">{skill}</span>
+                        ))}
+                        </div>
+                    </div>
+                ))}
+                </div>
+            </Section>
+        </Page>
     </div>
   );
 };
