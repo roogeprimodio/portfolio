@@ -4,7 +4,7 @@ import { Mail, MapPin, Linkedin, Github, Phone, Link as LinkIcon, Briefcase, Gra
 
 // Reusable component for a page container to keep styles consistent
 const Page = ({ children }: { children: React.ReactNode }) => (
-  <div className="bg-white text-gray-800 font-sans shadow-lg my-4 w-full">
+  <div className="bg-white text-gray-800 font-sans shadow-lg my-4 w-full" style={{ minHeight: '70rem' }}>
     <div className="p-8">
       {children}
     </div>
@@ -64,7 +64,7 @@ export const ResumePreview = () => {
           {/* Experience */}
           <Section>
             <SectionTitle icon={Briefcase}>Experience</SectionTitle>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {aboutData.experience.map((exp, index) => (
                 <div key={index} className="pl-5 relative">
                   <div className="absolute left-0 top-1.5 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
@@ -82,7 +82,7 @@ export const ResumePreview = () => {
           {/* Education */}
           <Section>
             <SectionTitle icon={GraduationCap}>Education</SectionTitle>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {aboutData.education.map((edu, index) => (
                 <div key={index} className="pl-5 relative">
                   <div className="absolute left-0 top-1.5 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
@@ -104,8 +104,8 @@ export const ResumePreview = () => {
             {/* Projects */}
             <Section>
               <SectionTitle icon={Lightbulb}>Projects</SectionTitle>
-              <div className="space-y-2">
-                {projects.slice(0, 4).map((proj, index) => (
+              <div className="space-y-3">
+                {projects.map((proj, index) => (
                   <div key={index} className="pl-5 relative">
                       <div className="absolute left-0 top-1.5 h-1.5 w-1.5 rounded-full bg-blue-600"></div>
                       <div className="flex justify-between items-baseline">
@@ -133,7 +133,7 @@ export const ResumePreview = () => {
             {/* Skills */}
             <Section>
               <SectionTitle icon={Wrench}>Skills</SectionTitle>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {skillData.map((category) => (
                   <div key={category.title} className="flex items-start text-xs">
                       <h3 className="w-1/4 font-semibold text-gray-700 pr-2 text-right shrink-0">{category.title}</h3>
@@ -150,7 +150,7 @@ export const ResumePreview = () => {
             {/* Certifications */}
             <Section>
               <SectionTitle icon={Star}>Certifications</SectionTitle>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {aboutData.certifications.map((cert, index) => (
                   <div key={index} className="flex justify-between items-baseline pl-5">
                     <div>
