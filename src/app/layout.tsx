@@ -44,6 +44,7 @@ const eyeIconDataUri = "data:image/svg+xml,%3csvg viewBox='0 0 100 100' xmlns='h
 export const metadata: Metadata = {
   title: `${portfolioData.personalInfo.name} // Portfolio`,
   description: portfolioData.personalInfo.tagline,
+  keywords: portfolioData.personalInfo.keywords,
   icons: {
     icon: eyeIconDataUri,
   },
@@ -54,6 +55,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { name, alternateNames, url, profileImage, jobTitle } = portfolioData.personalInfo;
+  
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: name,
+    alternateName: alternateNames,
+    url: url,
+    image: `${url}${profileImage}`,
+    jobTitle: jobTitle,
+    sameAs: portfolioData.socialLinks.map(link => link.href),
+  };
+
   return (
     <html 
       lang="en" 
@@ -66,7 +80,12 @@ export default function RootLayout({
       )} 
       suppressHydrationWarning
     >
-      <head />
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>
         <ThemeProvider
           attribute="class"

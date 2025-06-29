@@ -14,8 +14,12 @@ import { IoLogoGithub } from "react-icons/io5";
 
 export interface PersonalInfoType {
     name: string;
+    jobTitle: string;
     tagline: string;
     profileImage: string; // Path relative to the /public folder
+    url: string;
+    alternateNames: string[];
+    keywords: string[];
 }
 
 export interface SocialLinkType {
@@ -77,8 +81,23 @@ export interface SkillCategoryType {
 
 const personalInfo: PersonalInfoType = {
     name: "JAGDISH ODEDARA",
-    tagline: "Digital Craftsman & Code Poet",
+    jobTitle: "Digital Craftsman & Code Poet",
+    tagline: "A full-stack developer specializing in creating beautiful and performant web applications.",
     profileImage: "/jagdish.png",
+    url: "https://your-portfolio-url.com", // IMPORTANT: Replace with your actual domain name
+    alternateNames: ["Jagadish Odedra", "Jagdish", "Odedara"],
+    keywords: [
+      "Jagdish Odedara",
+      "Jagadish Odedra",
+      "Full Stack Developer",
+      "Software Engineer",
+      "React Developer",
+      "Next.js",
+      "Flutter",
+      "Portfolio",
+      "Web Developer",
+      "Graphic Designer"
+    ],
 };
 
 const socialLinks: SocialLinkType[] = [
@@ -93,7 +112,7 @@ const socialLinks: SocialLinkType[] = [
 const aboutData: AboutDataType = {
   summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
   contactInfo: {
-    address: "Porbandar, Gujarat 360576, India",
+    address: "India, Gujarat, Porbandar 360576",
     email: "jagdishodedara47@gmail.com",
     phone: "9773075648"
   },
