@@ -97,9 +97,7 @@ export function ProjectsSection() {
       setActiveIndex((prevIndex) => (prevIndex + newDirection + filteredProjects.length) % filteredProjects.length);
     };
 
-    const cardWidth = 288; // w-72
     const mdCardWidth = 320; // w-80
-    const cardGap = 16; // gap-4
     const mdCardGap = 32; // md:gap-8
 
   return (
@@ -134,7 +132,23 @@ export function ProjectsSection() {
           ))}
       </div>
 
-      <div className="relative w-full flex flex-col items-center">
+      {/* Mobile: Vertical Grid */}
+      <div className="md:hidden grid gap-8 w-full max-w-sm mx-auto">
+          {filteredProjects.map((project, index) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: (index % 3) * 0.1, ease: "easeOut" }}
+            >
+              <ProjectCard project={project} index={projects.indexOf(project)} />
+            </motion.div>
+          ))}
+      </div>
+      
+      {/* Desktop: Carousel */}
+      <div className="hidden md:block relative w-full">
         <div className="relative w-full h-[680px] flex items-center justify-center">
           {/* Carousel Track */}
           <motion.div
@@ -151,45 +165,25 @@ export function ProjectsSection() {
                     paginate(-1);
                 }
             }}
-            // This custom property is used to dynamically center the active card based on screen size
             animate={{ 
-              x: `calc(50% - var(--card-width, ${cardWidth}px) / 2 - ${activeIndex} * (var(--card-width, ${cardWidth}px) + var(--card-gap, ${cardGap}px)))`
+              x: `calc(50% - ${mdCardWidth / 2}px - ${activeIndex * (mdCardWidth + mdCardGap)}px)`
             }}
             transition={{ type: "spring", stiffness: 400, damping: 60 }}
           >
             {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.title}
-                className="flex-shrink-0 w-72 md:w-80 h-[640px]"
+                className="flex-shrink-0 w-80 h-[640px]"
                 style={{
-                  margin: `0 ${cardGap / 2}px`,
-                  // @ts-ignore
-                  "--card-width": "288px",
-                  "--card-gap": `${cardGap}px`
+                  margin: `0 ${mdCardGap / 2}px`,
                 }}
                 animate={{
                     scale: index === activeIndex ? 1 : 0.7,
                     opacity: index === activeIndex ? 1 : 0.3,
-                    zIndex: projects.length - Math.abs(activeIndex - index),
+                    zIndex: filteredProjects.length - Math.abs(activeIndex - index),
                 }}
                 transition={{ type: "spring", stiffness: 400, damping: 50 }}
               >
-                <div
-                    className="md:hidden"
-                    style={{
-                      // @ts-ignore
-                      "--card-width": `${cardWidth}px`,
-                      "--card-gap": `${cardGap}px`,
-                    }}
-                ></div>
-                <div
-                    className="hidden md:block"
-                    style={{
-                      // @ts-ignore
-                      "--card-width": `${mdCardWidth}px`,
-                      "--card-gap": `${mdCardGap}px`,
-                    }}
-                ></div>
                 <ProjectCard project={project} index={projects.indexOf(project)} />
               </motion.div>
             ))}
@@ -197,14 +191,16 @@ export function ProjectsSection() {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex items-center gap-8 mt-8">
-            <Button onClick={() => paginate(-1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground z-20" disabled={filteredProjects.length <= 1}>
-                <ChevronLeft className="h-6 w-6" />
-            </Button>
-            <Button onClick={() => paginate(1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground z-20" disabled={filteredProjects.length <= 1}>
-                <ChevronRight className="h-6 w-6" />
-            </Button>
-        </div>
+        {filteredProjects.length > 1 && (
+            <div className="flex items-center justify-center gap-8 mt-8">
+                <Button onClick={() => paginate(-1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground z-20">
+                    <ChevronLeft className="h-6 w-6" />
+                </Button>
+                <Button onClick={() => paginate(1)} size="icon" variant="outline" className="rounded-full h-12 w-12 bg-card/50 border-accent/30 hover:bg-accent hover:text-accent-foreground z-20">
+                    <ChevronRight className="h-6 w-6" />
+                </Button>
+            </div>
+        )}
       </div>
     </section>
   );
