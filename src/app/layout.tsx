@@ -42,14 +42,40 @@ const fontCode = Source_Code_Pro({
 const eyeIconDataUri = "data:image/svg+xml,%3csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M 10 50 Q 50 10 90 50' stroke='white' stroke-width='10' fill='none' stroke-linecap='round' /%3e%3cpath d='M 10 50 Q 50 90 90 50' stroke='white' stroke-width='10' fill='none' stroke-linecap='round' /%3e%3ccircle cx='50' cy='50' r='15' fill='white' /%3e%3c/svg%3e";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(portfolioData.personalInfo.url),
   title: `${portfolioData.personalInfo.name} // Portfolio`,
   description: portfolioData.personalInfo.tagline,
   keywords: portfolioData.personalInfo.keywords,
+  authors: [{ name: portfolioData.personalInfo.name, url: portfolioData.personalInfo.url }],
+  creator: portfolioData.personalInfo.name,
   icons: {
     icon: eyeIconDataUri,
   },
   verification: {
     google: "zFm9XI6LPoXU1xmmALCKwSWJZKJ-xe1Ed1KupSwRwAM",
+  },
+  openGraph: {
+    title: `${portfolioData.personalInfo.name} // Portfolio`,
+    description: portfolioData.personalInfo.tagline,
+    url: portfolioData.personalInfo.url,
+    siteName: `${portfolioData.personalInfo.name}'s Portfolio`,
+    images: [
+      {
+        url: portfolioData.personalInfo.profileImage, // Relative path, resolved by metadataBase
+        width: 800,
+        height: 800,
+        alt: portfolioData.personalInfo.name,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${portfolioData.personalInfo.name} // Portfolio`,
+    description: portfolioData.personalInfo.tagline,
+    images: [portfolioData.personalInfo.profileImage], // Relative path
+    creator: '@jagdishodedara0',
   },
 };
 
