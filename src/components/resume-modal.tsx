@@ -188,7 +188,7 @@ export function ResumeModal({ children }: { children: React.ReactNode }) {
           <div
             ref={contentRef}
             className={cn(
-                "origin-top-left w-[50rem] max-w-full",
+                "origin-top-left",
                 isDragging ? "" : "transition-transform duration-200 ease-out"
             )}
             style={{ 

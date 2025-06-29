@@ -1,14 +1,10 @@
 
 import { aboutData, projects, skillData } from '@/lib/portfolio-data';
 import { Mail, MapPin, Linkedin, Github, Phone, Link as LinkIcon, Briefcase, GraduationCap, Lightbulb, Wrench, Star } from "lucide-react";
-import { cn } from '@/lib/utils';
 
 // Reusable component for a page container to keep styles consistent
-const Page = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-  <div className={cn(
-    "bg-white text-gray-800 font-sans shadow-lg w-full my-4",
-    className
-  )}>
+const Page = ({ children }: { children: React.ReactNode }) => (
+  <div className="bg-white text-gray-800 font-sans shadow-lg my-4 w-full">
     <div className="p-8">
       {children}
     </div>
@@ -31,7 +27,7 @@ const Section = ({ children }: { children: React.ReactNode }) => (
 
 export const ResumePreview = () => {
   return (
-    <div id="resume-content" className="flex flex-col items-center">
+    <div id="resume-content" className="w-[50rem] max-w-full">
       {/* Page 1 */}
       <Page>
         {/* Header */}
