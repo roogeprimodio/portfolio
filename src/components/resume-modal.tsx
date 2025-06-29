@@ -30,6 +30,8 @@ export function ResumeModal({ children }: { children: React.ReactNode }) {
     html2canvas(input, {
       scale: 2.5,
       useCORS: true,
+      letterRendering: true,
+      allowTaint: true,
       backgroundColor: '#ffffff',
       windowWidth: input.scrollWidth,
       windowHeight: input.scrollHeight,

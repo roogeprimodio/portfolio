@@ -56,7 +56,9 @@ export const ResumePreview = () => {
                     <div className="flex justify-center items-center flex-wrap gap-x-5 gap-y-1">
                         <a href={`mailto:${aboutData.contactInfo.email}`} className="hover:text-blue-700 transition-colors">
                             <IoMail className="inline-block align-middle w-3.5 h-3.5 mr-1.5" />
-                            <span className="inline-block align-middle">{aboutData.contactInfo.email}</span>
+                            <span className="inline-block align-middle">
+                                jagdishodedara47<span className="px-0.5">@</span>gmail.com
+                            </span>
                         </a>
                         <a href="tel:9773075648" className="hover:text-blue-700 transition-colors">
                             <IoCall className="inline-block align-middle w-3.5 h-3.5 mr-1.5" />
