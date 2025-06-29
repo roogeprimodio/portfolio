@@ -5,9 +5,11 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { skillData } from "@/lib/portfolio-data";
+import { portfolioData } from "@/lib/portfolio-data";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
+
+const { skills: skillData } = portfolioData;
 
 const wovenSkills: (typeof skillData[0] & { side: 'left' | 'right' })[] = [];
 const midPoint = Math.ceil(skillData.length / 2);

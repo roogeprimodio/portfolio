@@ -1,4 +1,6 @@
+
 import type { ElementType } from "react";
+import { Github, Instagram, Linkedin, Twitter, Send, Phone } from "lucide-react";
 import { FaCode, FaChartBar, FaTools, FaHandshake, FaBrain, FaLanguage, FaPython, FaJava, FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaGitAlt, FaAws } from 'react-icons/fa';
 import { SiJavascript, SiNextdotjs, SiFlutter, SiExpress, SiTailwindcss, SiFirebase, SiJsonwebtokens, SiMongodb, SiSqlite, SiFigma, SiAdobeillustrator, SiAdobepremierepro, SiPostman, SiVercel, SiNetlify } from 'react-icons/si';
 import { GrMysql } from 'react-icons/gr';
@@ -7,12 +9,28 @@ import { VscVscode } from 'react-icons/vsc';
 import { GoGitBranch } from 'react-icons/go';
 import { IoLogoGithub } from "react-icons/io5";
 
-// Types
+
+// --- INTERFACES ---
+
+export interface PersonalInfoType {
+    name: string;
+    tagline: string;
+    profileImage: string; // Path relative to the /public folder
+}
+
+export interface SocialLinkType {
+    name: string;
+    href: string;
+    Icon: ElementType;
+    pos?: string; // For Hero section positioning
+}
+
 export interface AboutDataType {
   summary: string;
   contactInfo: {
     address: string;
     email: string;
+    phone: string;
   };
   experience: {
     company: string;
@@ -55,13 +73,29 @@ export interface SkillCategoryType {
     skills: SkillType[];
 }
 
+// --- DATA ---
 
-// Data
-export const aboutData: AboutDataType = {
+const personalInfo: PersonalInfoType = {
+    name: "JAGDISH ODEDARA",
+    tagline: "Digital Craftsman & Code Poet",
+    profileImage: "/jagdish.png",
+};
+
+const socialLinks: SocialLinkType[] = [
+    { name: 'Instagram', href: 'https://www.instagram.com/jagadish_.odedra/', Icon: Instagram, pos: 'top-[-2.5rem] left-1/2 -translate-x-1/2' },
+    { name: 'Twitter', href: 'https://twitter.com/jagdishodedara0', Icon: Twitter, pos: 'top-4 left-[-4.5rem]' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/jagdish-odedara-4703532a8/', Icon: Linkedin, pos: 'top-4 right-[-4.5rem]' },
+    { name: 'GitHub', href: 'https://github.com/roogeprimodio', Icon: Github, pos: 'top-1/2 -translate-y-1/2 left-[-5.5rem]' },
+    { name: 'Call', href: 'tel:9773075648', Icon: Phone, pos: 'top-1/2 -translate-y-1/2 right-[-5.5rem]' },
+    { name: 'Telegram', href: 'https://t.me/R00ge', Icon: Send, pos: 'bottom-4 left-[-4.5rem]' },
+];
+
+const aboutData: AboutDataType = {
   summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
   contactInfo: {
-    address: "Porbandar, Gujarat - 360576, India",
+    address: "Porbandar, Gujarat 360576, India",
     email: "jagdishodedara47@gmail.com",
+    phone: "9773075648"
   },
   experience: [
     {
@@ -115,7 +149,7 @@ export const aboutData: AboutDataType = {
   ],
 };
 
-export const projects: ProjectType[] = [
+const projects: ProjectType[] = [
   {
     title: "PG Hub – Owner & User Apps",
     description: "Flutter-based PG accommodation management system for owners and tenants.",
@@ -167,8 +201,7 @@ export const projects: ProjectType[] = [
   },
 ];
 
-export const skillData: SkillCategoryType[] = [
-  // Strand 1: Technical & Analytical
+const skillData: SkillCategoryType[] = [
   {
     title: "Technical Skills",
     icon: FaCode,
@@ -218,7 +251,6 @@ export const skillData: SkillCategoryType[] = [
         { name: "VS Code", icon: VscVscode },
     ],
   },
-  // Strand 2: Professional & Soft
   {
     title: "Professional Skills",
     icon: FaHandshake,
@@ -250,3 +282,13 @@ export const skillData: SkillCategoryType[] = [
     ],
   }
 ];
+
+
+// --- MAIN EXPORT ---
+export const portfolioData = {
+    personalInfo,
+    socialLinks,
+    about: aboutData,
+    projects,
+    skills: skillData,
+};

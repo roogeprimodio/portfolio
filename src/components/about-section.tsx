@@ -4,7 +4,7 @@
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Code, MapPin, Mail, ArrowUpRight } from "lucide-react";
-import { aboutData } from "@/lib/portfolio-data";
+import { portfolioData } from "@/lib/portfolio-data";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from 'react';
@@ -23,8 +23,9 @@ const cardVariants = {
 };
 
 export function AboutSection() {
-  const timelineItemsCount = aboutData.experience.length + aboutData.education.length;
-  const certItemsCount = aboutData.certifications.length;
+  const { about } = portfolioData;
+  const timelineItemsCount = about.experience.length + about.education.length;
+  const certItemsCount = about.certifications.length;
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
@@ -64,7 +65,7 @@ export function AboutSection() {
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-0">
-              <p className="text-muted-foreground font-code">{aboutData.summary}</p>
+              <p className="text-muted-foreground font-code">{about.summary}</p>
             </CardContent>
           </Card>
         </motion.div>
@@ -91,11 +92,11 @@ export function AboutSection() {
             <CardContent className="pt-0 space-y-4 font-code">
               <div className="flex items-center gap-4">
                   <Mail className="h-5 w-5 text-accent" />
-                  <a href={`mailto:${aboutData.contactInfo.email}`} className="text-muted-foreground hover:text-primary transition-colors">{aboutData.contactInfo.email}</a>
+                  <a href={`mailto:${about.contactInfo.email}`} className="text-muted-foreground hover:text-primary transition-colors">{about.contactInfo.email}</a>
               </div>
               <div className="flex items-center gap-4">
                   <MapPin className="h-5 w-5 text-accent" />
-                  <p className="text-muted-foreground">{aboutData.contactInfo.address}</p>
+                  <p className="text-muted-foreground">{about.contactInfo.address}</p>
               </div>
             </CardContent>
           </Card>
@@ -113,7 +114,7 @@ export function AboutSection() {
             <span>Experience Log</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
-            {aboutData.experience.map((item, index) => (
+            {about.experience.map((item, index) => (
               <motion.div 
                 key={index}
                 custom={index}
@@ -150,10 +151,10 @@ export function AboutSection() {
             <span>Education Archive</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
-            {aboutData.education.map((item, index) => (
+            {about.education.map((item, index) => (
               <motion.div 
                 key={index}
-                custom={index + aboutData.experience.length}
+                custom={index + about.experience.length}
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -187,7 +188,7 @@ export function AboutSection() {
             <span>Accolades & Certifications</span>
           </h3>
           <div className="space-y-6 relative pl-8 border-l-2 border-accent/30">
-            {aboutData.certifications.map((item, index) => (
+            {about.certifications.map((item, index) => (
               <a
                 key={item.name}
                 href={item.url}
@@ -233,7 +234,7 @@ export function AboutSection() {
                     <span>Programming Languages</span>
                 </h3>
                 <div className="space-y-4">
-                    {aboutData.programmingLanguages.map((lang, index) => (
+                    {about.programmingLanguages.map((lang, index) => (
                         <motion.div 
                             key={index}
                             custom={index + timelineItemsCount + certItemsCount}
@@ -261,10 +262,10 @@ export function AboutSection() {
                     <span>Spoken Languages</span>
                 </h3>
                 <div className="space-y-4">
-                    {aboutData.spokenLanguages.map((lang, index) => (
+                    {about.spokenLanguages.map((lang, index) => (
                         <motion.div 
                             key={index}
-                            custom={index + timelineItemsCount + certItemsCount + aboutData.programmingLanguages.length}
+                            custom={index + timelineItemsCount + certItemsCount + about.programmingLanguages.length}
                             variants={cardVariants}
                             initial="hidden"
                             whileInView="visible"

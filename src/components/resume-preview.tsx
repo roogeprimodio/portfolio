@@ -1,8 +1,9 @@
 
-import { aboutData, projects, skillData } from '@/lib/portfolio-data';
+import { portfolioData } from '@/lib/portfolio-data';
 import { FaBriefcase, FaGraduationCap, FaLightbulb, FaWrench, FaStar, FaLink } from 'react-icons/fa';
 import { IoMail, IoLocationSharp, IoLogoLinkedin, IoLogoGithub, IoCall } from 'react-icons/io5';
 
+const { personalInfo, socialLinks, about, projects, skills: skillData } = portfolioData;
 
 // Reusable component for a major section with a title and a dividing line
 const SectionTitle = ({ children, icon: Icon }: { children: React.ReactNode, icon: React.ElementType }) => (
@@ -55,50 +56,50 @@ export const ResumePreview = () => {
         <Page>
             {/* Header */}
             <header className="text-center mb-6">
-                <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">JAGDISH ODEDARA</h1>
-                <p className="text-md text-blue-700 font-semibold mt-1">Digital Craftsman & Code Poet</p>
+                <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">{personalInfo.name}</h1>
+                <p className="text-md text-blue-700 font-semibold mt-1">{personalInfo.tagline}</p>
                 <div className="mt-4 space-y-1 text-xs text-gray-600">
                     <div className="flex justify-center items-center flex-wrap gap-x-5 gap-y-1">
-                        <a href={`mailto:${aboutData.contactInfo.email}`} className="flex items-center hover:text-blue-700 transition-colors">
-                            <IoMail className="w-3.5 h-3.5 mr-1.5 shrink-0" />
+                        <a href={`mailto:${about.contactInfo.email}`} className="flex items-center hover:text-blue-700 transition-colors">
+                            <IoMail className="inline-block align-middle w-3.5 h-3.5 mr-1.5 shrink-0" />
                             <span>
-                                jagdishodedara47<span className="px-0.5">@</span>gmail.com
+                                {about.contactInfo.email.split('@')[0]}<span className="px-0.5">@</span>{about.contactInfo.email.split('@')[1]}
                             </span>
                         </a>
-                        <a href="tel:9773075648" className="flex items-center hover:text-blue-700 transition-colors">
-                            <IoCall className="w-3.5 h-3.5 mr-1.5 shrink-0" />
-                            <span>+91 9773075648</span>
+                        <a href={`tel:${about.contactInfo.phone}`} className="flex items-center hover:text-blue-700 transition-colors">
+                            <IoCall className="inline-block align-middle w-3.5 h-3.5 mr-1.5 shrink-0" />
+                            <span>+91 {about.contactInfo.phone}</span>
                         </a>
                     </div>
                      <div className="flex justify-center items-center flex-wrap gap-x-5 gap-y-1">
-                        <a href="https://www.linkedin.com/in/jagdish-odedara-4703532a8/" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-blue-700 transition-colors">
-                            <IoLogoLinkedin className="w-3.5 h-3.5 mr-1.5 shrink-0" />
+                        <a href={socialLinks.find(s => s.name === 'LinkedIn')?.href} target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-blue-700 transition-colors">
+                            <IoLogoLinkedin className="inline-block align-middle w-3.5 h-3.5 mr-1.5 shrink-0" />
                             <span>/in/jagdish-odedara</span>
                         </a>
-                        <a href="https://github.com/roogeprimodio" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-blue-700 transition-colors">
-                            <IoLogoGithub className="w-3.5 h-3.5 mr-1.5 shrink-0" />
+                        <a href={socialLinks.find(s => s.name === 'GitHub')?.href} target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-blue-700 transition-colors">
+                            <IoLogoGithub className="inline-block align-middle w-3.5 h-3.5 mr-1.5 shrink-0" />
                             <span>/roogeprimodio</span>
                         </a>
                     </div>
                 </div>
                 <div className="mt-2 flex justify-center items-center">
                     <p className="flex items-center text-xs text-gray-600">
-                        <IoLocationSharp className="w-3.5 h-3.5 mr-1.5 shrink-0" />
-                        <span>{aboutData.contactInfo.address}</span>
+                        <IoLocationSharp className="inline-block align-middle w-3.5 h-3.5 mr-1.5 shrink-0" />
+                        <span>{about.contactInfo.address}</span>
                     </p>
                 </div>
             </header>
 
             {/* Summary */}
             <div className="my-4">
-                <p className="text-center text-sm text-gray-700 leading-relaxed max-w-3xl mx-auto">{aboutData.summary}</p>
+                <p className="text-center text-sm text-gray-700 leading-relaxed max-w-3xl mx-auto">{about.summary}</p>
             </div>
 
             {/* Experience */}
             <Section>
                 <SectionTitle icon={FaBriefcase}>Experience</SectionTitle>
                 <div className="space-y-4">
-                    {aboutData.experience.map((exp, index) => (
+                    {about.experience.map((exp, index) => (
                     <div key={index} className="break-inside-avoid">
                         <div className="grid grid-cols-4 items-baseline">
                             <h3 className="col-span-3 text-base font-semibold text-gray-900">{exp.role}</h3>
@@ -115,7 +116,7 @@ export const ResumePreview = () => {
             <Section>
                 <SectionTitle icon={FaGraduationCap}>Education</SectionTitle>
                 <div className="space-y-4">
-                    {aboutData.education.map((edu, index) => (
+                    {about.education.map((edu, index) => (
                     <div key={index} className="break-inside-avoid">
                         <div className="grid grid-cols-4 items-baseline">
                             <h3 className="col-span-3 text-base font-semibold text-gray-900">{edu.degree}</h3>
@@ -132,7 +133,7 @@ export const ResumePreview = () => {
             <Section>
                 <SectionTitle icon={FaStar}>Certifications</SectionTitle>
                 <div className="space-y-3">
-                {aboutData.certifications.map((cert, index) => (
+                {about.certifications.map((cert, index) => (
                     <div key={index} className="grid grid-cols-4 items-center break-inside-avoid">
                         <div className="col-span-3">
                             <a href={cert.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue-700 hover:underline">{cert.name}</a>
@@ -170,8 +171,8 @@ export const ResumePreview = () => {
                         <div className="flex flex-wrap gap-2">
                         {category.skills.map((skill) => (
                              <div key={skill.name} className="inline-flex items-center justify-center bg-blue-50 text-blue-800 px-3 h-6 rounded-full font-medium text-xs">
-                                {skill.icon && <skill.icon className="h-3 w-3 mr-1.5" />}
-                                <span className="leading-6">{skill.name}</span>
+                                {skill.icon && <skill.icon className="inline-block align-middle h-3 w-3 mr-1.5" />}
+                                <span className="inline-block align-middle leading-6">{skill.name}</span>
                             </div>
                         ))}
                         </div>

@@ -6,18 +6,13 @@ import { Button } from '@/components/ui/button';
 import {
   ArrowDown,
   Code,
-  Github,
-  Instagram,
-  Linkedin,
-  Phone,
-  Send,
-  Twitter,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
+import { portfolioData } from '@/lib/portfolio-data';
 
 const AnimatedText = ({
   text,
@@ -95,63 +90,6 @@ const AnimatedText = ({
   );
 };
 
-const RedditIcon = (props: React.ComponentProps<'svg'>) => (
-  <svg
-    role="img"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor"
-    {...props}
-  >
-    <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87s-7.004-2.176-7.004-4.87c0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.34.34 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12.469c.53 0 .96.43.96.96s-.43.96-.96.96-.96-.43-.96-.96.43-.96.96-.96zm5.5 0c.53 0 .96.43.96.96s-.43.96-.96.96-.96-.43-.96-.96.43-.96.96-.96zM12 15.968c-1.664 0-3.023-.956-3.023-2.131 0-.225.053-.438.147-.636C10.278 13.511 11.166 13.74 12 13.74c.834 0 1.722-.229 2.876-.636.094.198.147.41.147.636 0 1.175-1.359 2.131-3.023 2.131z" />
-  </svg>
-);
-
-const socialIcons = [
-  {
-    Icon: Instagram,
-    href: 'https://www.instagram.com/jagadish_.odedra/',
-    name: 'Instagram',
-    pos: 'top-[-2.5rem] left-1/2 -translate-x-1/2',
-  },
-  {
-    Icon: Twitter,
-    href: 'https://twitter.com/jagdishodedara0',
-    name: 'Twitter',
-    pos: 'top-4 left-[-4.5rem]',
-  },
-  {
-    Icon: Linkedin,
-    href: 'https://www.linkedin.com/in/jagdish-odedara-4703532a8/',
-    name: 'LinkedIn',
-    pos: 'top-4 right-[-4.5rem]',
-  },
-  {
-    Icon: Github,
-    href: 'https://github.com/roogeprimodio',
-    name: 'GitHub',
-    pos: 'top-1/2 -translate-y-1/2 left-[-5.5rem]',
-  },
-  {
-    Icon: Phone,
-    href: 'tel:9773075648',
-    name: 'Call',
-    pos: 'top-1/2 -translate-y-1/2 right-[-5.5rem]',
-  },
-  {
-    Icon: Send,
-    href: 'https://t.me/R00ge',
-    name: 'Telegram',
-    pos: 'bottom-4 left-[-4.5rem]',
-  },
-  {
-    Icon: RedditIcon,
-    href: 'https://www.reddit.com/',
-    name: 'Reddit',
-    pos: 'bottom-4 right-[-4.5rem]',
-  },
-];
-
 export function HeroSection() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -180,8 +118,8 @@ export function HeroSection() {
           {/* Layer 3: The Image */}
           <div className="relative w-full h-full p-1 z-20">
             <Image
-              src="/jagdish.png"
-              alt="JAGDISH ODEDARA"
+              src={portfolioData.personalInfo.profileImage}
+              alt={portfolioData.personalInfo.name}
               fill
               className="object-cover object-center rounded-full drop-shadow-xl transition-transform duration-500 group-hover:scale-[1.05] group-hover:-translate-y-px origin-bottom"
               priority
@@ -192,7 +130,7 @@ export function HeroSection() {
           {/* Layer 4: Bottom half of the border (IN FRONT of the image) */}
           <div className="absolute bottom-0 left-0 w-full h-1/2 border-b-4 border-l-4 border-r-4 border-primary rounded-b-full z-30 pointer-events-none" />
 
-          {socialIcons.map((social, index) => (
+          {portfolioData.socialLinks.map((social, index) => (
             <motion.a
               key={index}
               href={social.href}
@@ -225,12 +163,12 @@ export function HeroSection() {
         </motion.div>
 
         <AnimatedText
-          text="JAGDISH ODEDARA"
+          text={portfolioData.personalInfo.name}
           el="h1"
           className="text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase"
         />
         <AnimatedText
-          text="Digital Craftsman & Code Poet"
+          text={portfolioData.personalInfo.tagline}
           el="p"
           className={cn(
             'mt-4 font-code text-lg md:text-xl text-accent',

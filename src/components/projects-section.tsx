@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import type { ProjectType } from "@/lib/portfolio-data";
-import { projects } from "@/lib/portfolio-data";
+import { portfolioData } from "@/lib/portfolio-data";
 import { useTheme } from "next-themes";
 
 const ProjectCard = ({ project, index }: { project: ProjectType; index: number }) => {
@@ -76,7 +76,8 @@ const swipePower = (offset: number, velocity: number) => {
 };
 
 export function ProjectsSection() {
-    const allTags = useMemo(() => ['All', ...new Set(projects.flatMap(p => p.tags))], []);
+    const { projects } = portfolioData;
+    const allTags = useMemo(() => ['All', ...new Set(projects.flatMap(p => p.tags))], [projects]);
     const [activeTag, setActiveTag] = useState('All');
     const [filteredProjects, setFilteredProjects] = useState(projects);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -91,7 +92,7 @@ export function ProjectsSection() {
             setFilteredProjects(projects.filter(p => p.tags.includes(activeTag)));
         }
         setActiveIndex(0);
-    }, [activeTag]);
+    }, [activeTag, projects]);
 
     const paginate = (newDirection: number) => {
       setActiveIndex((prevIndex) => (prevIndex + newDirection + filteredProjects.length) % filteredProjects.length);

@@ -1,9 +1,11 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from '@/components/theme-provider';
 import { Cinzel, Raleway, Source_Code_Pro, Cormorant_Garamond, Montserrat } from 'next/font/google';
 import { cn } from '@/lib/utils';
+import { portfolioData } from '@/lib/portfolio-data';
 
 const fontBodyDark = Raleway({
   subsets: ['latin'],
@@ -40,8 +42,8 @@ const fontCode = Source_Code_Pro({
 const eyeIconDataUri = "data:image/svg+xml,%3csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M 10 50 Q 50 10 90 50' stroke='white' stroke-width='10' fill='none' stroke-linecap='round' /%3e%3cpath d='M 10 50 Q 50 90 90 50' stroke='white' stroke-width='10' fill='none' stroke-linecap='round' /%3e%3ccircle cx='50' cy='50' r='15' fill='white' /%3e%3c/svg%3e";
 
 export const metadata: Metadata = {
-  title: 'JAGDISH ODEDARA // Portfolio',
-  description: 'Digital Craftsman & Code Poet',
+  title: `${portfolioData.personalInfo.name} // Portfolio`,
+  description: portfolioData.personalInfo.tagline,
   icons: {
     icon: eyeIconDataUri,
   },
