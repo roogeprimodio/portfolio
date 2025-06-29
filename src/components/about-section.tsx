@@ -3,11 +3,12 @@
 
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Code, MapPin, Mail, ArrowUpRight } from "lucide-react";
+import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Code, MapPin, Mail, ArrowUpRight, UserPlus } from "lucide-react";
 import { portfolioData } from "@/lib/portfolio-data";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
 
 const cardVariants = {
   hidden: { opacity: 0, x: -50 },
@@ -23,12 +24,40 @@ const cardVariants = {
 };
 
 export function AboutSection() {
-  const { about } = portfolioData;
+  const { personalInfo, about } = portfolioData;
   const timelineItemsCount = about.experience.length + about.education.length;
   const certItemsCount = about.certifications.length;
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
+  
+  const handleVCardDownload = () => {
+    const [city, state, pin, country] = about.contactInfo.address.split(', ').map(s => s.trim());
+    const [firstName, ...lastNameParts] = personalInfo.name.split(' ');
+    const lastName = lastNameParts.join(' ');
+
+    const vCard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      `FN:${personalInfo.name}`,
+      `N:${lastName};${firstName};;;`,
+      `TITLE:${personalInfo.jobTitle}`,
+      `EMAIL;TYPE=INTERNET:${about.contactInfo.email}`,
+      `TEL;TYPE=CELL:+91${about.contactInfo.phone}`,
+      `ADR;TYPE=HOME:;;;${city};${state};${pin};${country}`,
+      `URL:${personalInfo.url}`,
+      'END:VCARD'
+    ].join('\n');
+
+    const blob = new Blob([vCard], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `${personalInfo.name.replace(/\s+/g, '_')}.vcf`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <section id="about" className="flex flex-col items-center justify-center p-4 md:py-24 overflow-hidden">
@@ -98,6 +127,10 @@ export function AboutSection() {
                   <MapPin className="h-5 w-5 text-accent" />
                   <p className="text-muted-foreground">{about.contactInfo.address}</p>
               </div>
+              <Button onClick={handleVCardDownload} variant="outline" className="w-full font-code bg-card/80 border-accent/50 hover:bg-card hover:border-accent">
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  Add to Contacts
+              </Button>
             </CardContent>
           </Card>
         </motion.div>
