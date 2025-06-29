@@ -1,5 +1,5 @@
-import type { LucideIcon } from "lucide-react";
-import { Code, BarChart2, HardHat, Handshake, Brain, Languages } from 'lucide-react';
+import type { ElementType } from "react";
+import { FaCode, FaChartBar, FaTools, FaHandshake, FaBrain, FaLanguage } from 'react-icons/fa';
 
 // Types
 export interface AboutDataType {
@@ -40,7 +40,7 @@ export interface ProjectType {
 
 export interface SkillCategoryType {
     title: string;
-    icon: LucideIcon;
+    icon: ElementType;
     skills: string[];
 }
 
@@ -160,33 +160,33 @@ export const skillData: SkillCategoryType[] = [
   // Strand 1: Technical & Analytical
   {
     title: "Technical Skills",
-    icon: Code,
+    icon: FaCode,
     skills: ["JavaScript", "Java", "Python", "React.js", "Next.js", "Flutter", "Node.js", "Express.js", "HTML5", "CSS3", "Tailwind CSS", "Firebase", "REST APIs", "SSR", "JWT Auth"],
   },
   {
     title: "Analytical & Data Skills",
-    icon: BarChart2,
+    icon: FaChartBar,
     skills: ["MySQL", "MongoDB", "SQLite", "Data Structures & Algorithms", "JSON", "API Handling"],
   },
   {
     title: "Tools & Platforms",
-    icon: HardHat,
+    icon: FaTools,
     skills: ["Git", "GitHub", "AWS", "Vercel", "Netlify", "Figma", "Adobe Illustrator", "Premiere Pro", "Postman", "VS Code"],
   },
   // Strand 2: Professional & Soft
   {
     title: "Professional Skills",
-    icon: Handshake,
+    icon: FaHandshake,
     skills: ["Agile Methodologies", "Scrum", "Team Collaboration", "Project Planning", "Technical Documentation"],
   },
   {
     title: "Soft Skills",
-    icon: Brain,
+    icon: FaBrain,
     skills: ["Time Management", "Creative Thinking", "Problem-Solving", "Adaptability"],
   },
   {
     title: "Language Skills",
-    icon: Languages,
+    icon: FaLanguage,
     skills: ["English: Proficient", "Hindi: Native", "Gujarati: Native"],
   }
 ];
