@@ -200,14 +200,24 @@ export function HeroSection() {
               rel="noopener noreferrer"
               aria-label={social.name}
               className={`absolute ${social.pos} p-2 rounded-full bg-card/60 text-accent backdrop-blur-sm border border-accent/20 hover:bg-accent hover:text-accent-foreground transition-colors z-40`}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                duration: 0.5,
-                delay: 1.8 + index * 0.1,
-                ease: 'easeOut',
+              initial={{ opacity: 0, scale: 0.5, y: 0 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: ["0rem", "-0.5rem", "0rem"],
               }}
-              whileHover={{ scale: 1.2, z: 50 }}
+              transition={{
+                opacity: { duration: 0.5, delay: 1.8 + index * 0.1, ease: "easeOut" },
+                scale: { duration: 0.5, delay: 1.8 + index * 0.1, ease: "easeOut" },
+                y: {
+                  duration: 3 + index * 0.2,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: "easeInOut",
+                  delay: 1.8 + index * 0.1,
+                },
+              }}
+              whileHover={{ scale: 1.2, y: 0, z: 50 }}
             >
               <social.Icon className="h-4 w-4" />
             </motion.a>
