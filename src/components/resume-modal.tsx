@@ -187,7 +187,10 @@ export function ResumeModal({ children }: { children: React.ReactNode }) {
         >
           <div
             ref={contentRef}
-            className={cn("origin-top-left", isDragging ? "" : "transition-transform duration-200 ease-out")}
+            className={cn(
+                "origin-top-left w-[50rem] max-w-full",
+                isDragging ? "" : "transition-transform duration-200 ease-out"
+            )}
             style={{ 
                 transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
                 cursor: isDragging ? 'grabbing' : 'grab'

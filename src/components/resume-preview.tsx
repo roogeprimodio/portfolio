@@ -6,10 +6,12 @@ import { cn } from '@/lib/utils';
 // Reusable component for a page container to keep styles consistent
 const Page = ({ children, className }: { children: React.ReactNode, className?: string }) => (
   <div className={cn(
-    "bg-white text-gray-800 p-8 font-sans shadow-2xl w-[50rem] max-w-full",
+    "bg-white text-gray-800 font-sans shadow-lg w-full my-4",
     className
   )}>
-    {children}
+    <div className="p-8">
+      {children}
+    </div>
   </div>
 );
 
@@ -29,7 +31,7 @@ const Section = ({ children }: { children: React.ReactNode }) => (
 
 export const ResumePreview = () => {
   return (
-    <div id="resume-content" className="flex flex-col items-center gap-8 py-4">
+    <div id="resume-content" className="flex flex-col items-center">
       {/* Page 1 */}
       <Page>
         {/* Header */}
