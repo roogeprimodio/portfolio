@@ -158,9 +158,9 @@ export const ResumePreview = () => {
                         <h3 className="text-base font-semibold text-gray-700 mb-2">{category.title}</h3>
                         <div className="flex flex-wrap gap-x-2 gap-y-1.5">
                         {category.skills.map((skill) => (
-                            <span key={skill.name} className="flex items-center gap-1.5 text-xs bg-blue-50 text-blue-800 px-2 py-1 rounded-full font-medium">
-                                {skill.icon && <skill.icon className="h-3 w-3" />}
-                                <span>{skill.name}</span>
+                            <span key={skill.name} className="inline-flex items-center gap-1.5 text-xs bg-blue-50 text-blue-800 px-2 py-1 rounded-full font-medium">
+                                {skill.icon && <skill.icon className="h-3 w-3 shrink-0" />}
+                                <span className="leading-none">{skill.name}</span>
                             </span>
                         ))}
                         </div>
