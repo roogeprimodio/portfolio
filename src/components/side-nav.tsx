@@ -1,4 +1,3 @@
-
 "use client";
 
 import { UserCircle, Archive, Dna, Send, FileText, Menu } from "lucide-react";
@@ -146,7 +145,12 @@ export function SideNav() {
       >
         <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
           <PopoverTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full bg-card/50 backdrop-blur-md border border-accent/20 text-accent">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-12 w-12 rounded-full bg-card/50 backdrop-blur-md border border-accent/20 text-accent"
+              aria-label="Open navigation menu"
+            >
               <Menu className="h-6 w-6" />
             </Button>
           </PopoverTrigger>
