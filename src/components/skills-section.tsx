@@ -143,87 +143,121 @@ export function SkillsSection() {
         <p className="text-accent font-code">The building blocks of my craft.</p>
       </div>
       
-      <div className="w-full max-w-4xl">
-        <Accordion type="multiple" className="relative">
-          <svg
-            aria-hidden="true"
-            className="absolute left-1/2 top-0 h-full w-24 -translate-x-1/2"
-            fill="none"
-          >
-            {/* Rungs */}
-            <g>
-              {rungPoints.map(({ y, x1, x2 }) => {
-                const frequency = 0.02;
-                const isLeftInFront = Math.sin(y * frequency) > 0;
-                return (
-                  <g key={y} style={{ zIndex: isLeftInFront ? 1 : -1 }}>
-                    <line x1={x1} y1={y+1} x2={x2} y2={y+1} stroke="hsl(var(--accent)/0.2)" strokeWidth="1" />
-                    <line x1={x1} y1={y} x2={x2} y2={y} stroke="hsl(var(--accent)/0.4)" strokeWidth="1" />
-                  </g>
-                );
-              })}
-            </g>
-             
-            {/* Helix Strands */}
-            <path
-              d={dnaPath}
-              stroke="hsl(var(--accent)/0.3)"
-              strokeWidth="2"
-            />
-            <path
-              d={dnaPath2}
-              stroke="hsl(var(--accent)/0.3)"
-              strokeWidth="2"
-            />
-          </svg>
+      <div className="w-full max-w-4xl px-4 md:px-0">
+        {/* Mobile View: Simple Accordion */}
+        <div className="md:hidden">
+            <Accordion type="multiple" className="w-full space-y-4">
+                {skillData.map((category, index) => (
+                    <Card key={category.title} className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
+                        <AccordionItem value={`item-mobile-${index}`} className="border-b-0">
+                            <AccordionTrigger className="p-4 hover:no-underline">
+                                <span className={cn(
+                                    "flex items-center gap-3 text-lg font-code text-primary text-left",
+                                    mounted && (resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_6px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow')
+                                )}>
+                                    <category.icon className={cn("h-6 w-6 text-accent", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_4px_hsl(var(--accent)/0.7)]" : "light:animate-electric-glow-icon"))} />
+                                    {category.title}
+                                </span>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-4">
+                                <div className="flex flex-wrap gap-2 pt-2 justify-start">
+                                    {category.skills.map((skill, skillIndex) => (
+                                        <Badge key={skillIndex} variant="secondary" className="h-auto whitespace-normal text-center font-code text-sm bg-accent/10 text-accent border-accent/20 cursor-default flex items-center gap-2">
+                                            {skill.icon && <skill.icon className="h-4 w-4" />}
+                                            <span>{skill.name}</span>
+                                        </Badge>
+                                    ))}
+                                </div>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Card>
+                ))}
+            </Accordion>
+        </div>
 
-          <div ref={containerRef} className="space-y-12">
-            {wovenSkills.map((category, index) => {
-              const isLeft = category.side === 'left';
-              return (
-                <div
-                  key={category.title}
-                  className="relative flex items-center"
-                  style={{ willChange: 'transform' }}
-                >
-                  <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-[0_0_10px_hsl(var(--accent)/0.45)] left-1/2 -translate-x-1/2 z-10"></div>
-                  <div className={`w-1/2 px-4 ${isLeft ? 'pr-10 text-right' : 'pl-10 text-left ml-auto'}`}>
-                    <AccordionItem value={`item-${index}`} className="border-b-0">
-                      <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50 inline-block w-full">
-                        <AccordionTrigger onClick={handleAccordionToggle} className="p-0 hover:no-underline [&>svg]:hidden w-full">
-                          <CardHeader className="w-full">
-                            <CardTitle 
-                              className={cn(
-                                `flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'}`,
-                                mounted && (resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_6px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow')
-                              )}
-                            >
-                              {isLeft && <span>{category.title}</span>}
-                              <category.icon className={cn("h-6 w-6 text-accent", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_4px_hsl(var(--accent)/0.7)]" : "light:animate-electric-glow-icon"))} />
-                              {!isLeft && <span>{category.title}</span>}
-                            </CardTitle>
-                          </CardHeader>
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <CardContent className="pt-0">
-                            <div className={`flex flex-wrap gap-2 pt-2 ${isLeft ? 'justify-end' : 'justify-start'}`}>
-                              {category.skills.map((skill, skillIndex) => (
-                                <Badge key={skillIndex} variant="secondary" className="h-auto whitespace-normal text-center font-code text-sm bg-accent/10 text-accent border-accent/20 cursor-default flex items-center gap-2">
-                                  {skill.icon && <skill.icon className="h-4 w-4" />}
-                                  <span>{skill.name}</span>
-                                </Badge>
-                              ))}
-                            </div>
-                          </CardContent>
-                        </AccordionContent>
-                      </Card>
-                    </AccordionItem>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </Accordion>
+        {/* Desktop View: DNA Helix */}
+        <div className="hidden md:block">
+            <Accordion type="multiple" className="relative">
+            <svg
+                aria-hidden="true"
+                className="absolute left-1/2 top-0 h-full w-24 -translate-x-1/2"
+                fill="none"
+            >
+                {/* Rungs */}
+                <g>
+                {rungPoints.map(({ y, x1, x2 }) => {
+                    const frequency = 0.02;
+                    const isLeftInFront = Math.sin(y * frequency) > 0;
+                    return (
+                    <g key={y} style={{ zIndex: isLeftInFront ? 1 : -1 }}>
+                        <line x1={x1} y1={y+1} x2={x2} y2={y+1} stroke="hsl(var(--accent)/0.2)" strokeWidth="1" />
+                        <line x1={x1} y1={y} x2={x2} y2={y} stroke="hsl(var(--accent)/0.4)" strokeWidth="1" />
+                    </g>
+                    );
+                })}
+                </g>
+                
+                {/* Helix Strands */}
+                <path
+                d={dnaPath}
+                stroke="hsl(var(--accent)/0.3)"
+                strokeWidth="2"
+                />
+                <path
+                d={dnaPath2}
+                stroke="hsl(var(--accent)/0.3)"
+                strokeWidth="2"
+                />
+            </svg>
+
+            <div ref={containerRef} className="space-y-12">
+                {wovenSkills.map((category, index) => {
+                const isLeft = category.side === 'left';
+                return (
+                    <div
+                    key={category.title}
+                    className="relative flex items-center"
+                    style={{ willChange: 'transform' }}
+                    >
+                    <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-[0_0_10px_hsl(var(--accent)/0.45)] left-1/2 -translate-x-1/2 z-10"></div>
+                    <div className={`w-1/2 px-4 ${isLeft ? 'pr-10 text-right' : 'pl-10 text-left ml-auto'}`}>
+                        <AccordionItem value={`item-${index}`} className="border-b-0">
+                        <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50 inline-block w-full">
+                            <AccordionTrigger onClick={handleAccordionToggle} className="p-0 hover:no-underline [&>svg]:hidden w-full">
+                            <CardHeader className="w-full">
+                                <CardTitle 
+                                className={cn(
+                                    `flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'}`,
+                                    mounted && (resolvedTheme === 'dark' ? 'dark:[text-shadow:0_0_6px_hsl(var(--primary)/0.6)]' : 'light:animate-electric-glow')
+                                )}
+                                >
+                                {isLeft && <span>{category.title}</span>}
+                                <category.icon className={cn("h-6 w-6 text-accent", mounted && (resolvedTheme === 'dark' ? "dark:drop-shadow-[0_0_4px_hsl(var(--accent)/0.7)]" : "light:animate-electric-glow-icon"))} />
+                                {!isLeft && <span>{category.title}</span>}
+                                </CardTitle>
+                            </CardHeader>
+                            </AccordionTrigger>
+                            <AccordionContent>
+                            <CardContent className="pt-0">
+                                <div className={`flex flex-wrap gap-2 pt-2 ${isLeft ? 'justify-end' : 'justify-start'}`}>
+                                {category.skills.map((skill, skillIndex) => (
+                                    <Badge key={skillIndex} variant="secondary" className="h-auto whitespace-normal text-center font-code text-sm bg-accent/10 text-accent border-accent/20 cursor-default flex items-center gap-2">
+                                    {skill.icon && <skill.icon className="h-4 w-4" />}
+                                    <span>{skill.name}</span>
+                                    </Badge>
+                                ))}
+                                </div>
+                            </CardContent>
+                            </AccordionContent>
+                        </Card>
+                        </AccordionItem>
+                    </div>
+                    </div>
+                );
+                })}
+            </div>
+            </Accordion>
+        </div>
       </div>
     </section>
   );
