@@ -119,7 +119,7 @@ export function SideNav() {
       <motion.nav
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 3.5 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
         className="hidden md:flex fixed top-1/2 -translate-y-1/2 left-2 md:left-4 z-50"
       >
         <ul className="relative flex flex-col items-center gap-2 p-2 rounded-xl border border-accent/20 bg-card/50 backdrop-blur-md">
@@ -141,7 +141,7 @@ export function SideNav() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 3.5 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
         className="md:hidden fixed top-4 right-4 z-50"
       >
         <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>

@@ -138,10 +138,10 @@ export function ProjectsSection() {
           {filteredProjects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: (index % 3) * 0.1, ease: "easeOut" }}
+              transition={{ duration: 0.5, delay: (index % 3) * 0.1, ease: "easeOut" }}
             >
               <ProjectCard project={project} index={projects.indexOf(project)} />
             </motion.div>

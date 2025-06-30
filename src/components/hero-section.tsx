@@ -14,88 +14,17 @@ import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { portfolioData } from '@/lib/portfolio-data';
 
-const AnimatedText = ({
-  text,
-  el: Wrapper = 'p',
-  className,
-}: {
-  text: string;
-  el?: keyof JSX.IntrinsicElements;
-  className?: string;
-}) => {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const words = text.split(' ');
-
-  const sentence = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1, // Stagger by word
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const wordVariant = {
-    hidden: { opacity: 0, y: 20, filter: 'blur(5px)' },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      transition: { type: 'spring', damping: 12, stiffness: 200 },
-    },
-  };
-
-  if (!mounted) {
-    return (
-      <Wrapper className={cn(className, 'opacity-0')}>
-        {text}
-      </Wrapper>
-    );
-  }
-
-  return (
-    <Wrapper
-      className={cn(
-        className,
-        mounted &&
-          (resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline')
-      )}
-    >
-      <motion.span
-        variants={sentence}
-        initial="hidden"
-        animate="visible"
-        aria-label={text}
-      >
-        {words.map((word, index) => (
-          <motion.span
-            key={word + '-' + index}
-            variants={wordVariant}
-            className="inline-block"
-            aria-hidden="true"
-          >
-            {word}
-            {index < words.length - 1 ? '\u00A0' : ''}
-          </motion.span>
-        ))}
-      </motion.span>
-    </Wrapper>
-  );
-};
-
 export function HeroSection() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const headlineClass = cn(
+    mounted &&
+      (resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline')
+  );
 
   return (
     <section
@@ -138,23 +67,9 @@ export function HeroSection() {
               rel="noopener noreferrer"
               aria-label={social.name}
               className={`absolute ${social.pos} p-2 rounded-full bg-card/60 text-accent backdrop-blur-sm border border-accent/20 hover:bg-accent hover:text-accent-foreground transition-colors z-40`}
-              initial={{ opacity: 0, scale: 0.5, y: 0 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                y: ["0rem", "-0.5rem", "0rem"],
-              }}
-              transition={{
-                opacity: { duration: 0.5, delay: 1.8 + index * 0.1, ease: "easeOut" },
-                scale: { duration: 0.5, delay: 1.8 + index * 0.1, ease: "easeOut" },
-                y: {
-                  duration: 3 + index * 0.2,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut",
-                  delay: 1.8 + index * 0.1,
-                },
-              }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 + index * 0.1, ease: "easeOut" }}
               whileHover={{ scale: 1.2, y: 0, z: 50 }}
             >
               <social.Icon className="h-4 w-4" />
@@ -162,14 +77,19 @@ export function HeroSection() {
           ))}
         </motion.div>
 
-        <AnimatedText
-          text={portfolioData.personalInfo.name}
-          el="h1"
-          className="text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase"
-        />
-        <AnimatedText
-          text={portfolioData.personalInfo.tagline}
-          el="p"
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className={cn(headlineClass, "text-5xl md:text-7xl font-bold tracking-widest text-primary uppercase")}
+        >
+          {portfolioData.personalInfo.name}
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className={cn(
             'mt-4 font-code text-lg md:text-xl text-accent',
             mounted &&
@@ -177,20 +97,21 @@ export function HeroSection() {
                 ? 'dark:[text-shadow:0_0_8px_hsl(var(--accent)/0.5)]'
                 : 'light:animate-electric-glow-accent')
           )}
-        />
+        >
+          {portfolioData.personalInfo.tagline}
+        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 2.5 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
         >
           <Button
             asChild
             size="lg"
             className={cn(
               'mt-12 group bg-accent/10 text-accent border border-accent hover:bg-accent hover:text-accent-foreground hover:shadow-lg hover:shadow-accent/40 transition-all duration-300 tracking-widest',
-              mounted &&
-                (resolvedTheme === 'dark' ? 'font-headline-dark' : 'font-headline')
+              headlineClass
             )}
           >
             <Link href="#about">
@@ -206,7 +127,7 @@ export function HeroSection() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 3, duration: 1 }}
+            transition={{ delay: 1, duration: 1 }}
             className="animate-bounce"
           >
             <ArrowDown className="h-8 w-8 text-accent/50 hover:text-accent transition-colors" />

@@ -11,13 +11,13 @@ import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 
 const cardVariants = {
-  hidden: { opacity: 0, x: -50 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
-    x: 0,
+    y: 0,
     transition: {
-      delay: i * 0.2,
-      duration: 0.8,
+      delay: i * 0.1,
+      duration: 0.5,
       ease: "easeOut"
     },
   }),
@@ -76,10 +76,10 @@ export function AboutSection() {
       <div className="w-full max-w-4xl space-y-12 px-4">
         {/* Summary */}
         <motion.div
-          initial={{ opacity: 0, y: -50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.5 }}
         >
           <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
             <CardHeader>
@@ -101,10 +101,10 @@ export function AboutSection() {
         
         {/* Contact Info */}
         <motion.div
-          initial={{ opacity: 0, y: -50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
           <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50">
             <CardHeader>
