@@ -13,25 +13,22 @@ export const contentType = 'image/png';
 
 // Image generation
 export default function Icon() {
+  // A vibrant blue that is visible on both light and dark backgrounds.
+  const iconColor = '#3655D5'; 
+
   return new ImageResponse(
     (
-      <div
-        style={{
-          background: '#4B0082', // Deep indigo from the theme
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: '6px',
-        }}
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 10 50 Q 50 10 90 50" stroke="white" strokeWidth="10" strokeLinecap="round" />
-          <path d="M 10 50 Q 50 90 90 50" stroke="white" strokeWidth="10" strokeLinecap="round" />
-          <circle cx="50" cy="50" r="15" fill="white" />
-        </svg>
-      </div>
+        <path d="M 10 50 Q 50 10 90 50" stroke={iconColor} strokeWidth="12" strokeLinecap="round" />
+        <path d="M 10 50 Q 50 90 90 50" stroke={iconColor} strokeWidth="12" strokeLinecap="round" />
+        <circle cx="50" cy="50" r="15" fill={iconColor} />
+      </svg>
     ),
     {
       ...size,
