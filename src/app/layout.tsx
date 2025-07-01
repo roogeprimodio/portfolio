@@ -75,10 +75,23 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' }
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
     ],
-    apple: '/apple-icon.png',
+    shortcut: ['/icon.png'],
+    apple: [
+      { url: '/apple-icon.png' },
+    ],
+    other: [
+      {
+        rel: 'android-chrome-192x192',
+        url: '/android-chrome-192x192.png'
+      },
+      {
+        rel: 'android-chrome-512x512',
+        url: '/android-chrome-512x512.png'
+      }
+    ]
   },
 };
 
