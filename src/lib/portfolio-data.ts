@@ -2,7 +2,7 @@
 import type { ElementType } from "react";
 import { Github, Instagram, Linkedin, Twitter, Send, Phone } from "lucide-react";
 import { FaCode, FaChartBar, FaTools, FaHandshake, FaBrain, FaLanguage, FaPython, FaJava, FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaGitAlt, FaAws } from 'react-icons/fa';
-import { SiJavascript, SiNextdotjs, SiFlutter, SiExpress, SiTailwindcss, SiFirebase, SiJsonwebtokens, SiMongodb, SiSqlite, SiFigma, SiAdobeillustrator, SiAdobepremierepro, SiPostman, SiVercel, SiNetlify } from 'react-icons/si';
+import { SiJavascript, SiNextdotjs, SiFlutter, SiExpress, SiTailwindcss, SiJsonwebtokens, SiMongodb, SiSqlite, SiFigma, SiAdobeillustrator, SiAdobepremierepro, SiPostman, SiVercel, SiNetlify } from 'react-icons/si';
 import { GrMysql } from 'react-icons/gr';
 import { AiOutlineApi } from 'react-icons/ai';
 import { VscVscode } from 'react-icons/vsc';
@@ -172,7 +172,7 @@ const projects: ProjectType[] = [
   {
     title: "PG Hub – Owner & User Apps",
     description: "Flutter-based PG accommodation management system for owners and tenants.",
-    tags: ["Flutter", "Firebase", "Google Maps"],
+    tags: ["Flutter", "Google Maps"],
     liveUrl: "https://beeeshive.netlify.app/login",
     githubUrl: "https://github.com/roogeprimodio/Pg-hub.git",
   },
@@ -207,7 +207,7 @@ const projects: ProjectType[] = [
   {
     title: "Madhuli – Business Showcase Website",
     description: "Personal business portfolio built for a family member.",
-    tags: ["React.js", "Expo", "Firebase"],
+    tags: ["React.js", "Expo"],
     liveUrl: "#",
     githubUrl: "https://github.com/roogeprimodio/madhuli.git",
   },
@@ -236,7 +236,6 @@ const skillData: SkillCategoryType[] = [
       { name: "HTML5", icon: FaHtml5 },
       { name: "CSS3", icon: FaCss3Alt },
       { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "Firebase", icon: SiFirebase },
       { name: "REST APIs", icon: AiOutlineApi },
       { name: "SSR" },
       { name: "JWT Auth", icon: SiJsonwebtokens },
