@@ -30,8 +30,8 @@ export default function Icon() {
         }}
       >
         <svg width="70%" height="70%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 10 50 Q 50 10 90 50" stroke={iconSymbolColor} strokeWidth="12" strokeLinecap="round" />
-          <path d="M 10 50 Q 50 90 90 50" stroke={iconSymbolColor} strokeWidth="12" strokeLinecap="round" />
+          <path d="M 10 50 Q 50 10 90 50" stroke={iconSymbolColor} strokeWidth="10" strokeLinecap="round" />
+          <path d="M 10 50 Q 50 90 90 50" stroke={iconSymbolColor} strokeWidth="10" strokeLinecap="round" />
           <circle cx="50" cy="50" r="15" fill={iconSymbolColor} />
         </svg>
       </div>
