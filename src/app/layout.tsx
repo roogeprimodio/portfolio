@@ -73,6 +73,13 @@ export const metadata: Metadata = {
     images: [portfolioData.personalInfo.profileImage], // Relative path
     creator: '@jagdishodedara0',
   },
+  icons: {
+    icon: [
+      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' }
+    ],
+    apple: '/apple-icon.png',
+  },
 };
 
 export default function RootLayout({

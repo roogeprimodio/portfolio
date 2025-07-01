@@ -1,20 +1,17 @@
 
 import { ImageResponse } from 'next/og';
 
-// Route segment config
 export const runtime = 'edge';
 
-// Image metadata
 export const size = {
-  width: 32,
-  height: 32,
+  width: 16,
+  height: 16,
 };
 export const contentType = 'image/png';
 
-// Image generation
-export default function Icon() {
-  const iconSymbolColor = '#FFFFFF'; // White for high contrast
-  const backgroundColor = '#1A202C'; // A dark charcoal that works on light and dark backgrounds
+export async function GET() {
+  const iconSymbolColor = '#FFFFFF';
+  const backgroundColor = '#1A202C'; 
 
   return new ImageResponse(
     (
