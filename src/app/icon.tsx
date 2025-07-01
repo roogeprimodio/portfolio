@@ -14,7 +14,7 @@ export const contentType = 'image/png';
 // Image generation
 export default function Icon() {
   const iconSymbolColor = '#FFFFFF'; // White for high contrast
-  const backgroundColor = '#1A202C'; // A dark charcoal that works on light and dark backgrounds
+  const backgroundColor = '#08081F'; // A dark charcoal that works on light and dark backgrounds
 
   return new ImageResponse(
     (

@@ -14,7 +14,7 @@ export const contentType = 'image/png';
 // Image generation
 export default function AppleIcon() {
   const iconSymbolColor = '#FFFFFF';
-  const backgroundColor = '#1A202C'; 
+  const backgroundColor = '#08081F'; 
 
   return new ImageResponse(
     (
