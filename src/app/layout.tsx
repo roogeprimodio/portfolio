@@ -50,10 +50,6 @@ export const metadata: Metadata = {
   verification: {
     google: "zFm9XI6LPoXU1xmmALCKwSWJZKJ-xe1Ed1KupSwRwAM",
   },
-  icons: {
-    icon: '/icon.png',
-    apple: '/apple-icon.png',
-  },
   openGraph: {
     title: `${portfolioData.personalInfo.name} // Portfolio`,
     description: portfolioData.personalInfo.tagline,
