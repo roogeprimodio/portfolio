@@ -6,29 +6,35 @@ export const runtime = 'edge';
 
 // Image metadata
 export const size = {
-  width: 16,
-  height: 16,
+  width: 32,
+  height: 32,
 };
 export const contentType = 'image/png';
 
 // Image generation
 export default function Icon() {
-  // A vibrant blue that is visible on both light and dark backgrounds.
-  const iconColor = '#3655D5'; 
+  const iconSymbolColor = '#FFFFFF'; // White for high contrast
+  const backgroundColor = '#1A202C'; // A dark charcoal that works on light and dark backgrounds
 
   return new ImageResponse(
     (
-      <svg
-        width="100%"
-        height="100%"
-        viewBox="0 0 100 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        style={{
+          background: backgroundColor,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '50%',
+        }}
       >
-        <path d="M 10 50 Q 50 10 90 50" stroke={iconColor} strokeWidth="12" strokeLinecap="round" />
-        <path d="M 10 50 Q 50 90 90 50" stroke={iconColor} strokeWidth="12" strokeLinecap="round" />
-        <circle cx="50" cy="50" r="15" fill={iconColor} />
-      </svg>
+        <svg width="70%" height="70%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 10 50 Q 50 10 90 50" stroke={iconSymbolColor} strokeWidth="12" strokeLinecap="round" />
+          <path d="M 10 50 Q 50 90 90 50" stroke={iconSymbolColor} strokeWidth="12" strokeLinecap="round" />
+          <circle cx="50" cy="50" r="15" fill={iconSymbolColor} />
+        </svg>
+      </div>
     ),
     {
       ...size,

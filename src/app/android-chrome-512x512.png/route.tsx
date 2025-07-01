@@ -1,18 +1,14 @@
-
 import { ImageResponse } from 'next/og';
 
-// Route segment config
 export const runtime = 'edge';
 
-// Image metadata
 export const size = {
-  width: 180,
-  height: 180,
+  width: 512,
+  height: 512,
 };
 export const contentType = 'image/png';
 
-// Image generation
-export default function AppleIcon() {
+export async function GET() {
   const iconSymbolColor = '#FFFFFF';
   const backgroundColor = '#1A202C'; 
 
@@ -26,7 +22,6 @@ export default function AppleIcon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: '22%', // Standard for Apple touch icons
         }}
       >
         <svg width="75%" height="75%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">

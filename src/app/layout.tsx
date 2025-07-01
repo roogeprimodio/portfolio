@@ -40,6 +40,7 @@ const fontCode = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
+  manifest: '/manifest.webmanifest',
   metadataBase: new URL(portfolioData.personalInfo.url),
   title: `${portfolioData.personalInfo.name} // Portfolio`,
   description: portfolioData.personalInfo.tagline,
@@ -51,7 +52,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/icon.png',
-    shortcut: '/icon.png',
     apple: '/apple-icon.png',
   },
   openGraph: {
