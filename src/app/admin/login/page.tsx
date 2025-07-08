@@ -56,8 +56,13 @@ export default function LoginPage() {
         }
         // On success, loginWithGoogle redirects, so no further client-side action is needed.
       } catch (error: any) {
-        // This catches errors from the Google popup flow itself (e.g., user closes popup)
-        if (error.code !== 'auth/popup-closed-by-user') {
+        if (error.code === 'auth/api-key-not-valid') {
+            toast({
+              title: "Configuration Error",
+              description: "The Firebase API Key is not valid. Please check your .env configuration.",
+              variant: "destructive",
+            });
+        } else if (error.code !== 'auth/popup-closed-by-user') {
             console.error("Google Sign-In Error:", error);
             toast({
               title: "Login Failed",

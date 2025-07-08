@@ -30,6 +30,9 @@ export async function loginWithEmail(prevState: unknown, formData: FormData) {
 
   } catch (error: any) {
     console.error('Firebase Authentication Error:', error);
+    if (error.code === 'auth/api-key-not-valid') {
+        return { success: false, message: 'Configuration Error: The Firebase API Key is not valid. Please check your .env file.' };
+    }
     if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         return { success: false, message: 'Invalid credentials. Please try again.' };
     }
