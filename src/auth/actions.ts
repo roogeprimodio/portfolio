@@ -9,6 +9,12 @@ import { createSession, deleteSession } from '@/auth/session';
 
 // The function signature MUST accept prevState as the first argument when used with useActionState
 export async function loginWithEmail(prevState: unknown, formData: FormData) {
+  const sessionSecret = process.env.SESSION_SECRET;
+  if (!sessionSecret) {
+    console.error("SESSION_SECRET environment variable is not set.");
+    return { success: false, message: "Application is not configured correctly. Server error." };
+  }
+  
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
@@ -27,7 +33,7 @@ export async function loginWithEmail(prevState: unknown, formData: FormData) {
     if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         return { success: false, message: 'Invalid credentials. Please try again.' };
     }
-    return { success: false, message: 'An unexpected error occurred. Please try again.' };
+    return { success: false, message: 'An unexpected error occurred during login. Please try again.' };
   }
   
   // This part is only reached on successful login
@@ -36,9 +42,13 @@ export async function loginWithEmail(prevState: unknown, formData: FormData) {
 }
 
 export async function loginWithGoogle(uid: string) {
+    const sessionSecret = process.env.SESSION_SECRET;
+    if (!sessionSecret) {
+        console.error("SESSION_SECRET environment variable is not set.");
+        return { success: false, message: "Application is not configured correctly. Server error." };
+    }
+
     if (!uid) {
-        // This won't be a user-facing error directly, but good for debugging.
-        // The client-side will show the main error toast.
         return { success: false, message: 'Google authentication failed: No UID provided.' };
     }
     try {
