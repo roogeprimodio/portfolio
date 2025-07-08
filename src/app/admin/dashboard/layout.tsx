@@ -1,10 +1,10 @@
+
 'use client'
 
 import Link from "next/link";
-import type { Metadata } from "next";
 import { AdminSidebar } from "@/components/admin-sidebar";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Home, Menu, Package2, Briefcase, Wrench, FileText, UserCircle } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { usePathname } from "next/navigation";
@@ -42,6 +42,9 @@ export default function AdminDashboardLayout({
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="flex flex-col">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Admin Menu</SheetTitle>
+              </SheetHeader>
                <nav className="grid gap-2 text-lg font-medium">
                   <Link
                     href="/"
