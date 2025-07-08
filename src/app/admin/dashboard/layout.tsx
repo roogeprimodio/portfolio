@@ -5,10 +5,21 @@ import Link from "next/link";
 import { AdminSidebar } from "@/components/admin-sidebar";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Home, Menu, Package2, Briefcase, Wrench, FileText, UserCircle } from "lucide-react";
+import { Home, Menu, Package2, Briefcase, Wrench, FileText, UserCircle, LogOut } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { logout } from "@/auth/actions";
+
+const LogoutButton = () => (
+    <form action={logout}>
+        <Button variant="ghost" className="w-full justify-start gap-3 px-3">
+            <LogOut className="h-5 w-5" />
+            Logout
+        </Button>
+    </form>
+);
+
 
 export default function AdminDashboardLayout({
   children,
@@ -67,6 +78,9 @@ export default function AdminDashboardLayout({
                     </Link>
                   ))}
                 </nav>
+                <div className="mt-auto">
+                    <LogoutButton />
+                </div>
             </SheetContent>
           </Sheet>
           <div className="w-full flex-1" />

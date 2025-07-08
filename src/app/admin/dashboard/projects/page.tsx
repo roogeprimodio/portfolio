@@ -1,5 +1,7 @@
+
 "use client"
 
+import { useEffect, useState, useTransition } from "react";
 import {
   Table,
   TableBody,
@@ -8,19 +10,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { portfolioData } from "@/lib/portfolio-data"
 import { Button } from "@/components/ui/button"
-import { MoreHorizontal, PlusCircle } from "lucide-react"
+import { MoreHorizontal, PlusCircle, Loader2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { getProjects } from "@/lib/data-actions";
+
+type ProjectsState = Awaited<ReturnType<typeof getProjects>> | null;
 
 export default function AdminProjectsPage() {
-  const { projects } = portfolioData;
+  const [projects, setProjects] = useState<ProjectsState>(null);
 
-  const handleActionClick = (action: string, projectTitle: string) => {
-    // In a real app, this would trigger a modal or navigate to a new page
-    alert(`${action} clicked for project: ${projectTitle}`);
+  useEffect(() => {
+    getProjects().then(setProjects);
+  }, []);
+
+  if (!projects) {
+    return <div className="flex justify-center items-center h-full"><Loader2 className="h-8 w-8 animate-spin" /></div>;
   }
 
   return (
@@ -75,8 +82,8 @@ export default function AdminProjectsPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={() => handleActionClick('Edit', project.title)}>Edit</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleActionClick('Delete', project.title)} className="text-destructive">Delete</DropdownMenuItem>
+                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>

@@ -1,28 +1,63 @@
 
 "use client"
 
+import { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { portfolioData } from "@/lib/portfolio-data";
-import { MoreHorizontal, PlusCircle, Trash2 } from "lucide-react";
+import { MoreHorizontal, PlusCircle, Trash2, Loader2, Save } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { getPersonalInfo, getSocialLinks, updatePersonalInfo, updateSocialLinks } from "@/lib/data-actions";
+import { useToast } from "@/hooks/use-toast";
+
+type PersonalInfoState = Awaited<ReturnType<typeof getPersonalInfo>> | null;
+type SocialLinksState = Awaited<ReturnType<typeof getSocialLinks>> | null;
 
 export default function AdminPersonalInfoPage() {
-    const { personalInfo, socialLinks } = portfolioData;
+    const [personalInfo, setPersonalInfo] = useState<PersonalInfoState>(null);
+    const [socialLinks, setSocialLinks] = useState<SocialLinksState>(null);
+    const [isPending, startTransition] = useTransition();
+    const { toast } = useToast();
 
-    const handleActionClick = (action: string, item: string) => {
-        alert(`${action} clicked for: ${item}`);
+    useEffect(() => {
+        getPersonalInfo().then(setPersonalInfo);
+        getSocialLinks().then(setSocialLinks);
+    }, []);
+
+    const handlePersonalInfoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (!personalInfo) return;
+        setPersonalInfo({ ...personalInfo, [e.target.id]: e.target.value });
+    };
+
+    const handleSave = () => {
+        startTransition(async () => {
+            if (personalInfo) {
+                const result = await updatePersonalInfo(personalInfo);
+                toast({ title: "Update Status", description: result.message });
+            }
+            if (socialLinks) {
+                // In a real app, you would handle social link updates separately
+                // For now, we just log it.
+                // await updateSocialLinks(socialLinks);
+            }
+        });
+    };
+
+    if (!personalInfo || !socialLinks) {
+        return <div className="flex justify-center items-center h-full"><Loader2 className="h-8 w-8 animate-spin" /></div>;
     }
 
     return (
         <div className="flex flex-col gap-8">
             <div className="flex items-center justify-between">
                 <h1 className="text-lg font-semibold md:text-2xl">Personal Info</h1>
-                <Button onClick={() => alert('Save All Changes clicked!')}>Save All Changes</Button>
+                <Button onClick={handleSave} disabled={isPending}>
+                    {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+                    Save All Changes
+                </Button>
             </div>
             
             <Card>
@@ -33,23 +68,23 @@ export default function AdminPersonalInfoPage() {
                 <CardContent className="grid gap-6 md:grid-cols-2">
                     <div className="grid gap-2">
                         <Label htmlFor="name">Name</Label>
-                        <Input id="name" defaultValue={personalInfo.name} />
+                        <Input id="name" value={personalInfo.name} onChange={handlePersonalInfoChange} />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="jobTitle">Job Title</Label>
-                        <Input id="jobTitle" defaultValue={personalInfo.jobTitle} />
+                        <Input id="jobTitle" value={personalInfo.jobTitle} onChange={handlePersonalInfoChange} />
                     </div>
                     <div className="grid gap-2 md:col-span-2">
                         <Label htmlFor="tagline">Tagline</Label>
-                        <Textarea id="tagline" defaultValue={personalInfo.tagline} />
+                        <Textarea id="tagline" value={personalInfo.tagline} onChange={handlePersonalInfoChange} />
                     </div>
                      <div className="grid gap-2">
                         <Label htmlFor="profileImage">Profile Image URL</Label>
-                        <Input id="profileImage" defaultValue={personalInfo.profileImage} placeholder="e.g., /jagdish.png"/>
+                        <Input id="profileImage" value={personalInfo.profileImage} onChange={handlePersonalInfoChange} placeholder="e.g., /jagdish.png"/>
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="url">Website URL</Label>
-                        <Input id="url" defaultValue={personalInfo.url} placeholder="e.g., https://your-domain.com"/>
+                        <Input id="url" value={personalInfo.url} onChange={handlePersonalInfoChange} placeholder="e.g., https://your-domain.com"/>
                     </div>
                 </CardContent>
             </Card>
@@ -82,8 +117,8 @@ export default function AdminPersonalInfoPage() {
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
-                                            <DropdownMenuItem onClick={() => handleActionClick('Edit', link.name)}>Edit</DropdownMenuItem>
-                                            <DropdownMenuItem onClick={() => handleActionClick('Delete', link.name)} className="text-destructive">Delete</DropdownMenuItem>
+                                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                                            <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
                                         </DropdownMenuContent>
                                         </DropdownMenu>
                                     </TableCell>

@@ -1,6 +1,7 @@
 
 "use client"
 
+import { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,22 +9,43 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { portfolioData } from "@/lib/portfolio-data";
-import { MoreHorizontal, PlusCircle } from "lucide-react";
+import { MoreHorizontal, PlusCircle, Loader2, Save } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { getAboutData, updateAboutData } from "@/lib/data-actions";
+import { useToast } from "@/hooks/use-toast";
+
+type AboutState = Awaited<ReturnType<typeof getAboutData>> | null;
 
 export default function AdminAboutPage() {
-    const { about } = portfolioData;
+    const [about, setAbout] = useState<AboutState>(null);
+    const [isPending, startTransition] = useTransition();
+    const { toast } = useToast();
 
-    const handleActionClick = (action: string, item: string) => {
-        alert(`${action} clicked for: ${item}`);
+    useEffect(() => {
+        getAboutData().then(setAbout);
+    }, []);
+
+    const handleSave = () => {
+        startTransition(async () => {
+            if (about) {
+                const result = await updateAboutData(about);
+                toast({ title: "Update Status", description: result.message });
+            }
+        });
+    };
+
+    if (!about) {
+        return <div className="flex justify-center items-center h-full"><Loader2 className="h-8 w-8 animate-spin" /></div>;
     }
 
     return (
         <div className="flex flex-col gap-8">
             <div className="flex items-center justify-between">
                 <h1 className="text-lg font-semibold md:text-2xl">About Page Content</h1>
-                <Button onClick={() => alert('Save All Changes clicked!')}>Save All Changes</Button>
+                <Button onClick={handleSave} disabled={isPending}>
+                    {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+                    Save All Changes
+                </Button>
             </div>
 
             <Tabs defaultValue="summary" className="w-full">
@@ -93,8 +115,8 @@ export default function AdminAboutPage() {
                                                     <Button aria-haspopup="true" size="icon" variant="ghost"><MoreHorizontal className="h-4 w-4" /></Button>
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent align="end">
-                                                    <DropdownMenuItem onClick={() => handleActionClick('Edit', item.role)}>Edit</DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => handleActionClick('Delete', item.role)} className="text-destructive">Delete</DropdownMenuItem>
+                                                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                    <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                                 </DropdownMenu>
                                             </TableCell>
@@ -136,8 +158,8 @@ export default function AdminAboutPage() {
                                                     <Button aria-haspopup="true" size="icon" variant="ghost"><MoreHorizontal className="h-4 w-4" /></Button>
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent align="end">
-                                                    <DropdownMenuItem onClick={() => handleActionClick('Edit', item.degree)}>Edit</DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => handleActionClick('Delete', item.degree)} className="text-destructive">Delete</DropdownMenuItem>
+                                                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                    <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                                 </DropdownMenu>
                                             </TableCell>

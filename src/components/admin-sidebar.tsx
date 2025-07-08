@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -7,11 +8,22 @@ import {
   Briefcase,
   Wrench,
   FileText,
-  UserCircle
+  UserCircle,
+  LogOut
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils"
+import { logout } from "@/auth/actions"
+
+const LogoutButton = () => (
+    <form action={logout} className="w-full">
+        <Button variant="ghost" className="w-full justify-start text-muted-foreground hover:text-primary">
+            <LogOut className="h-4 w-4 mr-3" />
+            Logout
+        </Button>
+    </form>
+);
 
 export function AdminSidebar() {
   const pathname = usePathname();
@@ -33,7 +45,7 @@ export function AdminSidebar() {
             <span className="">Portfolio Admin</span>
           </Link>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 overflow-auto py-2">
           <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
             {navLinks.map((link) => (
               <Link
@@ -49,6 +61,9 @@ export function AdminSidebar() {
               </Link>
             ))}
           </nav>
+        </div>
+        <div className="mt-auto p-4 border-t">
+            <LogoutButton />
         </div>
       </div>
     </div>
