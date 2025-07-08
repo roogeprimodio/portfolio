@@ -1,6 +1,7 @@
 "use client";
 
-import { UserCircle, Archive, Dna, Send, FileText, Menu } from "lucide-react";
+import { UserCircle, Archive, Dna, Send, FileText, Menu, Shield } from "lucide-react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -131,6 +132,19 @@ export function SideNav() {
           </li>
           <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
           {navContent}
+          <li>
+            <Link
+              href="/admin/login"
+              className="group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-lg transition-colors duration-200 hover:bg-accent/50"
+              aria-label="Admin Panel"
+              title="Admin Panel"
+            >
+              <Shield className="relative z-20 h-5 w-5 text-accent group-hover:text-primary" />
+              <div className="absolute left-full ml-4 px-3 py-1.5 rounded-md bg-card border border-accent/20 text-accent font-code text-sm whitespace-nowrap opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all pointer-events-none z-30">
+                Admin Panel
+              </div>
+            </Link>
+          </li>
           <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
           <li><ThemeToggle /></li>
         </ul>
@@ -184,6 +198,16 @@ export function SideNav() {
                     </a>
                     </li>
                 ))}
+                <li>
+                  <Link
+                    href="/admin/login"
+                    onClick={() => setIsPopoverOpen(false)}
+                    className="group relative flex cursor-pointer items-center justify-center h-10 w-10 rounded-lg transition-colors hover:bg-accent"
+                    aria-label="Admin Panel"
+                  >
+                    <Shield className="h-5 w-5 text-accent transition-colors duration-300 group-hover:text-accent-foreground" />
+                  </Link>
+                </li>
                 <li className="w-full px-2"><div className="h-px w-full bg-accent/20"></div></li>
                 <li><ThemeToggle /></li>
             </ul>
