@@ -3,11 +3,12 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { app } from '@/lib/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 import { createSession, deleteSession } from '@/auth/session';
 
-export async function loginWithEmail(formData: FormData) {
+// The function signature MUST accept prevState as the first argument when used with useActionState
+export async function loginWithEmail(prevState: unknown, formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
@@ -16,14 +17,10 @@ export async function loginWithEmail(formData: FormData) {
   }
 
   try {
-    const auth = getAuth(app);
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     
     await createSession(user.uid);
-    
-    revalidatePath('/admin/dashboard');
-    redirect('/admin/dashboard');
 
   } catch (error: any) {
     console.error('Firebase Authentication Error:', error);
@@ -32,7 +29,29 @@ export async function loginWithEmail(formData: FormData) {
     }
     return { success: false, message: 'An unexpected error occurred. Please try again.' };
   }
+  
+  // This part is only reached on successful login
+  revalidatePath('/admin/dashboard');
+  redirect('/admin/dashboard');
 }
+
+export async function loginWithGoogle(uid: string) {
+    if (!uid) {
+        // This won't be a user-facing error directly, but good for debugging.
+        // The client-side will show the main error toast.
+        return { success: false, message: 'Google authentication failed: No UID provided.' };
+    }
+    try {
+        await createSession(uid);
+    } catch (error) {
+        console.error('Session Creation Error:', error);
+        return { success: false, message: 'An unexpected error occurred during session creation.' };
+    }
+
+    revalidatePath('/admin/dashboard');
+    redirect('/admin/dashboard');
+}
+
 
 export async function logout() {
     await deleteSession();
