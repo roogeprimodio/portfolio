@@ -36,7 +36,8 @@ export async function loginWithEmail(prevState: unknown, formData: FormData) {
     if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         return { success: false, message: 'Invalid credentials. Please try again.' };
     }
-    return { success: false, message: 'An unexpected error occurred during login. Please try again.' };
+    const errorMessage = error.message || 'An unexpected error occurred during login. Please try again.';
+    return { success: false, message: `Login Failed: ${errorMessage}` };
   }
   
   // This part is only reached on successful login

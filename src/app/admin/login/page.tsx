@@ -46,7 +46,6 @@ export default function LoginPage() {
         const user = result.user;
         const actionResult = await loginWithGoogle(user.uid);
         
-        // This part will only be reached if the server action returns an error
         if (actionResult?.success === false) {
            toast({
             title: "Login Failed",
@@ -54,22 +53,23 @@ export default function LoginPage() {
             variant: "destructive",
           });
         }
-        // On success, loginWithGoogle redirects, so no further client-side action is needed.
       } catch (error: any) {
+        if (error.code === 'auth/popup-closed-by-user') return;
+        
+        console.error("Google Sign-In Error:", error);
+        
+        let errorMessage = "An unexpected error occurred. Please try again.";
         if (error.code === 'auth/api-key-not-valid') {
-            toast({
-              title: "Configuration Error",
-              description: "The Firebase API Key is not valid. Please check your .env configuration.",
-              variant: "destructive",
-            });
-        } else if (error.code !== 'auth/popup-closed-by-user') {
-            console.error("Google Sign-In Error:", error);
-            toast({
-              title: "Login Failed",
-              description: "Could not sign in with Google. Please try again.",
-              variant: "destructive",
-            });
+          errorMessage = "Configuration Error: The Firebase API Key is not valid. Please check your .env configuration.";
+        } else if (error.message) {
+          errorMessage = `Error: ${error.message}`;
         }
+
+        toast({
+          title: "Login Failed",
+          description: errorMessage,
+          variant: "destructive",
+        });
       }
     });
   };
