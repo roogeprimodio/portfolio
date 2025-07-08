@@ -1,3 +1,4 @@
+
 "use client";
 
 import { UserCircle, Archive, Dna, Send, FileText, Menu, Shield } from "lucide-react";
@@ -120,7 +121,7 @@ export function SideNav() {
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
-        className="hidden md:flex fixed top-1/2 -translate-y-1/2 left-2 md:left-4 z-50"
+        className="hidden md:flex fixed top-[48%] -translate-y-1/2 left-2 md:left-4 z-50"
       >
         <ul className="relative flex flex-col items-center gap-2 p-2 rounded-xl border border-accent/20 bg-card/50 backdrop-blur-md">
           <li>
