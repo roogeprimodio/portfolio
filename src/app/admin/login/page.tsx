@@ -58,9 +58,9 @@ export default function LoginPage() {
         
         console.error("Google Sign-In Error:", error);
         
-        let errorMessage = "An unexpected error occurred. Please try again.";
+        let errorMessage = `An unexpected error occurred. Please try again. Code: ${error.code || 'N/A'}`;
         if (error.code === 'auth/api-key-not-valid') {
-          errorMessage = "Configuration Error: The Firebase API Key is not valid. Please check your .env configuration.";
+          errorMessage = "Firebase Error: The API key is not valid. Please ensure it's correct and has no restrictions in the Google Cloud Console.";
         } else if (error.message) {
           errorMessage = `Error: ${error.message}`;
         }
