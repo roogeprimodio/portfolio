@@ -1,42 +1,27 @@
-
 'use client';
 
-import { useFormState } from 'react-dom';
+import { useActionState, useEffect } from 'react';
+import { useFormStatus } from 'react-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginWithEmail } from '@/auth/actions';
 import { Loader2 } from 'lucide-react';
-import { useEffect, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 function SubmitButton() {
-  // Using a ref to track pending state as useFormStatus is not available in this context
-  const ref = useRef<HTMLButtonElement>(null);
-  
-  // A bit of a hack to manage pending state without useFormStatus
-  const form = ref.current?.closest('form');
-  
-  // This is not a perfect solution for pending state, but it's a simple one
-  // For a real app, you might want a more robust state management
-  let pending = false;
-  if (form) {
-    form.addEventListener('submit', () => {
-        pending = true;
-        if(ref.current) ref.current.disabled = true;
-    });
-  }
+  const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" className="w-full" disabled={pending} ref={ref}>
+    <Button type="submit" className="w-full" disabled={pending}>
       {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Login"}
     </Button>
   );
 }
 
 export default function LoginPage() {
-  const [state, formAction] = useFormState(loginWithEmail, undefined);
+  const [state, formAction] = useActionState(loginWithEmail, undefined);
   const { toast } = useToast();
 
   useEffect(() => {
