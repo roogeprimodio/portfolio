@@ -60,7 +60,7 @@ export default function LoginPage() {
         
         let errorMessage = `An unexpected error occurred. Please try again. Code: ${error.code || 'N/A'}`;
         if (error.code === 'auth/api-key-not-valid') {
-          errorMessage = "Firebase Error: The API key is not valid. Please ensure it's correct and has no restrictions in the Google Cloud Console.";
+          errorMessage = "Firebase Error: API Key Not Valid. Please verify the key in your .env file and ensure the 'Identity Toolkit API' is enabled in your Google Cloud project.";
         } else if (error.message) {
           errorMessage = `Error: ${error.message}`;
         }

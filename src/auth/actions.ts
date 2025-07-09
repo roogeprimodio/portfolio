@@ -31,7 +31,7 @@ export async function loginWithEmail(prevState: unknown, formData: FormData) {
   } catch (error: any) {
     console.error('Firebase Authentication Error:', error);
     if (error.code === 'auth/api-key-not-valid') {
-        return { success: false, message: 'Configuration Error: The Firebase API Key is not valid. Please check your .env file and ensure the key has no restrictions in Google Cloud Console.' };
+        return { success: false, message: "Firebase Error: API Key Not Valid. Please verify the key in your .env file and ensure the 'Identity Toolkit API' is enabled in your Google Cloud project." };
     }
     if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         return { success: false, message: 'Invalid credentials. Please try again.' };
