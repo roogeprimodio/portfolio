@@ -11,17 +11,24 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-// --- DIAGNOSTIC LOG ---
-// This will print the API key to your server terminal when the app starts.
-// Check if this key matches the one in your Firebase console.
-if (typeof window === 'undefined') { // Only log on the server
-    console.log("--- Firebase Auth Initializing ---");
-    console.log("Using API Key:", firebaseConfig.apiKey ? `"${firebaseConfig.apiKey.substring(0, 4)}...${firebaseConfig.apiKey.slice(-4)}"` : "Not found");
-    if (!firebaseConfig.apiKey || firebaseConfig.apiKey === "YOUR_API_KEY_HERE") {
-        console.error("ERROR: NEXT_PUBLIC_FIREBASE_API_KEY is missing or is a default value in your .env file!");
+// --- CLIENT & SERVER DIAGNOSTICS ---
+// This will help us confirm the environment variables are loaded correctly.
+
+// 1. Client-side check: This will show an alert in the browser if the key is missing.
+if (typeof window !== 'undefined' && !firebaseConfig.apiKey) {
+  alert('CRITICAL ERROR: The Firebase API Key is not available in the browser. Please check your .env file, ensure the variable is prefixed with NEXT_PUBLIC_, and restart the development server.');
+}
+
+// 2. Server-side check: This logs the key status to the terminal when the server starts.
+if (typeof window === 'undefined') {
+    console.log("--- Firebase Server-Side Initialization ---");
+    if (!firebaseConfig.apiKey) {
+        console.error("ERROR: Firebase API Key is NOT found in server environment variables.");
+    } else {
+        console.log("SUCCESS: Firebase API Key was found in server environment variables.");
     }
 }
-// --- END DIAGNOSTIC LOG ---
+// --- END DIAGNOSTICS ---
 
 
 // Initialize Firebase
