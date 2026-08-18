@@ -17,9 +17,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['Raleway', 'sans-serif'],
-        headline: ['Cinzel', 'serif'],
-        code: ['"Source Code Pro"', 'monospace'],
+        body: ['var(--font-body-active)', 'Raleway', 'sans-serif'],
+        headline: ['var(--font-headline-active)', 'Cinzel', 'serif'],
+        code: ['var(--font-code)', '"Source Code Pro"', 'monospace'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -62,6 +62,22 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
+        traverse: {
+          '0%':   { top: '-6%', opacity: '0' },
+          '12%':  { opacity: '1' },
+          '88%':  { opacity: '1' },
+          '100%': { top: '106%', opacity: '0' },
+        },
+        'traverse-x': {
+          '0%':   { left: '-6%', opacity: '0' },
+          '12%':  { opacity: '1' },
+          '88%':  { opacity: '1' },
+          '100%': { left: '106%', opacity: '0' },
+        },
+        scan: {
+          '0%': { backgroundPosition: '0 0' },
+          '100%': { backgroundPosition: '0 4px' },
+        },
         'accordion-down': {
           from: { height: '0' },
           to: { height: 'var(--radix-accordion-content-height)' },
@@ -86,6 +102,9 @@ export default {
         },
       },
       animation: {
+        traverse: 'traverse 4.5s ease-in-out infinite',
+        'traverse-x': 'traverse-x 5.5s ease-in-out infinite',
+        scan: 'scan 0.5s linear infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'glitch': 'glitch 0.2s linear 3',

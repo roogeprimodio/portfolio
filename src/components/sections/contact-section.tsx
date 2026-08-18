@@ -20,6 +20,8 @@ const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
   email: z.string().email("Please enter a valid email address."),
   message: z.string().min(10, "Message must be at least 10 characters long."),
+  // Honeypot. Hidden from humans; the server treats any value as spam.
+  website: z.string().max(0).optional(),
 });
 
 export function ContactSection() {
@@ -29,7 +31,7 @@ export function ContactSection() {
   
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: { name: "", email: "", message: "" },
+    defaultValues: { name: "", email: "", message: "", website: "" },
   });
 
   const onSubmit = (values: z.infer<typeof contactFormSchema>) => {
@@ -95,6 +97,19 @@ export function ContactSection() {
                     <FormMessage />
                   </FormItem>
                 )} />
+                {/* Honeypot: off-screen rather than display:none so naive
+                    bots still see it as a fillable field. */}
+                <div className="absolute -left-[9999px]" aria-hidden="true">
+                  <label htmlFor="website">Do not fill this in</label>
+                  <input
+                    id="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    {...form.register("website")}
+                  />
+                </div>
+
                 <Button type="submit" disabled={isPending} className={`w-full group bg-accent/80 text-accent-foreground hover:bg-accent hover:shadow-lg hover:shadow-accent/30 transition-all duration-300 font-headline tracking-widest text-lg ${isGlitching ? 'animate-glitch' : ''}`}>
                   {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'TRANSMIT'}
                 </Button>

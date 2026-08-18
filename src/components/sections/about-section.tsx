@@ -1,67 +1,28 @@
-
 "use client";
 
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Briefcase, GraduationCap, BrainCircuit, Award, Languages, Code, MapPin, Mail, ArrowUpRight } from "lucide-react";
 
+import { profile } from "@/data/profile";
+import { certifications, education, experience } from "@/data/experience";
+
+/**
+ * Content lives in src/data — this section only decides how it looks.
+ * Shaped into one object so the markup below reads the same as before.
+ */
 const aboutData = {
-  summary: "A highly motivated and results-oriented Digital Craftsman with a passion for building elegant and efficient solutions. I thrive on solving complex problems and turning innovative ideas into reality, blending artistic design with robust code.",
+  summary: profile.summary,
   contactInfo: {
-    address: "India, Gujarat, Porbandar 360576",
-    email: "jagdishodedara47@gmail.com",
+    address: profile.location,
+    email: profile.email,
   },
-  experience: [
-    {
-      company: "Preppers Infotect Pvt Ltd",
-      role: "Graphic Designer and Video Editor",
-      duration: "2024 – 2025",
-      description: "Created compelling graphic designs and edited high-impact videos for digital campaigns, branding materials, and corporate communication. Collaborated closely with marketing and development teams to maintain visual consistency and deliver engaging multimedia content."
-    }
-  ],
-  education: [
-    {
-      institution: "K.J. Institute of Engineering & Technology, Savli",
-      degree: "Bachelor’s Degree (4-Year Course)",
-      duration: "2021 – 2025",
-      description: "Pursuing undergraduate engineering studies with emphasis on practical learning, design, and development."
-    },
-    {
-      institution: "Shree Swaminarayan Gurukul Vidhyalaya, Junagadh",
-      degree: "Secondary & Higher Secondary Education",
-      duration: "8th to 12th Grade",
-      description: "Completed foundational and senior secondary schooling with a focus on discipline and values-driven learning."
-    }
-  ],
-  certifications: [
-    {
-      name: "Problem Solving (Intermediate)",
-      issuer: "HackerRank",
-      year: "2025",
-      url: "https://www.hackerrank.com/certificates/aba7c97fd4ea",
-    },
-    {
-      name: "Python (Basic)",
-      issuer: "HackerRank",
-      year: "2025",
-      url: "https://www.hackerrank.com/certificates/6544ad97d607",
-    },
-  ],
-  programmingLanguages: [
-    { name: "JavaScript" },
-    { name: "Python" },
-    { name: "Java" },
-    { name: "React.js" },
-    { name: "Next.js" },
-    { name: "Flutter" },
-    { name: "Node.js" },
-  ],
-  spokenLanguages: [
-    { name: "English", proficiency: "Proficient" },
-    { name: "Hindi", proficiency: "Native" },
-    { name: "Gujarati", proficiency: "Native" },
-  ],
-}
+  experience,
+  education,
+  certifications,
+  programmingLanguages: profile.programmingLanguages.map((name) => ({ name })),
+  spokenLanguages: profile.spokenLanguages,
+};
 
 const cardVariants = {
   hidden: { opacity: 0, x: -50 },
@@ -158,7 +119,7 @@ export function AboutSection() {
                 <Card className="bg-card/50 backdrop-blur-sm border border-accent/20">
                   <CardHeader>
                     <CardTitle className="text-xl font-code text-primary">{item.role}</CardTitle>
-                    <CardDescription className="font-code text-accent">{item.company} // {item.duration}</CardDescription>
+                    <CardDescription className="font-code text-accent">{item.company}{" // "}{item.duration}</CardDescription>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <p className="text-sm text-muted-foreground">{item.description}</p>
@@ -190,7 +151,7 @@ export function AboutSection() {
                 <Card className="bg-card/50 backdrop-blur-sm border border-accent/20">
                   <CardHeader>
                     <CardTitle className="text-xl font-code text-primary">{item.degree}</CardTitle>
-                    <CardDescription className="font-code text-accent">{item.institution} // {item.duration}</CardDescription>
+                    <CardDescription className="font-code text-accent">{item.institution}{" // "}{item.duration}</CardDescription>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <p className="text-sm text-muted-foreground">{item.description}</p>
@@ -231,7 +192,7 @@ export function AboutSection() {
                         <span>{item.name}</span>
                         <ArrowUpRight className="h-5 w-5 text-accent/70 group-hover:text-accent transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                       </CardTitle>
-                      <CardDescription className="font-code text-accent">{item.issuer} // Acquired: {item.year}</CardDescription>
+                      <CardDescription className="font-code text-accent">{item.issuer}{" // Acquired: "}{item.year}</CardDescription>
                     </CardHeader>
                   </Card>
                 </motion.div>

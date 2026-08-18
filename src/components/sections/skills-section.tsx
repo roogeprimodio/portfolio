@@ -1,46 +1,27 @@
-
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code, Brain, Handshake, Languages, BarChart2, HardHat } from 'lucide-react';
+import { Code, Brain, Handshake, Languages, BarChart2, HardHat, type LucideIcon } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const skillData = [
-  // Strand 1: Technical & Analytical
-  {
-    title: "Technical Skills",
-    icon: Code,
-    skills: ["JavaScript", "Java", "Python", "React.js", "Next.js", "Flutter", "Node.js", "Express.js", "HTML5", "CSS3", "Tailwind CSS", "Firebase", "REST APIs", "SSR", "JWT Auth"],
-  },
-  {
-    title: "Analytical & Data Skills",
-    icon: BarChart2,
-    skills: ["MySQL", "MongoDB", "SQLite", "Data Structures & Algorithms", "JSON", "API Handling"],
-  },
-  {
-    title: "Tools & Platforms",
-    icon: HardHat,
-    skills: ["Git", "GitHub", "AWS", "Vercel", "Netlify", "Figma", "Adobe Illustrator", "Premiere Pro", "Postman", "VS Code"],
-  },
-  // Strand 2: Professional & Soft
-  {
-    title: "Professional Skills",
-    icon: Handshake,
-    skills: ["Agile Methodologies", "Scrum", "Team Collaboration", "Project Planning", "Technical Documentation"],
-  },
-  {
-    title: "Soft Skills",
-    icon: Brain,
-    skills: ["Time Management", "Creative Thinking", "Problem-Solving", "Adaptability"],
-  },
-  {
-    title: "Language Skills",
-    icon: Languages,
-    skills: ["English: Proficient", "Hindi: Native", "Gujarati: Native"],
-  }
-];
+import { skillGroups } from "@/data/skills";
+
+/** Data files carry icon keys; components can't cross the server boundary. */
+const ICONS: Record<string, LucideIcon> = {
+  code: Code,
+  chart: BarChart2,
+  tools: HardHat,
+  handshake: Handshake,
+  brain: Brain,
+  languages: Languages,
+};
+
+const skillData = skillGroups.map((group) => ({
+  ...group,
+  icon: ICONS[group.icon] ?? Code,
+}));
 
 const wovenSkills: (typeof skillData[0] & { side: 'left' | 'right' })[] = [];
 const midPoint = Math.ceil(skillData.length / 2);
@@ -158,7 +139,7 @@ export function SkillsSection() {
 
 
   return (
-    <section id="skills" className="flex flex-col items-center justify-center p-4 py-24 min-h-screen overflow-hidden">
+    <section id="skills" className="flex flex-col items-center justify-center overflow-hidden p-4 py-20 md:py-24">
       <div className="text-center space-y-2 mb-12 z-10 relative">
         <h2 className="text-4xl md:text-5xl font-bold tracking-widest font-headline text-primary uppercase animate-glitch-subtle [text-shadow:0_0_8px_hsl(var(--primary)/0.5)]">
           Skills DNA
@@ -170,7 +151,7 @@ export function SkillsSection() {
         <Accordion type="multiple" className="relative">
           <svg
             aria-hidden="true"
-            className="absolute left-1/2 top-0 h-full w-24 -translate-x-1/2"
+            className="absolute left-1/2 top-0 hidden h-full w-24 -translate-x-1/2 md:block"
             fill="none"
           >
             {/* Rungs */}
@@ -200,7 +181,7 @@ export function SkillsSection() {
             />
           </svg>
 
-          <div ref={containerRef} className="space-y-12">
+          <div ref={containerRef} className="space-y-6 md:space-y-12">
             {wovenSkills.map((category, index) => {
               const isLeft = category.side === 'left';
               return (
@@ -209,22 +190,28 @@ export function SkillsSection() {
                   className="relative flex items-center"
                   style={{ willChange: 'transform' }}
                 >
-                  <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-accent border-4 border-background shadow-[0_0_10px_hsl(var(--accent)/0.45)] left-1/2 -translate-x-1/2 z-10"></div>
-                  <div className={`w-1/2 px-4 ${isLeft ? 'pr-10 text-right' : 'pl-10 text-left ml-auto'}`}>
+                  <div className="absolute left-1/2 top-1/2 z-10 hidden h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-background bg-accent shadow-[0_0_10px_hsl(var(--accent)/0.45)] md:block"></div>
+                  <div className={`w-full md:w-1/2 md:px-4 ${isLeft ? 'md:pr-10 md:text-right' : 'md:ml-auto md:pl-10 md:text-left'}`}>
                     <AccordionItem value={`item-${index}`} className="border-b-0">
                       <Card className="bg-card/60 backdrop-blur-md border border-accent/30 shadow-2xl shadow-black/50 inline-block w-full">
                         <AccordionTrigger onClick={handleAccordionToggle} className="p-0 hover:no-underline [&>svg]:hidden w-full">
                           <CardHeader className="w-full">
-                            <CardTitle className={`flex items-center gap-3 text-lg font-code text-primary ${isLeft ? 'justify-end' : 'justify-start'} [text-shadow:0_0_6px_hsl(var(--primary)/0.6)]`}>
-                              {isLeft && <span>{category.title}</span>}
-                              <category.icon className="h-6 w-6 text-accent drop-shadow-[0_0_4px_hsl(var(--accent)/0.7)]" />
-                              {!isLeft && <span>{category.title}</span>}
+                            <CardTitle className={`flex items-center gap-3 text-base font-code text-primary sm:text-lg ${isLeft ? 'justify-start md:justify-end' : 'justify-start'} [text-shadow:0_0_6px_hsl(var(--primary)/0.6)]`}>
+                              {isLeft && (
+                                <span className="hidden md:inline">
+                                  {category.title}
+                                </span>
+                              )}
+                              <category.icon className="h-5 w-5 shrink-0 text-accent drop-shadow-[0_0_4px_hsl(var(--accent)/0.7)] sm:h-6 sm:w-6" />
+                              <span className={isLeft ? "md:hidden" : ""}>
+                                {category.title}
+                              </span>
                             </CardTitle>
                           </CardHeader>
                         </AccordionTrigger>
                         <AccordionContent>
                           <CardContent className="pt-0">
-                            <div className={`flex flex-wrap gap-2 pt-2 ${isLeft ? 'justify-end' : 'justify-start'}`}>
+                            <div className={`flex flex-wrap gap-2 pt-2 ${isLeft ? 'justify-start md:justify-end' : 'justify-start'}`}>
                               {category.skills.map((skill, skillIndex) => (
                                 <Badge key={skillIndex} variant="secondary" className="h-auto whitespace-normal text-center font-code text-sm bg-accent/10 text-accent border-accent/20 cursor-default">
                                   {skill}

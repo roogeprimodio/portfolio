@@ -3,25 +3,73 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+   * Light is the "archive paper" theme: warm off-white ground, deep ink text,
+   * indigo accent. It is a designed counterpart, not an inversion — inverting
+   * the dark tokens gives washed-out grey and kills every glow.
+   */
   :root {
+    --background: 40 30% 96%;
+    --foreground: 235 35% 14%;
+
+    --card: 40 40% 99%;
+    --card-foreground: 235 35% 14%;
+
+    --popover: 40 40% 99%;
+    --popover-foreground: 235 35% 14%;
+
+    --primary: 235 45% 18%;
+    --primary-foreground: 40 30% 97%;
+
+    --secondary: 40 20% 90%;
+    --secondary-foreground: 235 35% 18%;
+
+    --muted: 40 20% 91%;
+    --muted-foreground: 235 12% 40%;
+
+    --accent: 245 55% 42%;
+    --accent-foreground: 40 30% 97%;
+
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 235 15% 82%;
+    --input: 40 20% 92%;
+    --ring: 245 55% 42%;
+
+    --radius: 0.5rem;
+
+    /* Type changes with the theme: Playfair + PT Sans on paper (the original
+       brief in docs/blueprint.md), Cinzel + Raleway in the dark. */
+    --font-headline-active: var(--font-headline-light);
+    --font-body-active: var(--font-body-light);
+
+    /* Surface effects that only make sense on a dark ground. */
+    --glow-strength: 0;
+    --grid-dot: 235 35% 14%;
+    --grid-dot-alpha: 0.06;
+    --scrim: 235 35% 14%;
+  }
+
+  .dark {
     --background: 240 50% 4%;
     --foreground: 210 60% 96%;
-    
+
     --card: 240 40% 8%;
     --card-foreground: 210 60% 96%;
-    
+
     --popover: 240 50% 4%;
     --popover-foreground: 210 60% 96%;
-    
+
     --primary: 210 60% 96%;
     --primary-foreground: 240 50% 4%;
-    
+
     --secondary: 240 30% 11%;
     --secondary-foreground: 210 60% 96%;
-    
+
     --muted: 240 30% 11%;
     --muted-foreground: 240 5% 55%;
-    
+
     --accent: 210 60% 96%;
     --accent-foreground: 240 50% 4%;
 
@@ -32,9 +80,16 @@
     --input: 240 30% 11%;
     --ring: 210 60% 96%;
 
-    --radius: 0.5rem;
+    --font-headline-active: var(--font-headline-dark);
+    --font-body-active: var(--font-body-dark);
+
+    --glow-strength: 1;
+    --grid-dot: 210 60% 96%;
+    --grid-dot-alpha: 0.05;
+    --scrim: 0 0% 0%;
   }
 }
+
 
 @layer base {
   * {
@@ -43,9 +98,77 @@
   body {
     @apply bg-background text-foreground break-words;
   }
-  section {
-    min-height: 100vh;
+  /* No global `section { min-height: 100vh }`.
+     It was written for the original single-page layout, but it applies to
+     every <section> on every route — so each block on a project page was
+     stretched to a full viewport regardless of content. Sections that should
+     fill the screen (the hero) say so with `min-h-screen` themselves. */
+}
+
+/*
+ * Ink-splash theme transition.
+ *
+ * Uses the View Transitions API: the outgoing theme is held still while the
+ * incoming one is revealed through an expanding clip-path anchored at the
+ * toggle button. The blur filter softens the edge so it reads as ink bleeding
+ * through paper rather than a hard geometric wipe.
+ *
+ * Browsers without View Transitions simply swap instantly — the toggle still
+ * works, it just does not animate.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Outgoing stays put underneath; incoming is revealed over the top. */
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  animation: ink-bleed 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes ink-bleed {
+  from {
+    clip-path: circle(0% at var(--ink-x, 50%) var(--ink-y, 50%));
+    filter: blur(14px);
   }
+  60% {
+    filter: blur(6px);
+  }
+  to {
+    clip-path: circle(150% at var(--ink-x, 50%) var(--ink-y, 50%));
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) {
+    animation-duration: 1ms;
+  }
+}
+
+/* Lenis base styles. Without these the browser's own smooth-scroll competes
+   with Lenis and anchor jumps stutter. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 @layer utilities {

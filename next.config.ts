@@ -1,29 +1,12 @@
-import type {NextConfig} from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'api.dicebear.com',
-        port: '',
-        pathname: '/**',
-      },
-    ],
-  },
+  // Build errors are no longer suppressed. `npm run typecheck` and `npm run lint`
+  // must pass before a deploy.
+  //
+  // No `images.remotePatterns`: every image is served from /public. Card
+  // placeholders are rendered locally instead of fetched from an avatar
+  // service, so there is no third-party image host to allow.
 };
 
 export default nextConfig;

@@ -22,5 +22,7 @@ export function useIsMobile() {
     };
   }, []);
 
-  return isMobile;
+  // `undefined` only exists for the first render pass, before the effect runs.
+  // Callers want a boolean, and "not mobile" is the safe pre-measurement answer.
+  return !!isMobile;
 }
