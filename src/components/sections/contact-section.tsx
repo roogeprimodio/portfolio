@@ -12,7 +12,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Loader2 } from "lucide-react";
+import { Loader2, Mail } from "lucide-react";
+import { profile } from "@/data/profile";
+import { socials } from "@/data/socials";
+import { iconFor } from "@/components/layout/social-icons";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
@@ -118,6 +121,44 @@ export function ContactSection() {
           </CardContent>
         </Card>
       </motion.div>
+
+      {/* Direct channels, for people who would rather skip the form. */}
+      <motion.ul
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        aria-label="Direct channels"
+        className="mt-8 flex w-full max-w-lg flex-wrap items-center justify-center gap-2"
+      >
+        <li className="w-full text-center font-code text-[10px] uppercase tracking-[0.25em] text-primary/50 dark:text-accent/50">
+          {"// or open a direct channel"}
+        </li>
+        <li>
+          <a
+            href={`mailto:${profile.email}`}
+            className="group flex items-center gap-2 rounded-sm border border-primary/20 bg-card/60 px-3 py-2 font-code text-[11px] uppercase tracking-widest text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-[3px_3px_0_0_hsl(var(--accent)/0.9)] dark:border-accent/15 dark:bg-card/40 dark:hover:shadow-[0_0_16px_-4px_hsl(var(--accent)/0.5)]"
+          >
+            <Mail className="h-4 w-4" aria-hidden /> Email
+          </a>
+        </li>
+        {socials.map((social) => {
+          const Icon = iconFor(social.icon);
+          const external = social.href.startsWith("http");
+          return (
+            <li key={social.name}>
+              <a
+                href={social.href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                className="group flex items-center gap-2 rounded-sm border border-primary/20 bg-card/60 px-3 py-2 font-code text-[11px] uppercase tracking-widest text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-[3px_3px_0_0_hsl(var(--accent)/0.9)] dark:border-accent/15 dark:bg-card/40 dark:hover:shadow-[0_0_16px_-4px_hsl(var(--accent)/0.5)]"
+              >
+                <Icon className="h-4 w-4" aria-hidden /> {social.name}
+              </a>
+            </li>
+          );
+        })}
+      </motion.ul>
     </section>
   );
 }
