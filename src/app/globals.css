@@ -180,3 +180,12 @@ html.lenis body {
     scrollbar-width: none;
   }
 }
+
+/* Skills helix: a rung lights up when its skill group is opened. */
+@keyframes rung-flash {
+  0% { stroke-opacity: 1; stroke-width: 3; }
+  100% { stroke-opacity: 0.3; stroke-width: 1; }
+}
+.rung-flash {
+  animation: rung-flash 0.7s ease-out;
+}
