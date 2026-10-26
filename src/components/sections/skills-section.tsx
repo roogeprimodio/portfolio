@@ -87,13 +87,14 @@ export function SkillsSection() {
     for (let y = RUNG_INTERVAL; y <= containerHeight; y += RUNG_INTERVAL) next.push({ y });
     setRungs(next);
 
-    // Cards sit on the strand at phase 0 and stay put; only the helix twists.
+    // Cards keep a gentle static offset along the phase-0 curve; the node,
+    // not the card, is what tracks the live strand.
     const containerTop = containerRef.current.getBoundingClientRect().top;
     const cards = Array.from(containerRef.current.children) as HTMLElement[];
     cards.forEach((el) => {
       const rect = el.getBoundingClientRect();
       const y = rect.top + rect.height / 2 - containerTop;
-      el.style.transform = `translateX(${(Math.sin(y * FREQUENCY) * AMPLITUDE).toFixed(2)}px)`;
+      el.style.transform = `translateX(${(Math.sin(y * FREQUENCY) * AMPLITUDE * 0.5).toFixed(2)}px)`;
     });
   }, []);
 
@@ -128,6 +129,26 @@ export function SkillsSection() {
         dot.setAttribute("r", (1.6 + t * 1.6).toFixed(2));
         dot.setAttribute("opacity", (0.25 + t * 0.75).toFixed(3));
       });
+    }
+
+    // Nodes ride the strand on their card's side, so they never float off
+    // the helix as it twists. Depth dims and shrinks them when that strand
+    // passes behind.
+    const container = containerRef.current;
+    if (container) {
+      const top = container.getBoundingClientRect().top;
+      for (const child of Array.from(container.children) as HTMLElement[]) {
+        const node = child.querySelector<HTMLElement>("[data-node]");
+        if (!node) continue;
+        const side: 1 | -1 = child.dataset.side === "left" ? -1 : 1;
+        const rect = child.getBoundingClientRect();
+        const y = rect.top + rect.height / 2 - top;
+        const d = depth(y, phase, side);
+        const t = (d + 1) / 2;
+        const x = strandX(y, phase, side) - CENTER_X;
+        node.style.transform = `translate(calc(-50% + ${x.toFixed(2)}px), -50%) scale(${(0.8 + t * 0.35).toFixed(3)})`;
+        node.style.opacity = (0.55 + t * 0.45).toFixed(3);
+      }
     }
 
     const rungLines = svg.querySelectorAll<SVGLineElement>("[data-rung]");
@@ -346,11 +367,16 @@ export function SkillsSection() {
               return (
                 <div
                   key={category.title}
+                  data-side={category.side}
                   className="group/node relative flex items-center"
                   style={{ willChange: "transform" }}
                 >
-                  {/* Node on the axis: breathing ring, lit when nearest the viewport centre. */}
-                  <span className="absolute left-1/2 top-1/2 z-10 hidden h-4 w-4 -translate-x-1/2 -translate-y-1/2 md:block">
+                  {/* Node riding the strand: breathing ring, lit when nearest the viewport centre. */}
+                  <span
+                    data-node
+                    className="absolute left-1/2 top-1/2 z-10 hidden h-4 w-4 md:block"
+                    style={{ transform: "translate(-50%, -50%)" }}
+                  >
                     <span className="absolute inset-0 rounded-full bg-accent/40 opacity-0 transition-opacity duration-500 group-data-[active=1]/node:opacity-100 motion-safe:animate-ping" />
                     <span className="absolute inset-0 rounded-full border-4 border-background bg-accent shadow-[0_0_10px_hsl(var(--accent)/0.45)] transition-transform duration-500 group-data-[active=1]/node:scale-125 group-data-[active=1]/node:shadow-[0_0_18px_hsl(var(--accent)/0.8)]" />
                   </span>
