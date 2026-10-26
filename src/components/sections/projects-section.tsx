@@ -3,15 +3,23 @@ import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ProjectCard } from "@/components/projects/project-card";
-import { featuredProjects, projects } from "@/data/projects";
+import { featuredProjects, projects, sortedProjects } from "@/data/projects";
 import { withRepoStatsAll } from "@/lib/github";
 
+/** Two full rows on the three-column desktop grid. */
+const HOMEPAGE_COUNT = 6;
+
 /**
- * Homepage preview: featured projects only. The full, filterable vault lives
- * at /projects so this section doesn't grow unbounded as projects are added.
+ * Homepage preview: featured projects first, then the heaviest non-featured
+ * ones until the grid is full, so a row never trails off with one card. The
+ * full, filterable vault lives at /projects.
  */
 export async function ProjectsSection() {
-  const featured = await withRepoStatsAll(featuredProjects.slice(0, 6));
+  const picked = [
+    ...featuredProjects,
+    ...sortedProjects.filter((project) => !project.featured),
+  ].slice(0, HOMEPAGE_COUNT);
+  const featured = await withRepoStatsAll(picked);
   const remaining = projects.length - featured.length;
 
   return (

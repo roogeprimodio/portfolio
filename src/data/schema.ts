@@ -88,7 +88,10 @@ export const projectSchema = z
     featured: z.boolean().default(false),
     /** Sort weight. Higher floats to the top. */
     weight: z.number().int().default(0),
+    /** Screenshot, shown on the detail page hero. */
     cover: z.string().optional(),
+    /** Brand mark, shown on the card. Square, transparent or self-contained. */
+    logo: z.string().optional(),
     gallery: z.array(z.string()).default([]),
     liveUrl: z.string().url().optional(),
     /** Android listing. Rendered as a Play Store button. */

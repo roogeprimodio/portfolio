@@ -8,8 +8,6 @@ import {
   CalendarDays,
   Github,
   Lock,
-  Play,
-  Smartphone,
   Star,
   UserRound,
 } from "lucide-react";
@@ -22,6 +20,7 @@ import type { Visibility } from "@/data/schema";
 import type { ProjectWithStats } from "@/lib/project-view";
 import { readmeFor, repoUrl, withRepoStats, withRepoStatsAll } from "@/lib/github";
 import { ReadmeView } from "@/components/projects/readme-view";
+import { AppStoreIcon, GooglePlayIcon } from "@/components/projects/store-icons";
 import { breadcrumbJsonLd, jsonLdScript, projectJsonLd } from "@/lib/json-ld";
 
 export const revalidate = 86400;
@@ -95,7 +94,7 @@ function ProjectLinks({
           className={`border-accent/50 bg-card/60 font-code hover:border-accent ${stacked ? "w-full" : ""}`}
         >
           <a href={project.playStoreUrl} target="_blank" rel="noopener noreferrer">
-            <Play className="mr-1 h-4 w-4" /> Google Play
+            <GooglePlayIcon className="mr-1 h-4 w-4" /> Google Play
           </a>
         </Button>
       )}
@@ -106,7 +105,7 @@ function ProjectLinks({
           className={`border-accent/50 bg-card/60 font-code hover:border-accent ${stacked ? "w-full" : ""}`}
         >
           <a href={project.appStoreUrl} target="_blank" rel="noopener noreferrer">
-            <Smartphone className="mr-1 h-4 w-4" /> App Store
+            <AppStoreIcon className="mr-1 h-4 w-4" /> App Store
           </a>
         </Button>
       )}
