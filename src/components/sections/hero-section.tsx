@@ -198,7 +198,7 @@ export function HeroSection() {
               variant="ghost"
               className="font-headline tracking-widest text-muted-foreground transition-colors hover:text-accent"
             >
-              <a href={profile.resumeUrl} download>
+              <a href={profile.resumeUrl} target="_blank" rel="noopener noreferrer">
                 RESUME <FileDown className="ml-2 h-5 w-5" />
               </a>
             </Button>

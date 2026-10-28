@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   Archive,
   Dna,
+  FileBadge,
   FileText,
   Mail,
   MapPin,
@@ -28,6 +29,7 @@ const SECTIONS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/projects", label: "Projects Vault", icon: Archive },
   { href: "/#skills", label: "Skills DNA", icon: Dna },
   { href: "/#contact", label: "Establish Link", icon: Send },
+  { href: "/resume", label: "Resume", icon: FileBadge },
 ];
 
 const AVAILABILITY: Record<Availability, { label: string; dot: string }> = {
@@ -60,7 +62,7 @@ export function Footer() {
   const direct = socials.filter((social) => !social.href.startsWith("http"));
 
   return (
-    <footer className="relative border-t border-primary/20 bg-background/80 backdrop-blur-sm dark:border-accent/15">
+    <footer className="relative border-t print:hidden border-primary/20 bg-background/80 backdrop-blur-sm dark:border-accent/15">
       {/* Corner ticks, matching the brand tiles on the cards. */}
       <span aria-hidden className="absolute left-4 top-0 h-2 w-2 border-l border-t border-primary/40 dark:border-accent/40" />
       <span aria-hidden className="absolute right-4 top-0 h-2 w-2 border-r border-t border-primary/40 dark:border-accent/40" />

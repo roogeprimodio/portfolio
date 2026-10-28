@@ -189,3 +189,19 @@ html.lenis body {
 .rung-flash {
   animation: rung-flash 0.7s ease-out;
 }
+
+/* Resume print: A4, sane margins, no page chrome. */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

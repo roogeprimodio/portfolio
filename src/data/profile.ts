@@ -17,8 +17,8 @@ export const profile: Profile = parseData(
     // Flip this one value to change the hero badge — no component edits.
     availability: "open",
     availabilityNote: "Open to full-time and freelance work",
-    // Drop your PDF at public/resume.pdf and uncomment to show the button.
-    // resumeUrl: "/resume.pdf",
+    // Generated from this data at /resume; the eye icon previews it.
+    resumeUrl: "/resume",
     programmingLanguages: [
       "JavaScript",
       "Python",

@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
 import { ThemeToggle } from "./theme-toggle";
+import { ResumeModal } from "@/components/resume/resume-modal";
 
 const sections = [
   { id: "home", icon: UserCircle, label: "Home" },
@@ -92,18 +93,23 @@ export function SideNav() {
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className="fixed left-2 top-1/2 z-50 hidden -translate-y-1/2 md:left-4 md:flex"
+      className="fixed left-2 top-1/2 z-50 hidden -translate-y-1/2 print:hidden md:left-4 md:flex"
     >
       <ul className="flex flex-col items-center gap-2 rounded-full border border-accent/20 bg-card/50 p-1.5 backdrop-blur-md">
         <li>
-          <Link
-            href="/"
-            className="flex h-8 w-8 items-center justify-center md:h-10 md:w-10"
-            title={profile.name}
-            aria-label={`${profile.name} — home`}
-          >
-            <LogoIcon />
-          </Link>
+          <ResumeModal>
+            <button
+              type="button"
+              className="group relative flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-accent/15 md:h-10 md:w-10"
+              title="Preview and download resume"
+              aria-label={`${profile.name} — resume`}
+            >
+              <LogoIcon />
+              <span className="pointer-events-none absolute left-full ml-4 -translate-x-4 whitespace-nowrap rounded-md border border-accent/20 bg-card px-3 py-1 font-code text-sm text-accent opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100">
+                Resume
+              </span>
+            </button>
+          </ResumeModal>
         </li>
 
         <li className="w-full px-2">

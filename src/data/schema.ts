@@ -213,7 +213,7 @@ export const profileSchema = z.object({
   location: z.string().min(1),
   email: z.string().email(),
   phone: z.string().optional(),
-  /** Path to a PDF in /public, e.g. "/resume.pdf". Button hides when unset. */
+  /** Resume route or PDF path. Button hides when unset. */
   resumeUrl: z.string().optional(),
   availability: availabilitySchema.default("open"),
   /** Optional detail next to the availability pill. */
